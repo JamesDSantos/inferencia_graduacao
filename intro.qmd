@@ -1,0 +1,124 @@
+---
+title: "População, amostra, famílias e inferência"
+---
+
+## População
+
+Em estatística, observações (ou dados) são obtidos de uma população que possui uma característica desconhecida. O objetivo é utilizar essas observações para fazer inferências (deduções) sobre tal característica. Existem duas noções de população.
+
+A primeira noção é ensinada anos iniciais de escolarização, na qual população é um conjunto de pessoas que vivem em uma mesma localidade e em dado período de tempo (como os moradores de um município no mês de Setembro de 2024). Essa noção foi modificada na biologia para incluir indivíduos da mesma espécie que vivem em determinada área durante certo intervalo de tempo. O campo da estatística que lida com esse tipo de população é denominada Amostragem.
+
+Na Amostragem, o estatístico está interessado em estimar alguma quantidade de uma característica da população, como por exemplo, quantas pessoas vão votar no candidato $A$. É importante notar que, em dado momento do tempo, o número de eleitores é desconhecido, mas não é aleatório - de fato, basta entrevistar todos eles, ou seja, realizar um censo, para resolver o problema. Como o censo em geral é caro, para que inferências possam ser executadas é necessário induzir aleatoriedade através de um plano amostral, que é basicamente um sorteio dos indivíduos da população. Como resultado desse sorteio obtém-se as observações.
+
+A segunda noção coloca a população como sinônimo de distribuição de probabilidades ou modelo. As observações simplesmente são geradas por um mecanismo aleatório e o objetivo é fazer alguma inferência sobre essa distribuição. 
+
+<div class='alert alert-info'>
+**Exemplo** Considere que uma fábrica possui uma única máquina que fabrica suas peças. Essa máquina tende a se quebrar com o tempo, causando prejuízo. Nesse tipo de problema, chamado confiabilidade, desejamos fazer inferências sobre o tempo em que a máquina se mantém funcionando após uma manutenção. Para tanto, podemos verificar o histórico de falhas e estudar o tempo transcorrido entre as quebras. Aqui vão algumas características importantes sobre esse problema:
+- Não existe a noção de censo.
+- Não há a necessidade de um plano amostral porque o evento de interesse (quebra), simplesmente acontece. 
+Portanto, o papel do estatístico é entender como as quebras ocorrem (ou seja, conhecer sua distribuição de probabilidades).
+</div>
+
+Durante esse curso, estamos interessados na segunda noção de população, ou seja, na distribuição do fenômeno aleatório que está sendo observado. Tal população pode ter nome próprio (como, por exemplo normal, Bernoulli, Poisson, exponencial) ou ser designada pela letra $F$ (de função de distribuição).
+
+A amostra é uma coleção dos dados observados. Essa coleção é indexada e geralmente organizada em um vetor, sendo seu comprimento denominado **tamanho da amostra**. Por exemplo $\textbf{x}=(3,1,5,7,10)$ é uma  amostra observada de tamanho $5$, onde o elemento de índice $i=1$ é o $x_1=3$.
+
+Interpretamos $x_i$ como uma observação gerada a partir da distribuição da variável aleatória $X_i$. Quando as variáveis $\textbf{X}=(X_1,\ldots,X_n)$ são independentes e identicamente distribuídas, essa coleção é denominada **amostra aleatória**. 
+
+
+## Famílias paramétricas
+
+Seja $X_1,\ldots,X_n$ uma amostra aleatória da população(desconhecida) $F$. Vamos denominar por $\theta(F)$ a característica de interesse. Exemplos de $\theta(F)$ são
+
+- $\theta(F)=F(x)$
+- $\theta(F)=E(X)$
+- $\theta(F)$ mediana de $F$
+Quando $\theta(F)$ é um vetor real e finito, ele é denominado parâmetro e utiliza-se a notação $\theta$ em vez de $\theta(F)$. O conjunto de todos os valores permitidos para $\theta$ é denominado espaço paramétrico e é denotado por $\Theta$.
+
+Como $F$ é desconhecida, devemos procurar um modelo adequado dentro de uma classe de modelos, denominada família. As famílias podem ser divididas em paramétricas e não paramétricas. 
+
+<div class='alert alert-danger'>
+**Nota:** na prática, o estatístico faz diversas escolhas de famílias de distribuiçõres até encontrar uma que se ajuste ao que foi observado. Por exemplo, se os seus dados são resultados de medições, você deve considerar que sua população pertence à família de todas as distribuições contínuas. Ao considerar que a população deve ter média finita, você considera a família de todas as distribuições contínuas que possuem média. Talvez você acabe descobrindo que é razoável trabalhar com a família que possui todas as densidades normais.
+</div>
+
+Dizemos que uma população pertence à uma família paramétrica se o valor do parâmetro identifica a população. Em caso contrário, a família é denominada não-paramétrica.
+
+<div class='alert alert-info'>
+**Exemplo** Os membros da família das normais possuem dois parâmetros, $\theta=(\mu,\sigma^2)$, que representam a média e a variância. Se sabemos que $\mu=0$ e $\sigma^2=9$, conhecemos a população. Portanto, essa família é paramétrica. 
+</div>
+
+<div class='alert alert-info'>
+**Exemplo** A família de todos os modelos com esperança finita possui pelo menos o parâmetro $\theta=E(X)$. Mas saber que $E(X)=4$ não identifica a população, uma vez que vários modelos possuem esperança igual à 4.  Portanto, essa família é não-paramétrica.  
+</div>
+
+Neste curso, estamos interessados majoritariamente em famílias paramétricas.
+
+### Família Exponencial
+
+Abaixo, segue a definição de uma importante família paramétrica.
+
+<div class='alert alert-success'>
+Dizemos que a popução pertence à família exponencial se sua  função densidade (ou de probabilidade) pode ser escrita como 
+$$f(x|\theta)=h(x)a(\theta)\exp\left\{\sum_{j=1}^k t_j(x)w_j(\theta)\right\},$$
+onde $h(.)$ e $t(.)$ são funções que não podem depender dos parâmetros e $a()$ e $w_j()$ são funções que não podem depender do argumento $x$.
+</div>
+
+<div class='alert alert-warning'>
+**Importante!** Não confunda a família exponencial com a família cujos membros são as distribuições do tipo Exponenical$(\theta)$. 
+</div>
+
+<div class='alert alert-info'>
+**Exemplo.** Considere que $X\sim\hbox{Exponencial}(\lambda)$, cuja função densidade é 
+$$f(x|\lambda)=\lambda e^{-\lambda x}$$
+Podemos observar que a distribuição exponencial pertence à família exponencial, pois,
+$$f(x|\lambda)=\underbrace{1}_{h(x)}.\underbrace{\lambda}_{a(\lambda)}\exp\{\;\underbrace{-x}_{t(x)}.\underbrace{\lambda}_{w(\lambda)}\;\}.$$
+Note que nesse exemplo, fizemos $h(x)=1$. Não há problemas em escrever $h(.)$ dessa forma, uma vez que a única restrição é que $h(.)$ não pode depender dos parâmetros.
+</div>
+
+
+<div class='alert alert-info'>
+**Exemplo.** Considere que $X\sim\hbox{Poisson}(\lambda)$, cuja função de probabilidade é 
+$$P(X=x|\lambda)=\frac{e^{-\lambda}\lambda^x}{x!}=\frac{1}{x!}e^{-\lambda}\lambda^x.$$
+Como
+$$\lambda^x = \exp\{\log(\lambda^x)\}=\exp\{x\log(\lambda)\},$$
+podemos observar que a distribuição Poisson pertence à família exponencial, pois,
+$$P(X=x|\lambda)=\underbrace{\frac{1}{x!}}_{h(x)}\underbrace{e^{-\lambda}}_{a(\lambda)}\exp\{\;\underbrace{x}_{t(x)}.\underbrace{\log(\lambda)}_{w(\lambda)}\;\}.$$
+
+</div>
+
+
+<div class='alert alert-info'>
+**Exemplo.** Considere que $X\sim\hbox{Bernoulli}(p)$, cuja função de probabilidade é 
+$$P(X=x|p)=p^x (1-p)^{1-x}=\left(\frac{p}{1-p}\right)^x (1-p).$$
+Como
+$$\left(\frac{p}{1-p}\right)^x = \exp\left\{\log\left(\left(\frac{p}{1-p}\right)^x\right)\right\}=\exp\left\{x\log\left(\frac{p}{1-p}\right)\right\},$$
+podemos observar que a distribuição Bernoulli pertence à família exponencial, pois,
+$$P(X=x|p)=\underbrace{1}_{h(x)}\underbrace{(1-p)}_{a(p)}\exp\{\underbrace{x}_{t(x)}\underbrace{\log\left(\frac{p}{1-p}\right)}_{w(p)}\}.$$
+</div>
+
+
+<div class='alert alert-info'>
+**Exemplo.** Considere que $X\sim\hbox{Normal}(\mu,\sigma^2)$, cuja função densidade é 
+$$f(x|\mu,\sigma^2)=\left(\frac{1}{2\pi\sigma^2}\right)^{1/2} e^{-\frac{1}{2\sigma^2}(x-\mu)^2}.$$
+Como,
+$$(x-\mu)^2=x^2+\mu^2-2x\mu,$$
+Podemos observar que a distribuição normal pertence à família exponencial, pois,
+$$f(x|\lambda)=\underbrace{\left(\frac{1}{2\pi}\right)^{1/2}}_{h(x)}.\underbrace{\frac{e^{-\frac{\mu^2}{2\sigma^2}}}{\sigma}}_{a(\mu,\sigma^2)}\exp\{\underbrace{-x^2}_{t_1(x)}\underbrace{\frac{1}{2\sigma^2}}_{w_1(\mu,\sigma^2)}+\underbrace{x}_{t_2(x)}\underbrace{\frac{\mu}{2\sigma^2}}_{w_2(\mu,\sigma^2)}\}.$$
+</div>
+
+
+<div class='alert alert-warging'>
+Em geral, se os possíveis valores da variável aleatória dependem de parâmetros, então o respectivo modelo n
+</div>
+
+## Inferência
+
+A inferência estatística consiste em utilizar os dados $x_1,\ldots,x_n$ para tentar responder uma das três questões:
+
+1. Como posso usar os dados para dizer quanto vale $\theta$?
+2. Como posso usar os dados para escolher os valores $a<b$ tais que seja possível inferir que $a<\theta<b$
+3. Como posso usar os dados para dizer a afirmação $\theta\in A$ é falsa? 
+
+No jargão estatístico, os problemas acima são denominados estimação pontual, intervalo de confiança e teste de hipóteses, respectivamente.
+
+

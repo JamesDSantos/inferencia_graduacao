@@ -1,0 +1,81 @@
+---
+title: "Estatística"
+---
+
+## Espaço amostral e a estatística como técnica para redução de dados
+
+Anteriormente discutimos que os dados são gerados a partir de uma distribuição de probabilidades, conhecida como população. Portanto, observamos apenas uma das, possivelmente inifinitas, amostras que podem ser geradas a partir dessa distribuição.
+
+<div class='alert alert-success'>
+**Definição** O conjunto de todas as amostras possíveis é denominado \textbf{Espaço Amostral} e será denotado por $\mathcal{X}$.
+</div>
+
+O espaço amostral tende a ser mais complexo com o aumento do tamanho da amostra. Por exemplo, se a população é Bernoulli$(\theta)$, então o espaço amostral é $\mathcal{X}=\{0,1\}^n$, que possui $2^n$ elementos. A estratégia para diminuir a complexidade da análise é utilizar uma estatística.
+
+<div class='alert alert-success'> Seja $\textbf{X}$ uma amostra aleatória. Então, qualquer função $T:\mathcal{X}\rightarrow \mathbb{R}^c$ é denominada **estatística** (de dimensão $c$).  
+</div>
+
+O objetivo primário de uma estatística é reduzir a informação da amostra, trocando o problema de analisar a amostra original que está em um espaço de dimensão $n$ para um espaço de dimensão $c\leq n$.
+
+<div class='alert alert-info'>
+**Exemplo.** Considere uma amostra de tamanho 3 da população Bernoulli($\theta$). O espaço amostral é
+
+$$\mathcal{X}=\{000,001,010,100,011,101,110,111\},$$
+possui dimensão 3 e 8 elementos. Agora, considere a estatística $T=X_1+X_2+X_3$. Os possíveis valores de $T$ são $\{0,1,2,3\}$. 
+Esse espaço possui dimensão 1 e tem 4 elementos.
+</div>
+
+Como o espaço da estatística possui dimensão menor que o espaço amostral, sempre haverá perda de informação. O motivo disso é bastante simples: em geral não é possível recuperar a amostra original. Portanto, ao se escolher, é importante garantir que ela mantém informação relevante sobre os parâmetros, que é a informação mais importante pois ele identifica a população.
+
+## Estatísticas suficientes
+
+Uma estatística é dita ser suficiente para $\theta$ se, quando observada, ela permite descrever a distribuição da amostra aleatória se o conhecimento de $\theta$. Segue a definição formal.
+
+<div class='alert alert-success'>
+**Definição.** Uma estatística $T$ é dita ser suficiente para $\theta)$ se a distribuição $X_1,\ldots,X_n|T=t$ não depende de $\theta$.
+</div> 
+
+Note que a própria amostra é uma estatística suficiente para $\theta$. De fato, considerando o caso discreto, pode-se notar que
+
+$$P(\textbf{X}=\textbf{x}|\textbf{X}=\textbf{x},\boldsymbol{\theta})=\frac{P(\textbf{X}=\textbf{x},\textbf{X}=\textbf{x}|\boldsymbol{\theta})}{P(\textbf{X}=\textbf{x}|\boldsymbol{\theta})}=1.$$
+O teorema a seguir é uma importante ferramenta para encontrar estatísticas suficientes.
+
+<div class='alert alert-success'>
+**Teorema do Critério da Fatoração** Seja $\textbf{X}$ uma amostra aleatória cuja distribuição. Então, $T$ é um estatística suficiente para $\theta$ se e somente se existem funções $h(\textbf{x})$ e $g(T,\theta)$ tais que
+
+$$\prod_{i=1}^nf(x_i|\theta)=h(\textbf{x})g(t,\theta)$$
+onde $f$ é a função de densidade  ou a função de probabilidade da população.
+</div>
+
+<div class='alert alert-info'>
+**Exemplo**  Seja $X_1,\ldots,X_n$ uma amostra aleatória da população Exponencial($\theta$). Note que
+	$$\prod_{i=1}^n  f(x_i|\theta)=\prod_{i=1}^n \theta e^{-\theta x_i}=\theta^n e^{-\theta\sum_{i=1}^n x_i}.$$
+Fazendo $h(\textbf{x})=1$ e $g(T,\theta)=\theta^ne^{-\theta\sum_{i=1}^{n}x_i}$, tem-se que $T=\sum_{i=1}^{n}X_i$ é uma estatística suficiente para $\theta$.
+</div>
+
+
+<div class='alert alert-info'>
+**Exemplo.** 	Seja $X_1,\ldots,X_n$ uma amostra aleatória da população Uniforme(0,$\theta$). Note que
+
+$$\prod_{i=1}^n f(x_i|\theta)=\prod_{i=1}^n \frac{1}{\theta}I(x_i\leq \theta)\frac{1}{\theta^n}\prod_{i=1}^{n}I(x_i\leq \theta).$$
+O produtório acima é igual a um se e somente se todas as observações forem menores ou iguais que $\theta$. Para que isto ocorra, basta que a maior das observações seja menor que $\theta$. Denotando a estatística máximo amostral por $X_{(n)}$, teremos
+
+$$\prod_{i=1}^nf(x_i|\theta)=\frac{1}{\theta^n}I(x_{(n)}\leq\theta),$$
+e, fazendo $h(\textbf{x})=1$ e $g(t,\theta)=I(x_{(n)}\leq \theta)$, teremos que $T=X_{(n)}$ é suficiente para $\theta$.
+</div>
+
+<div class='alert alert-warning'>
+**Importante** Sejam $x_{(1)}$ e $x_{(n)}$ as estatísticas mínimo e máximo de uma amostra de tamanho $n$. Então:
+- $\prod_{i=1}^n I(x_i\leq \theta)=I(x_{(n)}\leq \theta)$
+- $\prod_{i=1}^n I(x_i\geq \theta)=I(x_{(1)}\geq \theta)$
+- $\prod_{i=1}^n I(\alpha\leq x_i\leq \beta)=I(\alpha\leq x_{(1)})I(x_{(n)}\leq \beta)$
+</div>
+
+<div class='alert alert-success'>
+**Teorema**
+	Se $X_1,\ldots,X_n$ é uma amostra aleatória de uma população na família exponencial, então 
+	$$T=\left\{\sum_{i=1}^n T_1(X_i),\ldots,\sum_{i=1}^n T_k(X_i)\right\}$$
+é uma estatística suficiente para $\theta$.
+</div>
+
+
