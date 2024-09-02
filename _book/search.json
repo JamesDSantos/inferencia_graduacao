@@ -14,7 +14,7 @@
     "href": "suficiencia.html#espaço-amostral-e-a-estatística-como-técnica-para-redução-de-dados",
     "title": "3  Estatística",
     "section": "",
-    "text": "Definição O conjunto de todas as amostras possíveis é denominado e será denotado por \\(\\mathcal{X}\\).\n\n\n\nSeja \\(\\textbf{X}\\) uma amostra aleatória. Então, qualquer função \\(T:\\mathcal{X}\\rightarrow \\mathbb{R}^c\\) é denominada estatística (de dimensão \\(c\\)).\n\n\n\nExemplo. Considere uma amostra de tamanho 3 da população Bernoulli(\\(\\theta\\)). O espaço amostral é\n\\[\\mathcal{X}=\\{000,001,010,100,011,101,110,111\\},\\] possui dimensão três e tem oito elementos. Agora, considere a estatística \\(T=X_1+X_2+X_3\\). Os possíveis valores de \\(T\\) são \\(\\{0,1,2,3\\}\\). Esse espaço possui dimensão um e tem quatro elementos.",
+    "text": "Definição O conjunto de todas as amostras possíveis é denominado Espaço Amostral e será denotado por \\(\\mathcal{X}\\).\n\n\n\nSeja \\(\\textbf{X}\\) uma amostra aleatória. Então, qualquer função \\(T:\\mathcal{X}\\rightarrow \\mathbb{R}^c\\) é denominada estatística (de dimensão \\(c\\)).\n\n\n\nExemplo. Considere uma amostra de tamanho 3 da população Bernoulli(\\(\\theta\\)). O espaço amostral é\n\\[\\mathcal{X}=\\{000,001,010,100,011,101,110,111\\},\\] possui dimensão três e tem oito elementos. Agora, considere a estatística \\(T=X_1+X_2+X_3\\). Os possíveis valores de \\(T\\) são \\(\\{0,1,2,3\\}\\). Esse espaço possui dimensão um e tem quatro elementos.",
     "crumbs": [
       "<span class='chapter-number'>3</span>  <span class='chapter-title'>Estatística</span>"
     ]

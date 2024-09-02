@@ -7,7 +7,7 @@ title: "Estatística"
 Anteriormente discutimos que os dados são gerados a partir de uma distribuição de probabilidades, conhecida como população. Portanto, por natureza, a amostra possui informação sobre a população.
 
 <div class='alert alert-success'>
-**Definição** O conjunto de todas as amostras possíveis é denominado \textbf{Espaço Amostral} e será denotado por $\mathcal{X}$.
+**Definição** O conjunto de todas as amostras possíveis é denominado **Espaço Amostral** e será denotado por $\mathcal{X}$.
 </div>
 
 O espaço amostral tende a ser mais complexo com o aumento do tamanho da amostra. A estratégia para diminuir a complexidade da análise é utilizar uma estatística.
