@@ -176,7 +176,8 @@ window.Quarto = {
    
   <ul>
   <li><a href="#espaço-amostral-e-a-estatística-como-técnica-para-redução-de-dados" id="toc-espaço-amostral-e-a-estatística-como-técnica-para-redução-de-dados" class="nav-link active" data-scroll-target="#espaço-amostral-e-a-estatística-como-técnica-para-redução-de-dados"><span class="header-section-number">3.1</span> Espaço amostral e a estatística como técnica para redução de dados</a></li>
-  <li><a href="#estatísticas-suficientes" id="toc-estatísticas-suficientes" class="nav-link" data-scroll-target="#estatísticas-suficientes"><span class="header-section-number">3.2</span> Estatísticas suficientes</a></li>
+  <li><a href="#distribuição-amostral-e-estatística-ancilar" id="toc-distribuição-amostral-e-estatística-ancilar" class="nav-link" data-scroll-target="#distribuição-amostral-e-estatística-ancilar"><span class="header-section-number">3.2</span> Distribuição amostral e estatística ancilar</a></li>
+  <li><a href="#estatísticas-suficientes" id="toc-estatísticas-suficientes" class="nav-link" data-scroll-target="#estatísticas-suficientes"><span class="header-section-number">3.3</span> Estatísticas suficientes</a></li>
   </ul>
 </nav>
     </div>
@@ -204,46 +205,88 @@ window.Quarto = {
 
 <section id="espaço-amostral-e-a-estatística-como-técnica-para-redução-de-dados" class="level2" data-number="3.1">
 <h2 data-number="3.1" class="anchored" data-anchor-id="espaço-amostral-e-a-estatística-como-técnica-para-redução-de-dados"><span class="header-section-number">3.1</span> Espaço amostral e a estatística como técnica para redução de dados</h2>
-<p>Anteriormente discutimos que os dados são gerados a partir de uma distribuição de probabilidades, conhecida como população. Portanto, observamos apenas uma das, possivelmente inifinitas, amostras que podem ser geradas a partir dessa distribuição.</p>
+<p>Anteriormente discutimos que os dados são gerados a partir de uma distribuição de probabilidades, conhecida como população. Portanto, por natureza, a amostra possui informação sobre a população.</p>
 <div class="alert alert-success">
 <p><strong>Definição</strong> O conjunto de todas as amostras possíveis é denominado e será denotado por <span class="math inline">\(\mathcal{X}\)</span>.</p>
 </div>
-<p>O espaço amostral tende a ser mais complexo com o aumento do tamanho da amostra. Por exemplo, se a população é Bernoulli<span class="math inline">\((\theta)\)</span>, então o espaço amostral é <span class="math inline">\(\mathcal{X}=\{0,1\}^n\)</span>, que possui <span class="math inline">\(2^n\)</span> elementos. A estratégia para diminuir a complexidade da análise é utilizar uma estatística.</p>
+<p>O espaço amostral tende a ser mais complexo com o aumento do tamanho da amostra. A estratégia para diminuir a complexidade da análise é utilizar uma estatística.</p>
 <div class="alert alert-success">
 <p>Seja <span class="math inline">\(\textbf{X}\)</span> uma amostra aleatória. Então, qualquer função <span class="math inline">\(T:\mathcal{X}\rightarrow \mathbb{R}^c\)</span> é denominada <strong>estatística</strong> (de dimensão <span class="math inline">\(c\)</span>).</p>
 </div>
 <p>O objetivo primário de uma estatística é reduzir a informação da amostra, trocando o problema de analisar a amostra original que está em um espaço de dimensão <span class="math inline">\(n\)</span> para um espaço de dimensão <span class="math inline">\(c\leq n\)</span>.</p>
 <div class="alert alert-info">
 <p><strong>Exemplo.</strong> Considere uma amostra de tamanho 3 da população Bernoulli(<span class="math inline">\(\theta\)</span>). O espaço amostral é</p>
-<p><span class="math display">\[\mathcal{X}=\{000,001,010,100,011,101,110,111\},\]</span> possui dimensão 3 e 8 elementos. Agora, considere a estatística <span class="math inline">\(T=X_1+X_2+X_3\)</span>. Os possíveis valores de <span class="math inline">\(T\)</span> são <span class="math inline">\(\{0,1,2,3\}\)</span>. Esse espaço possui dimensão 1 e tem 4 elementos.</p>
+<p><span class="math display">\[\mathcal{X}=\{000,001,010,100,011,101,110,111\},\]</span> possui dimensão três e tem oito elementos. Agora, considere a estatística <span class="math inline">\(T=X_1+X_2+X_3\)</span>. Os possíveis valores de <span class="math inline">\(T\)</span> são <span class="math inline">\(\{0,1,2,3\}\)</span>. Esse espaço possui dimensão um e tem quatro elementos.</p>
 </div>
-<p>Como o espaço da estatística possui dimensão menor que o espaço amostral, sempre haverá perda de informação. O motivo disso é bastante simples: em geral não é possível recuperar a amostra original. Portanto, ao se escolher, é importante garantir que ela mantém informação relevante sobre os parâmetros, que é a informação mais importante pois ele identifica a população.</p>
+<p>Como o espaço da estatística possui dimensão menor que o espaço amostral, sempre haverá perda de informação. O motivo disso é bastante simples: em geral não é possível recuperar a amostra original.</p>
 </section>
-<section id="estatísticas-suficientes" class="level2" data-number="3.2">
-<h2 data-number="3.2" class="anchored" data-anchor-id="estatísticas-suficientes"><span class="header-section-number">3.2</span> Estatísticas suficientes</h2>
-<p>Uma estatística é dita ser suficiente para <span class="math inline">\(\theta\)</span> se, quando observada, ela permite descrever a distribuição da amostra aleatória se o conhecimento de <span class="math inline">\(\theta\)</span>. Segue a definição formal.</p>
-<div class="alert alert-success">
-<p><strong>Definição.</strong> Uma estatística <span class="math inline">\(T\)</span> é dita ser suficiente para <span class="math inline">\(\theta)\)</span> se a distribuição <span class="math inline">\(X_1,\ldots,X_n|T=t\)</span> não depende de <span class="math inline">\(\theta\)</span>.</p>
+<section id="distribuição-amostral-e-estatística-ancilar" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="distribuição-amostral-e-estatística-ancilar"><span class="header-section-number">3.2</span> Distribuição amostral e estatística ancilar</h2>
+<p>A distribuição de uma estatística é denominada <strong>distribuição amostral</strong>. Dizemos que a estatística carrega informação sobre o parâmetro se sua distribuição amostral depende do parâmetro. Em geral, amostra aleatória, estatística e parâmetro se relacioanam conforme mostra a figura abaixo.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="fig_stat_geral.jpg" class="img-fluid figure-img"></p>
+<figcaption>A relação mais comum entre amostra, estatística e os parâmetros populacionais</figcaption>
+</figure>
 </div>
-<p>Note que a própria amostra é uma estatística suficiente para <span class="math inline">\(\theta\)</span>. De fato, considerando o caso discreto, pode-se notar que</p>
-<p><span class="math display">\[P(\textbf{X}=\textbf{x}|\textbf{X}=\textbf{x},\boldsymbol{\theta})=\frac{P(\textbf{X}=\textbf{x},\textbf{X}=\textbf{x}|\boldsymbol{\theta})}{P(\textbf{X}=\textbf{x}|\boldsymbol{\theta})}=1.\]</span> O teorema a seguir é uma importante ferramenta para encontrar estatísticas suficientes.</p>
+<p>Se a distribuição amostral da estatística não depende dos parâmetros, dizemos que essa estatístca é ancilar. A figura abaixo representa a relação entre a amostra aleatória, os parâmetros e esse tipo de estatística.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="fig_stat_ancilar.jpg" class="img-fluid figure-img"></p>
+<figcaption>Relação entre amostra, estatísticas ancilares e os parâmetros populacionais</figcaption>
+</figure>
+</div>
+<div class="alert alert=info">
+<p><strong>Exemplo</strong> Seja <span class="math inline">\(X_1,\ldots,X_{n}\)</span> uma amostra aleatória da população Normal<span class="math inline">\((\mu,1)\)</span>. Sabemos que a distribuição amostral da média amostral é <span class="math display">\[\bar{X}_n\sim\hbox{Normal}\left(\mu,\frac{1}{n}\right).\]</span> Portanto, <span class="math inline">\(\bar{X}_n\)</span> carrega informação sobre <span class="math inline">\(\mu\)</span>. Considere agora a estatística <span class="math display">\[W=X_1-X_2.\]</span> Note que <span class="math inline">\(W\)</span> é uma combinação linear de normais independentes, logo também possui distribuição normal. Como <span class="math display">\[E(W)=E(X_1)-E(X_2)=0\]</span> e <span class="math display">\[Var(W)=Var(X_1-X_2)=Var(X_1)+Var(X_2)=2,\]</span> temos que a distribuição amostral de <span class="math inline">\(W\)</span> é Normal(0,2). Como essa distribuição não depende de <span class="math inline">\(\mu\)</span>, temos que <span class="math inline">\(W\)</span> não carrega informação sobre o parâmetro e, portanto, é uma estatística ancilar.</p>
+</div>
+</section>
+<section id="estatísticas-suficientes" class="level2" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="estatísticas-suficientes"><span class="header-section-number">3.3</span> Estatísticas suficientes</h2>
+<p>Uma estatística é dita ser suficiente para <span class="math inline">\(\theta\)</span> se, quando observada, ela permite descrever a distribuição da amostra aleatória sem o conhecimento de <span class="math inline">\(\theta\)</span>. Segue a definição formal.</p>
 <div class="alert alert-success">
-<p><strong>Teorema do Critério da Fatoração</strong> Seja <span class="math inline">\(\textbf{X}\)</span> uma amostra aleatória cuja distribuição. Então, <span class="math inline">\(T\)</span> é um estatística suficiente para <span class="math inline">\(\theta\)</span> se e somente se existem funções <span class="math inline">\(h(\textbf{x})\)</span> e <span class="math inline">\(g(T,\theta)\)</span> tais que</p>
+<p><strong>Definição.</strong> Uma estatística <span class="math inline">\(T\)</span> é dita ser suficiente para <span class="math inline">\(\theta\)</span> se a distribuição <span class="math inline">\(X_1,\ldots,X_n|T=t\)</span> não depende de <span class="math inline">\(\theta\)</span>.</p>
+</div>
+<p>A figura abaixo mostra a relação entre a amostra aleatória, os parâmetros e a estatística suficiente. Observe que a depenência da amostra em relação aos parâmetros se dá através da estatítica suficiente. <img src="fig_stat_suficiente.jpg" id="fig::stat_suficiente" class="img-fluid" alt="A relação entre amostra, estatística suficiente e os parâmetros populacionais"></p>
+<p>Note que a própria amostra é uma estatística suficiente para <span class="math inline">\(\theta\)</span>. De fato, considerando o caso discreto, pode-se notar que</p>
+<p><span class="math display">\[P(\textbf{X}=\textbf{x}|\textbf{X}=\textbf{x},\boldsymbol{\theta})=\frac{P(\textbf{X}=\textbf{x},\textbf{X}=\textbf{x}|\boldsymbol{\theta})}{P(\textbf{X}=\textbf{x}|\boldsymbol{\theta})}=1,\]</span> que não depende de <span class="math inline">\(\theta\)</span>. O teorema a seguir é uma importante ferramenta para encontrar estatísticas suficientes.</p>
+<div class="alert alert-success">
+<p><strong>Teorema do Critério da Fatoração de Neyman</strong> Seja <span class="math inline">\(\textbf{X}\)</span> uma amostra aleatória cuja distribuição. Então, <span class="math inline">\(T\)</span> é um estatística suficiente para <span class="math inline">\(\theta\)</span> se e somente se existem funções <span class="math inline">\(h(\textbf{x})\)</span> e <span class="math inline">\(g(T,\theta)\)</span> tais que</p>
 <p><span class="math display">\[\prod_{i=1}^nf(x_i|\theta)=h(\textbf{x})g(t,\theta)\]</span> onde <span class="math inline">\(f\)</span> é a função de densidade ou a função de probabilidade da população.</p>
 </div>
 <div class="alert alert-info">
-<p><strong>Exemplo</strong> Seja <span class="math inline">\(X_1,\ldots,X_n\)</span> uma amostra aleatória da população Exponencial(<span class="math inline">\(\theta\)</span>). Note que <span class="math display">\[\prod_{i=1}^n  f(x_i|\theta)=\prod_{i=1}^n \theta e^{-\theta x_i}=\theta^n e^{-\theta\sum_{i=1}^n x_i}.\]</span> Fazendo <span class="math inline">\(h(\textbf{x})=1\)</span> e <span class="math inline">\(g(T,\theta)=\theta^ne^{-\theta\sum_{i=1}^{n}x_i}\)</span>, tem-se que <span class="math inline">\(T=\sum_{i=1}^{n}X_i\)</span> é uma estatística suficiente para <span class="math inline">\(\theta\)</span>.</p>
+<p><strong>Exemplo</strong> Seja <span class="math inline">\(X_1,\ldots,X_n\)</span> uma amostra aleatória da população Exponencial(<span class="math inline">\(\theta\)</span>). Note que <span class="math display">\[\prod_{i=1}^n  f(x_i|\theta)=\prod_{i=1}^n \theta e^{-\theta x_i}=\underbrace{\theta^n}_{h(\textbf{x})}. \underbrace{e^{-\theta\sum_{i=1}^n x_i}}_{g(\sum_{i=1}^n x_i,\theta)},\]</span> logo, pelo Teorema do Critério da Fatoração, <span class="math inline">\(T=\sum_{i=1}^{n}X_i\)</span> é uma estatística suficiente para <span class="math inline">\(\theta\)</span>.</p>
 </div>
 <div class="alert alert-info">
+<p><strong>Exemplo.</strong> Seja <span class="math inline">\(X_1,\ldots,X_n\)</span> uma amostra aleatória do modelo <span class="math inline">\(X\sim\hbox{Poisson}(\lambda)\)</span>. Note que</p>
+<p><span class="math display">\[P(\textbf{X}=\textbf{x}|\lambda)=\prod_{i=1}^n\frac{e^{-\lambda}\lambda^{x_i}}{x_i!}=\underbrace{\prod_{i=1}^n\frac{1}{x_i!}}_{h(\textbf{x})}.\underbrace{e^{-n\lambda}\lambda^{\sum_{i=1}^n x_i}}_{g(\sum_{i=1}^n x_i,\lambda)},\]</span> logo, pelo Teorema do Critério da Fatoração de Neyman, <span class="math inline">\(T=\sum_{i=1}^n X_i\)</span> é suficiente para <span class="math inline">\(\lambda\)</span>.</p>
+</div>
+<p>Quando há mais de uma estatística na fatoração, elas são denominadas conjuntamente suficientes.</p>
+<div class="alert alert-info">
+<p><strong>Exemplo.</strong> Seja <span class="math inline">\(X_1,\ldots,X_n\)</span> uma amostra aleatóra da população <span class="math inline">\(\hbox{Normal}(\mu,\sigma^2)\)</span>. Note que <span class="math display">\[f(\textbf{x}|\mu,\sigma^2)=\prod_{i=1}^n\left(\frac{1}{2\pi\sigma^2}\right)^{1/2} e^{-\frac{1}{2\sigma^2}(x_i-\mu)^2}=\left(\frac{1}{2\pi\sigma^2}\right)^{n/2} e^{-\frac{1}{2\sigma^2}\sum_{i=1}^n(x_i-\mu)^2}.\]</span> Como <span class="math display">\[\sum_{i=1}^n(x_i-\mu)^2=\sum_{i=1}^n x_i^2 +n\mu^2-2\mu\sum_{i=1}^n x_i,\]</span> teremos que <span class="math display">\[f(\textbf{x}|\mu,\sigma^2)=\underbrace{1}_{h(\textbf{x})}.\underbrace{\left(\frac{1}{2\pi\sigma^2}\right)^{n/2} e^{-\frac{1}{2\sigma^2}\left(\sum_{i=1}^n x_i^2 +n\mu^2-2\mu\sum_{i=1}^n x_i\right)}}_{g( \sum_{i=1}^n x_{i},\sum_{i=1}^n x_i^2,\mu,\sigma^2)}.\]</span> Portanto, pelo Teorema do Critério da Fatoração de Neyman, <span class="math inline">\(\sum_{i=1}^nX_i\)</span> e <span class="math inline">\(\sum_{i=1}^n X_i^2\)</span> são conjuntamente suficientes para <span class="math inline">\(\mu\)</span> e <span class="math inline">\(\sigma^2\)</span>.</p>
+</div>
+<p>Você deve ter notado que todas as distribuições acima pertencem à família exponencial. O teorema abaixo generaliza a busca de estatísticas suficientes dentro dessa família.</p>
+<div class="alert alert-success">
+<p><strong>Teorema</strong> Se <span class="math inline">\(X_1,\ldots,X_n\)</span> é uma amostra aleatória de uma população na família exponencial, então <span class="math display">\[T=\left\{\sum_{i=1}^n T_1(X_i),\ldots,\sum_{i=1}^n T_k(X_i)\right\}\]</span> é uma estatística suficiente para <span class="math inline">\(\theta\)</span>.</p>
+</div>
+<p>Vejamos alguns exemplos fora da família exponencial.</p>
+<div class="alert alert-info">
 <p><strong>Exemplo.</strong> Seja <span class="math inline">\(X_1,\ldots,X_n\)</span> uma amostra aleatória da população Uniforme(0,<span class="math inline">\(\theta\)</span>). Note que</p>
-<p><span class="math display">\[\prod_{i=1}^n f(x_i|\theta)=\prod_{i=1}^n \frac{1}{\theta}I(x_i\leq \theta)\frac{1}{\theta^n}\prod_{i=1}^{n}I(x_i\leq \theta).\]</span> O produtório acima é igual a um se e somente se todas as observações forem menores ou iguais que <span class="math inline">\(\theta\)</span>. Para que isto ocorra, basta que a maior das observações seja menor que <span class="math inline">\(\theta\)</span>. Denotando a estatística máximo amostral por <span class="math inline">\(X_{(n)}\)</span>, teremos</p>
-<p><span class="math display">\[\prod_{i=1}^nf(x_i|\theta)=\frac{1}{\theta^n}I(x_{(n)}\leq\theta),\]</span> e, fazendo <span class="math inline">\(h(\textbf{x})=1\)</span> e <span class="math inline">\(g(t,\theta)=I(x_{(n)}\leq \theta)\)</span>, teremos que <span class="math inline">\(T=X_{(n)}\)</span> é suficiente para <span class="math inline">\(\theta\)</span>.</p>
+<p><span class="math display">\[\prod_{i=1}^n f(x_i|\theta)=\prod_{i=1}^n \frac{1}{\theta}I(x_i\leq \theta)=\frac{1}{\theta^n}\prod_{i=1}^{n}I(x_i\leq \theta).\]</span> O produtório acima é igual a 1 se e somente se todas as observações forem menores ou iguais que <span class="math inline">\(\theta\)</span>. Para que isto ocorra, basta que a maior das observações seja menor que <span class="math inline">\(\theta\)</span>. Denotando a estatística máximo amostral por <span class="math inline">\(X_{(n)}\)</span>, teremos</p>
+<p><span class="math display">\[\prod_{i=1}^nf(x_i|\theta)=\underbrace{1}_{h(\textbf{x})}.\underbrace{\frac{1}{\theta^n}I(x_{(n)}\leq\theta)}_{g(x_{(n)},\theta)},\]</span> logo, pelo Teorema do Critério da Fatoração de Neyman, teremos que <span class="math inline">\(T=X_{(n)}\)</span> é suficiente para <span class="math inline">\(\theta\)</span>.</p>
 </div>
 <div class="alert alert-warning">
 <p><strong>Importante</strong> Sejam <span class="math inline">\(x_{(1)}\)</span> e <span class="math inline">\(x_{(n)}\)</span> as estatísticas mínimo e máximo de uma amostra de tamanho <span class="math inline">\(n\)</span>. Então: - <span class="math inline">\(\prod_{i=1}^n I(x_i\leq \theta)=I(x_{(n)}\leq \theta)\)</span> - <span class="math inline">\(\prod_{i=1}^n I(x_i\geq \theta)=I(x_{(1)}\geq \theta)\)</span> - <span class="math inline">\(\prod_{i=1}^n I(\alpha\leq x_i\leq \beta)=I(\alpha\leq x_{(1)})I(x_{(n)}\leq \beta)\)</span></p>
 </div>
-<div class="alert alert-success">
-<p><strong>Teorema</strong> Se <span class="math inline">\(X_1,\ldots,X_n\)</span> é uma amostra aleatória de uma população na família exponencial, então <span class="math display">\[T=\left\{\sum_{i=1}^n T_1(X_i),\ldots,\sum_{i=1}^n T_k(X_i)\right\}\]</span> é uma estatística suficiente para <span class="math inline">\(\theta\)</span>.</p>
+<div class="alert alert-info">
+<p><strong>Exemplo.</strong> Seja <span class="math inline">\(X_1,\ldots,X_n\)</span> uma amostra aleatória da população cuja função densidade é dada por</p>
+<p><span class="math display">\[f(x|\mu)=e^{-(x-\mu)}I(x\geq \mu).\]</span> Esse modelo é conhecido como exponencial deslocada. Contudo, como os valores de <span class="math inline">\(x\)</span> dependem de <span class="math inline">\(\mu\)</span>, esta distribuição não está na família exponencial. Observe que <span class="math display">\[\prod_{i=1}^n f(x_i|\mu)=\prod_{i=1}^n e^{-(x_i-\mu)}I(x_i\geq \mu)=e^{-\sum_{i=1}^n x_i}e^{n\mu}\prod_{i=1}^{n}I(x_i\geq \mu).\]</span> O produtório acima é igual a 1 se e somente se todas as observações forem maiores ou iguais que <span class="math inline">\(\mu\)</span>. Para que isto ocorra, basta que <span class="math inline">\(x_{(1)}\)</span> seja maior que <span class="math inline">\(\mu\)</span>. Então, teremos que</p>
+<p><span class="math display">\[\prod_{i=1}^nf(x_i|\theta)=\underbrace{e^{-\sum_{i=1}^n x_i}}_{h(\textbf{x})}.\underbrace{e^{n\mu}I(x_{(1)}\geq \mu)}_{g(x_{(1)},\mu)},\]</span> logo, pelo Teorema do Critério da Fatoração de Neyman, teremos que <span class="math inline">\(T=X_{(1)}\)</span> é suficiente para <span class="math inline">\(\mu\)</span>.</p>
+</div>
+<div class="alert alert-info">
+<p><strong>Exemplo.</strong> Seja <span class="math inline">\(X_1,\ldots,X_n\)</span> uma amostra aleatória da população Uniforme(<span class="math inline">\(\alpha,\beta\)</span>), cuja densidade é dada por</p>
+<p><span class="math display">\[f(x|\alpha,\beta)=\frac{1}{\beta-\alpha}I(\alpha\leq x\leq \beta).\]</span> Sem perda de generalidade, podemos reescrever <span class="math display">\[I(\alpha\leq x\leq \beta)=I(\alpha\leq x)I(x\leq\beta),\]</span> logo,</p>
+<p><span class="math display">\[\begin{align}\prod_{i=1}^n f(x_i|\alpha,\beta)&amp;=\prod_{i=1}^n \frac{1}{\beta-\alpha}I(\alpha\leq x_i)I(x_i\leq\beta)\\&amp;=\underbrace{1}_{h(\textbf{x})}.\underbrace{\frac{1}{(\beta-\alpha)^n}I(\alpha\leq x_{(1)})I(x_{(n)}\leq\beta)}_{g(x_{(1)},x_{(n)},\alpha,\beta
+)}.\end{align}\]</span> logo, pelo Teorema do Critério da Fatoração de Neyman, teremos que <span class="math inline">\(X_{(1)}\)</span> e <span class="math inline">\(X_{(n)}\)</span> são conjuntamente suficientes para <span class="math inline">\(\alpha\)</span> e <span class="math inline">\(\beta\)</span>.</p>
 </div>
 
 

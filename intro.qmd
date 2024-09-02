@@ -108,9 +108,15 @@ $$f(x|\lambda)=\underbrace{\left(\frac{1}{2\pi}\right)^{1/2}}_{h(x)}.\underbrace
 
 
 <div class='alert alert-warging'>
-Em geral, se os possíveis valores da variável aleatória dependem de parâmetros, então o respectivo modelo n
+Em geral, se os possíveis valores da variável aleatória dependem de parâmetros, então o respectivo modelo não pertence à família exponencial
 </div>
 
+
+<div class='alert alert-info'>
+**Exemplo** Seja $X\sim\hbox{Uniforme}(0,\theta)$, cuja função densidade é dada por
+$$f(x|\theta)=\frac{1}{\theta}I(0< x\leq \theta).$$
+Observe que não é possível escrever $I(0<x\leq \theta)$ como $\exp\{t(x)w(\theta)\}$, logo a Uniforme(0,$\theta$) não é um membro da família exponencial.
+</div>
 ## Inferência
 
 A inferência estatística consiste em utilizar os dados $x_1,\ldots,x_n$ para tentar responder uma das três questões:

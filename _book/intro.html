@@ -261,7 +261,10 @@ window.Quarto = {
 <p><strong>Exemplo.</strong> Considere que <span class="math inline">\(X\sim\hbox{Normal}(\mu,\sigma^2)\)</span>, cuja função densidade é <span class="math display">\[f(x|\mu,\sigma^2)=\left(\frac{1}{2\pi\sigma^2}\right)^{1/2} e^{-\frac{1}{2\sigma^2}(x-\mu)^2}.\]</span> Como, <span class="math display">\[(x-\mu)^2=x^2+\mu^2-2x\mu,\]</span> Podemos observar que a distribuição normal pertence à família exponencial, pois, <span class="math display">\[f(x|\lambda)=\underbrace{\left(\frac{1}{2\pi}\right)^{1/2}}_{h(x)}.\underbrace{\frac{e^{-\frac{\mu^2}{2\sigma^2}}}{\sigma}}_{a(\mu,\sigma^2)}\exp\{\underbrace{-x^2}_{t_1(x)}\underbrace{\frac{1}{2\sigma^2}}_{w_1(\mu,\sigma^2)}+\underbrace{x}_{t_2(x)}\underbrace{\frac{\mu}{2\sigma^2}}_{w_2(\mu,\sigma^2)}\}.\]</span></p>
 </div>
 <div class="alert alert-warging">
-<p>Em geral, se os possíveis valores da variável aleatória dependem de parâmetros, então o respectivo modelo n</p>
+<p>Em geral, se os possíveis valores da variável aleatória dependem de parâmetros, então o respectivo modelo não pertence à família exponencial</p>
+</div>
+<div class="alert alert-info">
+<p><strong>Exemplo</strong> Seja <span class="math inline">\(X\sim\hbox{Uniforme}(0,\theta)\)</span>, cuja função densidade é dada por <span class="math display">\[f(x|\theta)=\frac{1}{\theta}I(0&lt; x\leq \theta).\]</span> Observe que não é possível escrever <span class="math inline">\(I(0&lt;x\leq \theta)\)</span> como <span class="math inline">\(\exp\{t(x)w(\theta)\}\)</span>, logo a Uniforme(0,<span class="math inline">\(\theta\)</span>) não é um membro da família exponencial.</p>
 </div>
 </section>
 </section>

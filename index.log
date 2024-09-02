@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999995 (TeX Live 2023) (preloaded format=xelatex 2024.3.1)  1 SEP 2024 09:38
+This is XeTeX, Version 3.141592653-2.6-0.999995 (TeX Live 2023) (preloaded format=xelatex 2024.3.1)  2 SEP 2024 13:59
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -959,41 +959,55 @@ chapter 3.
 [9
 
 ]
-LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/b/n' will be
-(Font)              scaled to size 10.95pt on input line 509.
-LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/b/n' will be
-(Font)              scaled to size 7.665pt on input line 509.
-LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/b/n' will be
-(Font)              scaled to size 5.475pt on input line 509.
-LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/b/n' will be
-(Font)              scaled to size 10.95099pt on input line 509.
-LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/b/n' will be
-(Font)              scaled to size 7.66568pt on input line 509.
-LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/b/n' will be
-(Font)              scaled to size 5.4755pt on input line 509.
-LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/b/n' will be
-(Font)              scaled to size 10.94882pt on input line 509.
-LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/b/n' will be
-(Font)              scaled to size 7.66417pt on input line 509.
-LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/b/n' will be
-(Font)              scaled to size 5.47441pt on input line 509.
+File: fig_stat_geral.jpg Graphic file (type bmp)
+<fig_stat_geral.jpg>
+File: fig_stat_ancilar.jpg Graphic file (type bmp)
+<fig_stat_ancilar.jpg>
 [10] [11]
+File: fig_stat_suficiente.jpg Graphic file (type bmp)
+<fig_stat_suficiente.jpg>
 
-! LaTeX Error: Something's wrong--perhaps a missing \item.
+Overfull \hbox (41.41191pt too wide) in paragraph at lines 554--558
+\TU/lmr/m/n/10.95 tatítica suficiente. [] 
+ []
 
-See the LaTeX manual or LaTeX Companion for explanation.
+[12]
+LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/b/n' will be
+(Font)              scaled to size 10.95pt on input line 562.
+LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/b/n' will be
+(Font)              scaled to size 7.665pt on input line 562.
+LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/b/n' will be
+(Font)              scaled to size 5.475pt on input line 562.
+LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/b/n' will be
+(Font)              scaled to size 10.95099pt on input line 562.
+LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/b/n' will be
+(Font)              scaled to size 7.66568pt on input line 562.
+LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/b/n' will be
+(Font)              scaled to size 5.4755pt on input line 562.
+LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/b/n' will be
+(Font)              scaled to size 10.94882pt on input line 562.
+LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/b/n' will be
+(Font)              scaled to size 7.66417pt on input line 562.
+LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/b/n' will be
+(Font)              scaled to size 5.47441pt on input line 562.
+[13] [14] [15]
+
+! Package amsmath Error: Erroneous nesting of equation structures;
+(amsmath)                trying to recover with `aligned'.
+
+See the amsmath package documentation for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.561 \end{CSLReferences}
-                          
+l.654 )}.\end{align}
+                    \] logo, pelo Teorema do Critério da Fatoração de Neyman, 
 Here is how much of TeX's memory you used:
- 24009 strings out of 476772
- 465670 string characters out of 5800254
- 1935842 words of memory out of 5000000
- 45711 multiletter control sequences out of 15000+600000
+ 24042 strings out of 476772
+ 466496 string characters out of 5800254
+ 1938842 words of memory out of 5000000
+ 45740 multiletter control sequences out of 15000+600000
  565977 words of font info for 98 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  108i,8n,121p,10900b,431s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on index.pdf (11 pages).
+Output written on index.pdf (15 pages).
