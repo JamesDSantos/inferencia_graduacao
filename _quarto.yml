@@ -3,8 +3,8 @@ project:
   output-dir: docs
   
 book:
-  title: "inferencia_graduacao"
-  author: "Norah Jones"
+  title: "Inferência Estatística - um curso de graduação"
+  author: "James D Santos"
   date: "24/08/2024"
   chapters:
     - index.qmd
