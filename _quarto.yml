@@ -1,6 +1,7 @@
 project:
   type: book
-
+  output-dir: docs
+  
 book:
   title: "inferencia_graduacao"
   author: "Norah Jones"
@@ -18,7 +19,10 @@ format:
   html:
     theme: cosmo
   pdf:
-    documentclass: scrreprt
-
-editor: visual
-
+    pdf-engine: pdflatex
+    documentclass: scrartcl
+    toc: true
+    number-sections: true
+    colorlinks: true
+  epub:
+    cover-image: cover.png
