@@ -1,7 +1,3 @@
 # Summary
 
-In summary, this book has no content whatsoever.
-
-```{r}
-1 + 1
-```
+Ementa: Conceitos básicos sobre amostras aleatórias. Estatísticas de ordem. Estatísticas suficientes. Estatísticas completas. Estimação pelo método dos momentos. Estimação pelo método de Máxima Verossimilhança. Erro quadrático médio. Estimadores não viciados ótimos. Testes de razão de verossimilhança. Testes mais poderosos e uniformemente mais poderosos. Métodos para encontrar intervalos de confiança.
