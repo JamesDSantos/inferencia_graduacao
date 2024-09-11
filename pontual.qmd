@@ -1,0 +1,254 @@
+---
+title: "Estimação pontual"
+---
+
+## Estimador, estimativa, erro quadrático médio e consistência
+
+A palavra estimar possui vários significados na língua portuguesa. Em um de seus verbetes, estimar significa apreciação ou avaliação. Neste sentido, a estimação pontual refere-se a um conjunto de técnicas para encontrar uma estatística para avaliar alguma característica da população.
+
+<div class='alert alert-success'>
+**Definição** Estimador é uma estatística criada com o objetivo de estimar os parâmetros populacionais. Seu valor observado é denominado estimativa.
+</div>
+
+Por ser uma estatística, o estimador possui uma distribuição amostral. Considerando seu objetivo primário de estimar $\theta$, é natural que o estimador produza estimativas próximas deste valor. 
+
+
+Seja $T$ um estimador para $\theta$. Definimos o erro quadrático médio por
+
+$$EQM_T(\theta)=E(T-\theta)^2.$$
+Quanto menor for o erro quadrático médio, maior é a capacidade do estimador produzir, em média, estimativas próximas de $\theta$. Pode-se notar que
+
+$$\begin{align}EQM_T(\theta)&=E\left(T-E(T)+E(T)-\theta\right)^2\\&=E\left( (T-E(T))^2+(E(T)-\theta)^2- (T-E(T))(E(T)-\theta)\right)\\&=Var(T)+(E(T)-\theta)^2\\&=SE(T)^2+\hbox{Vício}_T(\theta)^2.\end{align}$$
+onde
+$$\hbox{Vício}_T(\theta)=E(T)-\theta$$
+e
+$$SE(T)=\sqrt{Var(T)}.$$
+
+Vamos analisar as parcelas dessa decomposição em separado. 
+O termo $E(T)-\theta$ é denominado vício (do estimador). 
+  - Se o vício é nulo, o estimador é dito ser não viciado.
+  - Se o vício é positivo, o estimador tende a superestimar $\theta$.
+  - Se o vício é negativo, o estimador tende a subestimar $\theta$.
+O termo $SE(T)$ é denominado erro padrão (*standard error*) e é uma medida de acurácia do estimador.
+
+<div class='alert alert-warning'>
+**Nota.** O erro quadrático médio é utilizado para comparar estimadores. Já o erro padrão é uma importante medida que precisa ser reportada junto com a estimativa pontual.
+</div>
+
+<div class='alert alert-info'>
+**Exemplo.** Seja $X_1,\ldots,X_n$ uma amostra aleatória de um membro da família de distribuições com variância finita. Sejam $E(X)=\mu$ e $\sigma^2=Var(X)$. Considere o estimador $\bar{X}_n$ para $\mu$. Como a família não é paramétrica, não sabemos a distribuição amostral de $\bar{X}_n$. Contudo, tem-se que
+$$E(\bar{X}_n)=E\left(\frac{1}{n}\sum_{i=1}^n X_i\right)=\frac{1}{n}\sum_{i=1}^nE(X_i)=E(X)=\mu$$
+logo, o estimador $\bar{X}_n$ é não viciado para $\mu$. Além disso, 
+$$Var(\bar{X}_n)=Var\left(\frac{1}{n}\sum_{i=1}^{n}X_i\right)=\frac{1}{n^2}\sum_{i=1}^n Var(X_i)=\frac{\sigma^2}{n}$$
+logo, o erro quadrático de $\bar{X}$ é
+$$EQM_{\bar{X}_n}(\mu)=\frac{\sigma^2}{n}.$$
+Observe que esse erro quadrático médio é inversamente proporcional ao tamanho da amostra. Portanto, quanto maior o tamanho da amostra, mais próximas de $\mu$ estarão as estimativas produzidas por $\bar{X}_n$.
+
+O erro padrão é dado por
+$$SE(\bar{X}_n)=\frac{\sigma}{\sqrt{n}},$$
+mas só pode ser reportado se $\sigma$ for conhecido. É possível mostrar que, sob as mesmas condições, o estimador 
+$$S^2=\frac{1}{n-1}\sum_{i=1}^n (X_i-\bar{X}_n)^2$$
+é não viciado para $\sigma^2$.
+</div>
+
+No exemplo acima, vimos que o erro quadrático médio de $\bar{X}_n$ tende a zero na medida que aumentamos o tamanho da amostra. Estimadores com essa característica são denominados consistentes.
+
+<div class='alert alert-success'>
+Uma sequência $T_n=T_n(X_1,\ldots,X_n)$ de estimadores para $\theta$ é consistente se, para qualquer $\varepsilon>0$ e $\theta\in\Theta$, 
+$$\lim_{n\rightarrow\infty} P(|T_n-\theta|<\varepsilon)=1.$$
+</div>
+
+Intuitivamente, quanto maior é o tamanho da amostra, maior é a probabilidade do estimador estar arbitrariamente próximo de $\theta$. O resultado abaixo relaciona a consistência com o erro quadrático médio.
+
+<div class='alert alert-success'>
+**Proposição.** Seja $T_n=T(X_1,\ldots,X_n)$ uma sequência de estimadores. Se, para todo $\theta$,
+$$\lim_{n\rightarrow\infty}EQM_{T_n}(\theta)=0,$$
+então $T_n$ é consistente.
+</div>
+
+<div class='alert alert-info'>
+**Exemplo**. Considere uma amostra aleatória de uma população com variância finita. Mostramos anteriormente que
+$$EQM_{\bar{X}_n}(\mu)=\frac{\sigma}{n}.$$
+Como
+$$\lim_{n\rightarrow\infty}\frac{\sigma}{n}=0,$$
+temos que $\bar{X}_n$ é um estimador consistente.
+</div>
+
+## O princípio da substituição
+
+Discutimos anteriormente que as características de interesse presentes na população são funções dos parâmetros populacionais. Ao se obter uma estimativa para $\theta$, é natural que essa estimativa seja utilizadas para estimar qualquer função de $\theta$.
+
+<div class='alert alert-success'>
+**Princípio da substituição.** Seja $T$ uma estimador para $\theta$. Então, para qualquer função real $g(.)$, $g(T)$ será um estimador para $g(\theta)$.
+</div>
+
+
+<div class='alert alert-info'>
+**Exemplo** Considere novamente uma amostra aleatória de um membro da família de distribuições com variância finita. 
+Vimos que $S^2_n$ é um estimador não viciado para $Var(X)=\sigma^2$. Então, pelo princípio da substituição,
+$$S_n=\sqrt{S^2_n}$$
+é um estimador para $\sigma$. Também vimos que $\bar{X}_n$ é um estimador para $\mu=E(X)$ e que seu erro padrão é 
+$$SE(\bar{X}_n)=\frac{\sigma}{\sqrt{n}}.$$
+Logo, um estimador para erro padrão de $\bar{X}_n$ é 
+
+$$\widehat{SE}(\bar{X}_n)(\mu)=\frac{S_n}{\sqrt{n}}.$$
+</div>
+
+<div class='alert alert-info'>
+**Exemplo.** Foram coletados o peso em gramas de 100 bebês recém-nascidos no estado do Amazonas em 2010. A estimativa obtida para a média foi
+$\bar{x}=3.226,85 g$. O desvio padrão amostral foi 474,556. Logo, o erro padrão estimado para a média foi
+
+$$\hat{SE}(\bar{X}_n)=\frac{474,556g}{\sqrt{100}}=47,4556g.$$
+Portanto, a estimativa possui um erro de 47,4556$g$. É usual escrever $3.226,85g\pm47,4556g$.
+
+Isso implica que há evidências de que nossa estimativa está correta na casa das unidades de milhar, mas pode conter erros nas casas anteriores. A estratégia para diminuir o erro padrão é aumentar o tamanho da amostra.
+</div>
+
+Seja $T$ um estimador para $\theta$ e considere novamente o problema de estimar $g(\theta)$. O valor da função $g(.)$ quando $t$ está na vizinhança de $\theta$ pode ser aproximado por 
+$$g(t)\approx g(\theta)+(t-\theta)g'(\theta),$$
+onde $g'$ é  derivada de $g$. Observe que
+$$g(t)-g(\theta)\approx (t-\theta)g'(\theta),$$
+logo
+$$\underbrace{E\left(g(T_n)-g(\theta)\right)^2}_{EQM_{g(T_n)}(g(\theta))}\approx \underbrace{E\left(T-\theta\right)^2}_{EQM_{T_n}(\theta)} [g'(\theta)]^2$$
+
+Portanto, se $T_n$ for consistente, então $g(T_n)$ também será consistente. Além disso, pode-se mostrar que  
+$$\underbrace{E(g(T_n))-g(\theta)}_{\hbox{Vício}_{g(T_n)}(g(\theta))}\approx \underbrace{(E(T_n )-\theta)}_{\hbox{Vício}_{T_n}(\theta)}g'(\theta),$$
+e, se $T_n$ é não viciado, teremos que $g(T_n)$ será aproximadamente não viciado. Além disso,
+
+$$Var(g(T_n))\approx \underbrace{E(T_n-\theta)^2}_{EQM_{T_n}(\theta)}g'(\theta)^2.$$
+e, se $T_n$ é não viciado, o erro padrão de $g(T_n)$ é aproximado por
+$$SE(g(T_n))\approx SE(T_n)|g'(\theta)|.$$
+<div class='alert alert-warning'>
+**Importante.** A aproximação 
+$$g(t)-g(\theta)\approx (t-\theta)g'(\theta)$$
+é razoável apenas quando $t$ está na vizinhança de $\theta$. Para que os resultados utilizando esperança e variância sejam razoáveis, é necessário que a distribuição amostral de $T_n$ esteja bem concentrada em torno de $\theta$, o que é obtido na prática com um tamanho grande de amostra, desde que $T_n$ seja consistente.
+</div>
+
+## Método dos momentos
+
+O $k$-ésimo momento da população é definido por $\mu_k=E(X^k)$. Defina o $k$-ésimo momento amostral por
+$$\hat{\mu}_k=\frac{1}{n}\sum_{i=1}^n X_i^k$$
+Observe que, ao fazer $X_i^k=Y_i$, teremos que $\hat{\mu}_k=\bar{Y}_n$. Isso nos permite provar que:
+
+  - $\hat{\mu}_k$ é um estimador não viciado para $\mu_k$
+  - $SE(\hat{\mu})=\sqrt{Var(X^k)/n}$
+  - $EQM_{\hat{\mu}_k}(\mu_k)=Var(X^k)/n$
+  - $\hat{\mu}_k$ é consistente
+
+Além disso, para $n$ suficientemente grande, pelo Teorema Central do Limite
+$$\hat{\mu}_k\approx \hbox{Normal}\left(\mu_k,\frac{Var(X^k)}{n}\right)$$
+
+<div class='alert alert-info'>
+**Exemplo** Seja $X_1,\ldots,X_n$ uma amostra aleatória da população Poisson($\lambda$). Sabemos que o primeiro momento populacional é $E(X)=\lambda$. Logo, a média  amostral é um estimador não viciado e consistente para $\lambda$. Além disso, como
+$$Var(X)=\lambda,$$
+para $n$ suficientemente grande,
+
+$$\bar{X}\approx \hbox{Normal}\left(\lambda,\frac{\lambda}{n}\right).$$
+Note que é possível trabalhar com a distribuição exata de $\bar{X}_n$, uma vez que 
+$$\sum_{i=1}^n X_i\sim\hbox{Poisson}(n\lambda)$$
+e
+$$P(\bar{X}_n=\bar{x}|\lambda)=P\left(\left.\sum_{i=1}^n X_i=n\bar{x}\right|\lambda\right).$$
+</div>
+
+Considere uma amostra aleatória de uma população com parâmetros $\theta_1,\ldots,\theta_k$. Suponha que  os $k$ primeiros momentos podem ser escritos como função dos parâmetros, ou seja, existem funções $g_j(.)$, $j=1,\ldots,k$ tais que
+$$\mu_k=g_j(\theta_1,\ldots,\theta_k).$$
+Suponha ainda que existem funções $h_j(.)$, $j=1,\ldots,k$, tais que
+$$\theta_j=h_j(\mu_1,\ldots,\mu_k).$$
+O método dos momentos consiste em encontrar os estimadores $\hat{\theta}_1,\ldots,\hat{\theta}_k$ computando
+$$\hat{\theta}_j=h_j(\hat{\mu}_1,\ldots,\hat{\mu}_k).$$
+
+Em outras palavras, o método dos momentos consiste em utilizar os momentos amostrais e aplicar o princípio da substituição para obter estimativas dos parâmetros. Como os momentos amostrais são não viciados e consistentes, podemos obter as seguintes propriedades:
+
+  1. $\hat{\theta}_j$ é aproximadamente não viciado
+  2. $\hat{\theta}_j$ é consistente
+
+Além disso, a distribuição amostral dos estimadores de momentos é aproximadamente normal. Quando há apenas um parâmetro, essa aproximação é dada por
+
+$$\hat{\theta}\approx \hbox{Normal}\left( \theta_j,\frac{Var(X)}{n}\left[\frac{d}{d\mu}h(\mu)\right]^2 \right).$$
+
+<div class='alert alert-info'>
+**Exemplo** Seja $X_1,\ldots,X_n$ uma amostra aleatória da população Exponencial($\theta$). O primeiro momento amostral é
+$$\mu=E(X)=\frac{1}{\theta}=g(\theta).$$
+Podemos então escrever $\theta$ como função do primeiro momento amostral:
+$$\theta=\frac{1}{\mu}=h(\mu)$$
+Logo, o estimador obtido via método dos momentos para $\theta$ é
+$$\hat{\theta}=\frac{1}{\hat{\mu}}=\frac{1}{\bar{X}_n}.$$
+Como
+$$Var(X)=\frac{1}{\theta^2}$$
+e
+$$\frac{d}{d\mu}h(\mu)=-\frac{1}{\mu}^2=\left(\frac{1}{\mu}\right)^2=\theta^2,$$
+teremos que, para $n$ suficientemente grande, sua distribuição amostral será 
+$$\hat{\theta}\approx N\left(\theta,\frac{Var(X)}{n}h'(\mu)^2\right)=N\left(\theta,\frac{\theta^2}{n}\right)$$
+</div>
+
+
+
+<div class='alert alert-info'>
+**Exemplo** Seja $X_1,\ldots,X_n$ uma amostra aleatória da população Geométrica($\theta$). O primeiro momento amostral é
+$$\mu=E(X)=\frac{1-\theta}{\theta}=g(\theta).$$
+Podemos então escrever $\theta$ como função do primeiro momento amostral:
+$$\theta=\frac{1}{1+\mu}=h(\mu)$$
+Logo, o estimador obtido via método dos momentos para $\theta$ é
+$$\hat{\theta}=\frac{1}{1+\hat{\mu}}=\frac{1}{1+\bar{X}_n}.$$
+Como
+$$Var(X)=\frac{1-\theta}{\theta^2},$$
+e
+$$\frac{d}{d\mu}h(\mu)=-\frac{1}{(1+\mu)^2}=\left(\frac{1}{1+\mu}\right)^2=\theta^2,$$
+teremos que, para $n$ suficientemente grande, sua distribuição amostral será 
+$$\hat{\theta}\approx N\left(\theta,\frac{Var(X)}{n}h'(\mu)^2\right)=N\left(\theta,\frac{\theta^2(1-\theta)}{n}\right)$$
+
+É possível encontrar a distribuição exata de $\hat{\theta}$. Para tanto, lembremos que
+$$\sum_{i=1}^n X_i\sim \hbox{Binomial Negativa}(n,\theta),$$
+logo,
+$$\begin{align}P\left(\hat{\theta}=c|\theta\right)&=P\left(\left.\frac{1}{1+\bar{X}_n}=c\right|\theta\right)=P\left(\left.\bar{X}_n=\frac{1}{c}-1\right|\theta\right)\\&=
+P\left(\left.\sum_{i=1}^n X_i=n\left(\frac{1}{c}-1\right)\right|\theta\right).
+\end{align}$$
+</div>
+
+
+<div class='alert alert-info'>
+**Exemplo.** Seja $X_1,\ldots,X_n$ uma amostra aleatória da distribuição Gama($\alpha,\beta$). A esperança e a variância desse modelo são
+$$E(X)=\frac{\alpha}{\beta}$$
+e 
+$$Var(X)=\frac{\alpha}{\beta^2}.$$
+Como $E(X^2)=Var(X)+E(X)^2$, podemos deduzir que
+$$E(X^2)=\frac{\alpha^2+\alpha}{\beta^2}.$$
+Então, os dois primeiros momentos escritos como função de $\alpha$ e $\beta$ são
+$$\begin{align}\mu_1&=\frac{\alpha}{\beta^2}=g_1(\alpha,\beta),\\
+\mu_2&=\frac{\alpha^2+\alpha}{\beta^2}=g_2(\alpha,\beta).\end{align}$$
+Podemos então escrever $\alpha$ e $\beta$ como função de $\mu_1$ e $\mu_2$:
+$$\begin{align}\alpha&=\frac{\mu_1^2}{\mu_2-\mu_1^2}=\frac{\mu_1^2}{Var(X)}=h_1(\mu_1,\mu_2),\\
+\beta&=\frac{\mu_1}{\mu_2-\mu_1^2}=\frac{\mu_1}{Var(X)}=h_2(\mu_1,\mu_2).\end{align}$$
+Portanto os estimadores para $\alpha$ e $\beta$ obtidos via método dos momentos são:
+$$\begin{align}\hat{\alpha}&=\frac{\bar{X}_n^2}{S^2_n}=h_1(\mu_1,\mu_2),\\
+\hat{\beta}&=\frac{\bar{X}_n}{S^2_n}=h_2(\mu_1,\mu_2).\end{align}.$$
+</div>
+
+<div class='alert alert-info'>
+**Exemplo.** Seja $X_1,\ldots,X_n$ uma amostra aleatória da distribuição Beta($\alpha,\beta$). A esperança e a variância desse modelo são
+$$E(X)=\frac{\alpha}{\alpha+\beta}$$
+e 
+$$Var(X)=\frac{\alpha\beta}{(\alpha+\beta)^2(\alpha+\beta+1)}.$$
+Como $E(X^2)=Var(X)+E(X)^2$, podemos deduzir que
+$$E(X^2)=\frac{\alpha^2}{(\alpha+\beta)^2}+\frac{\alpha\beta}{(\alpha+\beta)^2(\alpha+\beta+1)}.$$
+Então, os dois primeiros momentos escritos como função de $\alpha$ e $\beta$ são
+$$\begin{align}\mu_1&=\frac{\alpha}{\alpha+\beta}=g_1(\alpha,\beta),\\
+\mu_2&=\frac{\alpha^2}{(\alpha+\beta)^2}+\frac{\alpha\beta}{(\alpha+\beta)^2(\alpha+\beta+1)}=g_2(\alpha,\beta).\end{align}$$
+Podemos então escrever $\alpha$ e $\beta$ como função de $\mu_1$ e $\mu_2$:
+$$\begin{align}\alpha&=\frac{\mu_1^2-\mu_1\mu_2}{\mu_2-\mu_1^2}=\mu_1\left(\frac{\mu_1(1-\mu_1)}{Var(X)}-1\right)=h_1(\mu_1,\mu_2),\\
+\beta&=(1-\mu_1)\left(\frac{\mu_1(1-\mu_1)}{Var(X)}-1\right)=h_2(\mu_1,\mu_2).\end{align}$$
+Portanto os estimadores para $\alpha$ e $\beta$ obtidos via método dos momentos são:
+$$\begin{align}\hat{\alpha}&=\bar{X}_n\left(\frac{\bar{X}_n(1-\bar{X}_n)}{S_n^2}-1\right),\\
+\hat{\beta}&=(1-\bar{X}_n)\left(\frac{\bar{X}_n(1-\bar{X}_n)}{S_n^2}-1\right).\end{align}$$
+</div>
+
+
+Para o caso de $q$ parâmetros, é possível mostrar que a distribuição aproximada dos estimadores de momentos é
+
+$$\hat{\theta}_j\approx \hbox{Normal}\left(\theta_j,\frac{1}{n}\sum_{r=1}^k\sum_{s=1}^k\sigma_{r,s}\frac{\partial}{\partial\mu_r}h_j\frac{\partial}{\partial\mu_s}h_j\right),$$
+onde 
+$$\sigma_{r,s}=Cov(X^r,X^s).$$
+
+## A função de distribuição empírica e o método bootstrap
+
+

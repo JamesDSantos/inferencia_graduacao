@@ -79,7 +79,7 @@ onde $f$ é a função de densidade  ou a função de probabilidade da populaç�
 
 <div class='alert alert-info'>
 **Exemplo**  Seja $X_1,\ldots,X_n$ uma amostra aleatória da população Exponencial($\theta$). Note que
-	$$\prod_{i=1}^n  f(x_i|\theta)=\prod_{i=1}^n \theta e^{-\theta x_i}=\underbrace{\theta^n}_{h(\textbf{x})}. \underbrace{e^{-\theta\sum_{i=1}^n x_i}}_{g(\sum_{i=1}^n x_i,\theta)},$$
+	$$\prod_{i=1}^n  f(x_i|\theta)=\prod_{i=1}^n \theta e^{-\theta x_i}=\underbrace{1}_{h(\textbf{x})}. \underbrace{\theta^ne^{-\theta\sum_{i=1}^n x_i}}_{g(\sum_{i=1}^n x_i,\theta)},$$
 logo, pelo Teorema do Critério da Fatoração de Neyman, $T=\sum_{i=1}^{n}X_i$ é uma estatística suficiente para $\theta$.
 </div>
 
@@ -147,9 +147,9 @@ logo, pelo Teorema do Critério da Fatoração de Neyman, teremos que $T=X_{(n)}
 
 <div class='alert alert-warning'>
 **Importante** Sejam $x_{(1)}$ e $x_{(n)}$ as estatísticas mínimo e máximo de uma amostra de tamanho $n$. Então:
-- $\prod_{i=1}^n I(x_i\leq \theta)=I(x_{(n)}\leq \theta)$
-- $\prod_{i=1}^n I(x_i\geq \theta)=I(x_{(1)}\geq \theta)$
-- $\prod_{i=1}^n I(\alpha\leq x_i\leq \beta)=I(\alpha\leq x_{(1)})I(x_{(n)}\leq \beta)$
+  - $\prod_{i=1}^n I(x_i\leq \theta)=I(x_{(n)}\leq \theta)$
+  - $\prod_{i=1}^n I(x_i\geq \theta)=I(x_{(1)}\geq \theta)$
+  - $\prod_{i=1}^n I(\alpha\leq x_i\leq \beta)=I(\alpha\leq x_{(1)})I(x_{(n)}\leq \beta)$
 </div>
 
 <div class='alert alert-info'>

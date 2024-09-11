@@ -50,7 +50,7 @@ div.csl-indent {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./references.html" rel="next">
+<link href="./pontual.html" rel="next">
 <link href="./intro.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -181,6 +181,12 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./pontual.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Estimação pontual</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./references.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">References</span></a>
   </div>
@@ -278,7 +284,7 @@ window.Quarto = {
 <p><span class="math display">\[\prod_{i=1}^nf(x_i|\theta)=h(\textbf{x})g(t,\theta)\]</span> onde <span class="math inline">\(f\)</span> é a função de densidade ou a função de probabilidade da população.</p>
 </div>
 <div class="alert alert-info">
-<p><strong>Exemplo</strong> Seja <span class="math inline">\(X_1,\ldots,X_n\)</span> uma amostra aleatória da população Exponencial(<span class="math inline">\(\theta\)</span>). Note que <span class="math display">\[\prod_{i=1}^n  f(x_i|\theta)=\prod_{i=1}^n \theta e^{-\theta x_i}=\underbrace{\theta^n}_{h(\textbf{x})}. \underbrace{e^{-\theta\sum_{i=1}^n x_i}}_{g(\sum_{i=1}^n x_i,\theta)},\]</span> logo, pelo Teorema do Critério da Fatoração de Neyman, <span class="math inline">\(T=\sum_{i=1}^{n}X_i\)</span> é uma estatística suficiente para <span class="math inline">\(\theta\)</span>.</p>
+<p><strong>Exemplo</strong> Seja <span class="math inline">\(X_1,\ldots,X_n\)</span> uma amostra aleatória da população Exponencial(<span class="math inline">\(\theta\)</span>). Note que <span class="math display">\[\prod_{i=1}^n  f(x_i|\theta)=\prod_{i=1}^n \theta e^{-\theta x_i}=\underbrace{1}_{h(\textbf{x})}. \underbrace{\theta^ne^{-\theta\sum_{i=1}^n x_i}}_{g(\sum_{i=1}^n x_i,\theta)},\]</span> logo, pelo Teorema do Critério da Fatoração de Neyman, <span class="math inline">\(T=\sum_{i=1}^{n}X_i\)</span> é uma estatística suficiente para <span class="math inline">\(\theta\)</span>.</p>
 </div>
 <div class="alert alert-info">
 <p><strong>Exemplo.</strong> Seja <span class="math inline">\(X_1,\ldots,X_n\)</span> uma amostra aleatória do modelo <span class="math inline">\(X\sim\hbox{Poisson}(\lambda)\)</span>. Note que</p>
@@ -797,8 +803,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./references.html" class="pagination-link" aria-label="References">
-        <span class="nav-page-text">References</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./pontual.html" class="pagination-link" aria-label="Estimação pontual">
+        <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Estimação pontual</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
