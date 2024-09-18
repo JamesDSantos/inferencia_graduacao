@@ -20,6 +20,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -184,7 +218,11 @@ window.Quarto = {
   <li><a href="#estimador-estimativa-erro-quadrático-médio-e-consistência" id="toc-estimador-estimativa-erro-quadrático-médio-e-consistência" class="nav-link active" data-scroll-target="#estimador-estimativa-erro-quadrático-médio-e-consistência"><span class="header-section-number">4.1</span> Estimador, estimativa, erro quadrático médio e consistência</a></li>
   <li><a href="#o-princípio-da-substituição" id="toc-o-princípio-da-substituição" class="nav-link" data-scroll-target="#o-princípio-da-substituição"><span class="header-section-number">4.2</span> O princípio da substituição</a></li>
   <li><a href="#método-dos-momentos" id="toc-método-dos-momentos" class="nav-link" data-scroll-target="#método-dos-momentos"><span class="header-section-number">4.3</span> Método dos momentos</a></li>
-  <li><a href="#a-função-de-distribuição-empírica-e-o-método-bootstrap" id="toc-a-função-de-distribuição-empírica-e-o-método-bootstrap" class="nav-link" data-scroll-target="#a-função-de-distribuição-empírica-e-o-método-bootstrap"><span class="header-section-number">4.4</span> A função de distribuição empírica e o método bootstrap</a></li>
+  <li><a href="#a-função-de-distribuição-empírica-e-o-método-bootstrap" id="toc-a-função-de-distribuição-empírica-e-o-método-bootstrap" class="nav-link" data-scroll-target="#a-função-de-distribuição-empírica-e-o-método-bootstrap"><span class="header-section-number">4.4</span> A função de distribuição empírica e o método bootstrap</a>
+  <ul class="collapse">
+  <li><a href="#estimação-do-erro-padrão-via-bootstrap" id="toc-estimação-do-erro-padrão-via-bootstrap" class="nav-link" data-scroll-target="#estimação-do-erro-padrão-via-bootstrap"><span class="header-section-number">4.4.1</span> Estimação do erro padrão via bootstrap</a></li>
+  </ul></li>
+  <li><a href="#tópicos-de-maximização-de-funções" id="toc-tópicos-de-maximização-de-funções" class="nav-link" data-scroll-target="#tópicos-de-maximização-de-funções"><span class="header-section-number">4.5</span> Tópicos de maximização de funções*</a></li>
   </ul>
 </nav>
     </div>
@@ -311,6 +349,209 @@ P\left(\left.\sum_{i=1}^n X_i=n\left(\frac{1}{c}-1\right)\right|\theta\right).
 </section>
 <section id="a-função-de-distribuição-empírica-e-o-método-bootstrap" class="level2" data-number="4.4">
 <h2 data-number="4.4" class="anchored" data-anchor-id="a-função-de-distribuição-empírica-e-o-método-bootstrap"><span class="header-section-number">4.4</span> A função de distribuição empírica e o método bootstrap</h2>
+<p>Seja <span class="math inline">\(X_1,\ldots,X_n\)</span> uma amostra alestória da população, cuja função distribuição, denotada por <span class="math inline">\(F\)</span>, é desconhecida. Nesse caso, <span class="math inline">\(F\)</span> pertence à classe de todas as funções de distribuição.</p>
+<div class="alert alert-success">
+<p><strong>Definição.</strong> A função de distribuição empírica (FDE) é definida por <span class="math display">\[\hat{F}_{n}(x)=\frac{1}{n}\sum_{i=1}^n I(X_i\leq x).\]</span></p>
+</div>
+<p>Observe que a função de distribuição empírica é uma estatística, cuja distribuição empírica se altera para cada valor de <span class="math inline">\(x\)</span> fixado. É importante notar que <span class="math inline">\(x\)</span> é o argumento da função e não está relacionado com a amostra observada. O valor observado dessa estatística, para <span class="math inline">\(x\)</span> fixado, recebe a mesma notação:</p>
+<p><span class="math display">\[\hat{F}_{n}(x)=\frac{1}{n}\sum_{i=1}^n I(x_i\leq x).\]</span> Nos textos básicos de estatística, <span class="math inline">\(\hat{F}_n(x)\)</span> é comumente denominada função de distribuição acumulada.</p>
+<p>Observe que</p>
+<p><span class="math display">\[E(\hat{F}_{n}(x))=\frac{1}{n}\sum_{i=1}^n E(I(X_i\leq x))=E(I(X\leq x))=0.P(X&gt;x)+1.P(X\leq 1)=F(x),\]</span> logo, a função de distribuição empírica é um estimador não viciado para a população. Além disso,</p>
+<p><span class="math display">\[\begin{align}Var(\hat{F}_{n}(x))&amp;=\frac{1}{n^2}\sum_{i=1}^n Var(I(X_i\leq x))=\frac{1}{n}Var(I(X\leq x))\\&amp;=\frac{1}{n}\left[(0-F(x))^2.P(X&gt;x)+(1-F(x))^2.P(X\leq x)\right]\\&amp;=\frac{1}{n}\left[F(x)^2(1-F(x))+F(x)+F(x)^3-2F(x)^2\right]\\&amp;=\frac{1}{n}\left[F(x)-F(x)^2\right]=\frac{1}{n}F(x)(1-F(x)),\end{align}\]</span> portanto, para qualquer valor de <span class="math inline">\(x\)</span> fixado, <span class="math display">\[\lim_{n\rightarrow\infty }EQM_{\hat{F}_n}(F)=0,\]</span> e <span class="math inline">\(\hat{F}_n\)</span> é um estimador consistente.</p>
+<p>A função de distribuição empírica é equivalente a função de distribuição obtida quando consideramos que cada ponto de uma amostra observada de tamanho <span class="math inline">\(n\)</span> possui probabilidade <span class="math inline">\(1/n\)</span>.</p>
+<div class="alert alert-info">
+<p><strong>Exemplo.</strong> O banco de dados abaixo possui o peso, em gramas, de 37.439 bebês nascidos no Amazonas em 2010 com mais de 47 semanas de gestação.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>url <span class="ot">&lt;-</span> <span class="st">'https://docs.google.com/spreadsheets/d/1mEpPFyVaU3DjwYvWGhZDS_0EsESLRERSed475P-_29U/edit?usp=sharing'</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">require</span>(gsheet)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Carregando pacotes exigidos: gsheet</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'gsheet' was built under R version 4.3.2</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>dados <span class="ot">&lt;-</span>  <span class="fu">gsheet2tbl</span>(url)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>O comando <code>ecdf</code> retorna a função de distribuição empírica da amostra. Abaixo, mostramos o gráfico dessa função estimada.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>Fn <span class="ot">&lt;-</span> <span class="fu">ecdf</span>(dados<span class="sc">$</span>PESO)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>( Fn, <span class="at">main =</span> <span class="st">' '</span>, <span class="at">xlab =</span> <span class="st">'Peso'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="pontual_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Observe na figura acima o típico formato em S esperado pela função de distribuição da distribuição normal. Assumindo que os dados são provenientes de uma população normal, podemos utilizar o princípio da substituição e estimar sua função por <span class="math display">\[\tilde{F}_n(x)=\int_{-\infty}^x \frac{1}{\sqrt{2\pi s_n^2}}e^{-\frac{1}{2s_n^2}(x-\bar{x})^2}.\]</span> Portanto, temos duas estimativas para a função de distribuição. Comparar as duas é a base dos testes de bondade de ajuste. Se as duas diferem, temos evidências de que o modelo paramétrico escolhido não é adequado. A figura abaixo faz o gráfico de <span class="math inline">\(\hat{F}_n\)</span> e <span class="math inline">\(\tilde{F}_n\)</span>, monstrando que há evidências de que os dados são provenientes de uma população normal.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>Fn <span class="ot">&lt;-</span> <span class="fu">ecdf</span>(dados<span class="sc">$</span>PESO)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>Ftil <span class="ot">&lt;-</span> <span class="cf">function</span>(x) <span class="fu">pnorm</span>(x, <span class="fu">mean</span>(dados<span class="sc">$</span>PESO), <span class="fu">sd</span>(dados<span class="sc">$</span>PESO))</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>( Fn, <span class="at">main =</span> <span class="st">' '</span>, <span class="at">xlab =</span> <span class="st">'Peso'</span>, <span class="at">lwd =</span> <span class="dv">2</span>, <span class="at">col =</span><span class="st">'darkorange4'</span>)</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="fu">curve</span>(<span class="fu">Ftil</span>(x), <span class="at">add=</span>T, <span class="at">col =</span><span class="st">'seagreen'</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="pontual_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<section id="estimação-do-erro-padrão-via-bootstrap" class="level3" data-number="4.4.1">
+<h3 data-number="4.4.1" class="anchored" data-anchor-id="estimação-do-erro-padrão-via-bootstrap"><span class="header-section-number">4.4.1</span> Estimação do erro padrão via bootstrap</h3>
+<p>Seja <span class="math inline">\(X_1,\ldots,X_n\)</span> uma amostra aleatória e seja <span class="math inline">\(T\)</span> uma estatística. Sabemos que o erro padrão de <span class="math inline">\(T\)</span> é uma importante da qualidade de <span class="math inline">\(T\)</span>. Entretando, nem sempre é trivial obter uma estimativa para o erro padrão.</p>
+<p>Suponha que é possível repetir esse experimento <span class="math inline">\(B\)</span> vezes e seja <span class="math inline">\(t_i\)</span> o valor observado da estatística na <span class="math inline">\(i\)</span>-ésima repetição. Então, o erro padrão poderia ser facilmente estimado por</p>
+<p><span class="math display">\[\widehat{SE}(T)=\sqrt{\frac{1}{B-1}\sum_{i=1}^B(t_i-\bar{t})^2},\]</span> onde <span class="math inline">\(\bar{t}\)</span> é a média amostral de <span class="math inline">\(t_1,\ldots,t_B\)</span>.</p>
+<p>Em geral não é possível repetir o experimento várias vezes. Em vez disso, podemos simular novas amostras considerando que a verdadeira distribuição é <span class="math inline">\(\hat{F}_n(.)\)</span>. Cada amostra aleatória simulada é obtida via amostragem aleatória simples com reposição considerando a amostra original. O cálculo do erro padrão utilizando os valores de <span class="math inline">\(t\)</span> obtidos deste modo é denominado bootstrap</p>
+<div class="alert alert-danger">
+<p><strong>Algoritmo: Metodo bootstrap</strong></p>
+<p>Seja <span class="math inline">\(x_1,\ldots,x_n\)</span> a amostra observada. Para <span class="math inline">\(i=1,\ldots,B\)</span></p>
+<ul>
+<li><p>Passo <span class="math inline">\(i\)</span>: colete <span class="math inline">\(x_1^*,\ldots,x_n^*\)</span> utilizando uma amostragem aleatória simples com reposição de <span class="math inline">\(x_1,\ldots,x_n\)</span>. Calcule <span class="math inline">\(t_i=T(x_1^*,\ldots,x_n^*)\)</span></p></li>
+<li><p>Calcule</p></li>
+</ul>
+<p><span class="math display">\[\widehat{SE}(T)=\sqrt{\frac{1}{B-1}\sum_{i=1}^B(t_i-\bar{t})^2}\]</span></p>
+</div>
+<div class="alert alert-info">
+<p><strong>Exemplo.</strong> Considere o seguinte subconjunto da amostra utilizada no exemplo anterior:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>amostra <span class="ot">&lt;-</span> dados<span class="sc">$</span>PESO[<span class="dv">1</span><span class="sc">:</span><span class="dv">30</span>]</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>amostra</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] 3230 3960 3070 3670 3770 3135 3095 3085 3095 3405 3575 2600 3645 3255 3140
+[16] 3070 2970 2650 3195 3450 3125 3130 3370 2960 2945 2965 2795 3195 3680 2825</code></pre>
+</div>
+</div>
+<p>Podemos obter uma amostra da função de distribuição empírica sorteando 30 dos números acima ao acaso com reposição</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>sorteio <span class="ot">&lt;-</span> <span class="fu">sample</span>(amostra, <span class="dv">30</span>, T)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>sorteio</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] 3085 3195 2795 2795 3230 3195 3095 3070 3370 2960 3770 3370 2825 2945 3370
+[16] 3195 3140 3405 3070 3140 2970 3960 3450 3575 3450 2970 2795 3085 3370 3450</code></pre>
+</div>
+</div>
+<p>Vamos calcular o erro padrão de <span class="math inline">\(\bar{X}_{30}\)</span> utilizano do método bootstrap:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>t <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>B <span class="ot">&lt;-</span> <span class="dv">10000</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>( i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>B){ </span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>sorteio <span class="ot">&lt;-</span> <span class="fu">sample</span>(amostra, <span class="dv">30</span>, T)</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>t[i] <span class="ot">&lt;-</span> <span class="fu">mean</span>(sorteio)</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="co"># erro padrão</span></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a><span class="fu">sd</span>(t)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 58.7555</code></pre>
+</div>
+</div>
+<p>Compare esse valor com o erro padrão estimado por <span class="math inline">\(S_n/\sqrt{30}\)</span>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sd</span>(amostra)<span class="sc">/</span><span class="fu">sqrt</span>(<span class="dv">30</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 59.83766</code></pre>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="tópicos-de-maximização-de-funções" class="level2" data-number="4.5">
+<h2 data-number="4.5" class="anchored" data-anchor-id="tópicos-de-maximização-de-funções"><span class="header-section-number">4.5</span> Tópicos de maximização de funções*</h2>
+<p>Seja <span class="math inline">\(f(.)\)</span> uma função real. Dizemos que <span class="math inline">\(x^*\)</span> é um ponto de máximo global se, para todo <span class="math inline">\(x\)</span> no domínio de <span class="math inline">\(f\)</span>, <span class="math display">\[f(x)\leq f(x^*).\]</span></p>
+<div class="alert alert-info">
+<p><strong>Exemplo.</strong> Seja <span class="math display">\[f(x)= -x^2.\]</span> Quando <span class="math inline">\(x=0\)</span>, teremos que <span class="math inline">\(f(0)=0\)</span>. Para qualquer outro valor de <span class="math inline">\(x\)</span>, teremos <span class="math inline">\(f(x)&lt;0\)</span>. Portanto, <span class="math display">\[f(x)\leq f(0)\]</span> e <span class="math inline">\(x^*=0\)</span> é o ponto de máximo.</p>
+</div>
+<div class="alert alert-info">
+<p><strong>Exemplo.</strong> Seja <span class="math display">\[f(x)= I(0\leq x \leq 2).\]</span></p>
+<p>Quando <span class="math inline">\(x\notin[0,2]\)</span>, teremos que <span class="math inline">\(f(x)=0\)</span>. Para qualquer valor de <span class="math inline">\(x\in[0,2]\)</span>, teremos <span class="math inline">\(f(x)=1\)</span>. Portanto, <span class="math display">\[f(x)\leq f(x^*)\]</span> onde <span class="math inline">\(x^*\)</span> é qualquer ponto dentro do intervalo <span class="math inline">\([0,1]\)</span>. Nesse caso, existem infinitos pontos de máximo.</p>
+</div>
+<div class="alert alert-info">
+<p><strong>Exemplo.</strong> Seja</p>
+<p><span class="math display">\[f(x)= xI(0\leq x &lt; 2).\]</span></p>
+<p>Quando <span class="math inline">\(x\notin[0,2)\)</span>, teremos que <span class="math inline">\(f(x)=0\)</span>. Para qualquer valor de <span class="math inline">\(x\in[0,2)\)</span>, teremos <span class="math inline">\(f(x)=x\)</span>.</p>
+<p>Sabemos que, quanto mais próximo de 2, maior é o valor de <span class="math inline">\(x\)</span>. Entretanto, como <span class="math inline">\(f(2)=0\)</span>, temos que o máximo não está definido.</p>
+</div>
+<p>Quando <span class="math inline">\(f(x)\)</span> é contínua, podemos procurar numericamente pelo ponto de máximo utilizando um algoritmo de subida de montanha.</p>
+<div class="alert alert-danger">
+<p><strong>Algoritmo de subida de montanha</strong></p>
+<p>Seja <span class="math inline">\(f(x)\)</span> uma função contínua no domínio <span class="math inline">\(D\subseteq \mathbb{R}\)</span>. Escolha um valor <span class="math inline">\(m^{(1)}\)</span> como candidato a ponto máximo. Fixe <span class="math inline">\(\delta&gt;0\)</span> pequeno. Na <span class="math inline">\(j\)</span>-ésima iteração</p>
+<ol type="1">
+<li><p>Compute <span class="math inline">\(f(m^{(j)}-\delta)\)</span> e <span class="math inline">\(f(m^{(j)}+\delta)\)</span>.</p></li>
+<li><p>Se <span class="math display">\[f(m^{(j)})&lt; f(m^{(j)}+\delta),\]</span> então <span class="math inline">\(m^{(j)}\)</span> não pode ser ponto de máximo. Crie um candidato novo <span class="math inline">\(m^{(j+1)}=m^{(j)}+\delta\)</span>.</p></li>
+<li><p>Se <span class="math display">\[f(m^{(j)})&lt; f(m^{(j)}-\delta),\]</span> então <span class="math inline">\(m^{(j)}\)</span> não pode ser ponto de máximo. Crie um candidato novo <span class="math inline">\(m^{(j+1)}=m^{(j)}-\delta\)</span>.</p></li>
+</ol>
+<p>Repita o algoritmo até encontrar um ponto de máximo.</p>
+</div>
+<p>A figura abaixo apresenta uma função com diferentes regiões que podem interferir na determinação do ponto de máximo global via um algoritmo de subida de montanha. Os pontos em vermelho são diferentes valores iniciais para o algoritmo e os respectivos extremos dos segmentos vermelhos indicam os valores <span class="math inline">\(m-\delta\)</span> e <span class="math inline">\(m+\delta\)</span> que serão testados. Observe que:</p>
+<ul>
+<li><p>Ao começar em <span class="math inline">\(A\)</span>, o algoritmo encontra o ponto de máximo global.</p></li>
+<li><p>Ao começar em <span class="math inline">\(B\)</span>, o algoritmo vai parar em um ponto de máximo local</p></li>
+<li><p>Ao começar em <span class="math inline">\(C\)</span>, o algortimo vai parar em algum ponto do platô.</p></li>
+</ul>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="pontual_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="alert alert-success">
+<p><strong>Definição</strong> Seja <span class="math inline">\(f\)</span> uma função definida em <span class="math inline">\(D\subseteq \mathbb{R}\)</span>. Dizemos que <span class="math inline">\(x^{*}\)</span> é um ponto de máximo local se, para algum <span class="math inline">\(B\subset D\)</span>, <span class="math display">\[f(x)\leq f(x^{*}),\;\;\forall\;\;x\in B.\]</span></p>
+</div>
+<p>Por definição, todo máximo global também é um máximo local. Vamos discutir em quais condições é possível encontrar os pontos de máximo locais. Considere que <span class="math inline">\(f(x)\)</span> é diferenciável para todo <span class="math inline">\(x\)</span> e que sua derivada é contínua. Como <span class="math inline">\(f'(x)\)</span> é o coeficiente angular da reta que passa tangente ao ponto <span class="math inline">\(x\)</span>, temos que <span class="math inline">\(x^*\)</span> ponto que satisfaz <span class="math inline">\(f'(x^*)=0\)</span> só pode ser um ponto de máximo (local), mínimo (local) ou ponto de inflexão (essas três possibilidades são denominadas pontos críticos). A figura abaixo ilustra essas três situações.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="pontual_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Para distinguir se o ponto crítico é um ponto de máximo local, devemos verificar a concavidade da função no ponto.</p>
+<ul>
+<li><p>se <span class="math inline">\(f''(x^*)&gt;0\)</span>, então a concavidade de <span class="math inline">\(f\)</span> no ponto <span class="math inline">\(x^*\)</span> é voltada para cima (no formato <span class="math inline">\(\cup\)</span>). Então <span class="math inline">\(x^*\)</span> é um ponto de mínimo local</p></li>
+<li><p>se <span class="math inline">\(f''(x^*)&lt;0\)</span>, então a concavidade de <span class="math inline">\(f\)</span> no ponto <span class="math inline">\(x^*\)</span> é voltada para baixo (no formato <span class="math inline">\(\cap\)</span>). Então <span class="math inline">\(x^*\)</span> é um ponto de máximo local</p></li>
+</ul>
+<p>Portanto, desde que a função possua as duas derivadas contínuas, pode-se encontrar todos os pontos críticos e determinar o máximo global da função.</p>
+<div class="alert alert-warning">
+<p><strong>Importante.</strong> Em problemas de maximização, tanto analíticos quanto computacionais, é usual procupar pelo ponto de máximo global de <span class="math inline">\(f(x)\)</span> na função <span class="math inline">\(\log f(x)\)</span>. Para entender o motivo, observe que</p>
+<ol type="1">
+<li><p>Se <span class="math inline">\(f(x)\leq f(x^*)\)</span> para todo <span class="math inline">\(x\)</span>, então <span class="math inline">\(\log f(x)\leq \log f(x^*)\)</span>. Portanto, o ponto que maximiza <span class="math inline">\(f\)</span> também maximiza <span class="math inline">\(\log f\)</span> (e vice e versa)</p></li>
+<li><p>Ao aplicar o logaritmo, produtos são transformados em somas e potências em multiplicaçõces. Desse modo, o cálculo das derivadas tendem a ser mais simples.<br>
+</p></li>
+</ol>
+</div>
+<div class="alert alert-info">
+<p><strong>Exemplo.</strong> Seja <span class="math display">\[f(x)=\frac{1}{\sqrt{2\pi}}e^{-\frac{x^2}{2}}\]</span> Vamos encontrar o ponto de máximo global dessa função. Primeiro, observe que <span class="math display">\[\log f(x)=\log\left(\frac{1}{\sqrt{2\pi}}\right)+\log\left(e^{-\frac{x^2}{2}}\right)=\log\left(\frac{1}{\sqrt{2\pi}}\right)-\frac{x^2}{2}\]</span> A primeira derivada da função acima é <span class="math display">\[\frac{d}{dx}\log f(x)=-x\]</span> e o ponto crítico <span class="math inline">\(x^*\)</span> é encontrado como segue: <span class="math display">\[-x^*=0\Rightarrow x^*=0\]</span></p>
+<p>A segunda derivada da função é <span class="math display">\[\frac{d^2}{dx^2}\log f(x)=-1\]</span> Como essa derivada sempre é negativa, ela também o será para <span class="math inline">\(x^*\)</span>. Portanto <span class="math inline">\(x^*\)</span> é um ponto de máximo local. Como esse é o único ponto, ele também é o máximo global.</p>
+</div>
+<div class="alert alert-info">
+<p><strong>Exemplo.</strong> Seja <span class="math display">\[f(x)=x^a(1-x)^b,\]</span> onde <span class="math inline">\(x\in(0,1)\)</span> e <span class="math inline">\(a,b&gt;0\)</span>. Vamos encontrar o ponto de máximo global dessa função. Primeiro, observe que <span class="math display">\[\log f(x)= a\log(x)+b\log(1-x)\]</span> A primeira derivada da função acima é <span class="math display">\[\frac{d}{dx}\log f(x)=\frac{a}{x}-\frac{b}{1-x}\]</span> e o ponto crítico <span class="math inline">\(x^*\)</span> é encontrado como segue: <span class="math display">\[\frac{a}{x^*}-\frac{b}{1-x^*}=0\Rightarrow a(1-x^*)-bx^{*}=0\Rightarrow x^*=\frac{a}{a+b}\]</span></p>
+<p>A segunda derivada da função é <span class="math display">\[\frac{d^2}{dx^2}\log f(x)=-\frac{a}{x^2}-\frac{b}{(1-x)^2}.\]</span> Como essa derivada sempre é negativa, ela também o será para <span class="math inline">\(x^*\)</span>. Portanto <span class="math inline">\(x^*\)</span> é um ponto de máximo local. Como esse é o único ponto, ele também é o máximo global.</p>
+</div>
+<p>Observe que nem sempre teremos um ponto crítico, mas isso não implica na inexistência do ponto de máximo global. Entre os casos de interesse nesse curso, estão as funções monótonas em um intervalo.</p>
+<div class="alert alert-success">
+<p><strong>Definição</strong> Dizemos que <span class="math inline">\(f(x)\)</span> é monótona crescente no intervalo <span class="math inline">\(D\)</span> se, para quaisquer <span class="math inline">\(x&gt;y\in D\)</span>, <span class="math display">\[f(x)&lt;f(y).\]</span> Por outro lado, se para quaisquer <span class="math inline">\(x&gt;y\in D\)</span> se observar a relação <span class="math display">\[f(x)&gt;f(y),\]</span> então <span class="math inline">\(f(x)\)</span> será dita ser monótona decrescente no intervalo <span class="math inline">\(D\)</span>.</p>
+</div>
+<div class="alert alert-success">
+<p><strong>Proposição.</strong></p>
+<ol type="1">
+<li>Se <span class="math inline">\(f'(x)&gt;0\)</span> para todo <span class="math inline">\(x\)</span>, então <span class="math inline">\(f\)</span> é monótona crescente.</li>
+<li>Se <span class="math inline">\(f'(x)&lt;0\)</span> para todo <span class="math inline">\(x\)</span>, então <span class="math inline">\(f\)</span> é monótona decrescente.</li>
+</ol>
+</div>
+<div class="alert alert-info">
+<p><strong>Exemplo.</strong> Seja <span class="math display">\[f(x)=\log(x)I(0&lt;x\leq 4)\]</span> Observe que <span class="math display">\[\frac{d}{dx}f(x)=\frac{1}{x}I(0&lt;x\leq 4).\]</span> Observe que a derivada acima não pode ser nula no intervalo de interesse (<span class="math inline">\(D=(0,4]\)</span>). Como ela é sempre positiva, a função <span class="math inline">\(f\)</span> é monótona crescente. Como o maior valor possível em <span class="math inline">\(D\)</span> é 4, teremo que <span class="math inline">\(x^*=4\)</span> é o ponto de máximo global.</p>
+</div>
+<div class="alert alert-info">
+<p><strong>Exemplo.</strong> Seja <span class="math display">\[f(x)=\frac{1}{x}I(x\geq 3)\]</span> Observe que <span class="math display">\[\frac{d}{dx}f(x)=-\frac{1}{x^2}I(x\geq 3).\]</span> Observe que a derivada acima não pode ser nula no intervalo de interesse (<span class="math inline">\(D=[3,\infty)\)</span>). Como ela é sempre negativa, a função <span class="math inline">\(f\)</span> é monótona decrescente. Como o menor valor possível em <span class="math inline">\(D\)</span> é 3, teremo que <span class="math inline">\(x^*=3\)</span> é o ponto de máximo global.</p>
+</div>
 
 
 </section>

@@ -251,4 +251,309 @@ $$\sigma_{r,s}=Cov(X^r,X^s).$$
 
 ## A função de distribuição empírica e o método bootstrap
 
+Seja $X_1,\ldots,X_n$ uma amostra alestória da população, cuja função distribuição, denotada por $F$, é desconhecida. Nesse caso, $F$ pertence à classe de todas as funções de distribuição.
+
+<div class='alert alert-success'>
+**Definição.** A função de distribuição empírica (FDE) é definida por
+$$\hat{F}_{n}(x)=\frac{1}{n}\sum_{i=1}^n I(X_i\leq x).$$
+</div>
+
+Observe que a função de distribuição empírica é uma estatística, cuja distribuição empírica se altera para cada valor de $x$ fixado. É importante notar que $x$ é o argumento da função e não está relacionado com a amostra observada. O valor observado dessa estatística, para $x$ fixado, recebe a mesma notação:
+
+$$\hat{F}_{n}(x)=\frac{1}{n}\sum_{i=1}^n I(x_i\leq x).$$
+Nos textos básicos de estatística, $\hat{F}_n(x)$ é comumente denominada função de distribuição acumulada.
+
+Observe que
+
+$$E(\hat{F}_{n}(x))=\frac{1}{n}\sum_{i=1}^n E(I(X_i\leq x))=E(I(X\leq x))=0.P(X>x)+1.P(X\leq 1)=F(x),$$
+logo, a função de distribuição empírica é um estimador não viciado para a população. Além disso,
+
+$$\begin{align}Var(\hat{F}_{n}(x))&=\frac{1}{n^2}\sum_{i=1}^n Var(I(X_i\leq x))=\frac{1}{n}Var(I(X\leq x))\\&=\frac{1}{n}\left[(0-F(x))^2.P(X>x)+(1-F(x))^2.P(X\leq x)\right]\\&=\frac{1}{n}\left[F(x)^2(1-F(x))+F(x)+F(x)^3-2F(x)^2\right]\\&=\frac{1}{n}\left[F(x)-F(x)^2\right]=\frac{1}{n}F(x)(1-F(x)),\end{align}$$
+portanto, para qualquer valor de $x$ fixado,
+$$\lim_{n\rightarrow\infty }EQM_{\hat{F}_n}(F)=0,$$
+e $\hat{F}_n$ é um estimador consistente.
+
+A função de distribuição empírica é equivalente a função de distribuição obtida quando consideramos que cada ponto de uma amostra observada de tamanho $n$ possui probabilidade $1/n$.  
+
+<div class='alert alert-info'>
+**Exemplo.** O banco de dados abaixo possui o peso, em gramas, de 37.439 bebês nascidos no Amazonas em 2010 com mais de 47 semanas de gestação.
+
+```{r}
+url <- 'https://docs.google.com/spreadsheets/d/1mEpPFyVaU3DjwYvWGhZDS_0EsESLRERSed475P-_29U/edit?usp=sharing'
+require(gsheet)
+
+dados <-  gsheet2tbl(url)
+```
+
+O comando `ecdf` retorna a função de distribuição empírica da amostra. Abaixo, mostramos o gráfico dessa função estimada. 
+
+```{r}
+Fn <- ecdf(dados$PESO)
+plot( Fn, main = ' ', xlab = 'Peso')
+```
+
+Observe na figura acima o típico formato em S esperado pela função de distribuição da distribuição normal. Assumindo que os dados são provenientes de uma população normal, podemos utilizar o princípio da substituição e estimar sua função por
+$$\tilde{F}_n(x)=\int_{-\infty}^x \frac{1}{\sqrt{2\pi s_n^2}}e^{-\frac{1}{2s_n^2}(x-\bar{x})^2}.$$
+Portanto, temos duas estimativas para a função de distribuição. Comparar as duas é a base dos testes de bondade de ajuste. Se as duas diferem, temos evidências de que o modelo paramétrico escolhido não é adequado. A figura abaixo faz o gráfico de $\hat{F}_n$ e $\tilde{F}_n$, monstrando que há evidências de que os dados são provenientes de uma população normal.
+
+```{r}
+Fn <- ecdf(dados$PESO)
+Ftil <- function(x) pnorm(x, mean(dados$PESO), sd(dados$PESO))
+plot( Fn, main = ' ', xlab = 'Peso', lwd = 2, col ='darkorange4')
+curve(Ftil(x), add=T, col ='seagreen', lwd = 2)
+```
+</div>
+
+### Estimação do erro padrão via bootstrap
+
+Seja $X_1,\ldots,X_n$ uma amostra aleatória e seja $T$ uma estatística. Sabemos que o erro padrão de $T$ é uma importante da qualidade de $T$. Entretando, nem sempre é trivial obter uma estimativa para o erro padrão.
+
+Suponha que é possível repetir esse experimento $B$ vezes e seja $t_i$ o valor observado da estatística na $i$-ésima repetição. Então, o erro padrão poderia ser facilmente estimado por
+
+$$\widehat{SE}(T)=\sqrt{\frac{1}{B-1}\sum_{i=1}^B(t_i-\bar{t})^2},$$
+onde $\bar{t}$ é a média amostral de $t_1,\ldots,t_B$. 
+
+Em geral não é possível repetir o experimento várias vezes. Em vez disso, podemos simular novas amostras considerando que a verdadeira distribuição é $\hat{F}_n(.)$. Cada amostra aleatória simulada é obtida via amostragem aleatória simples com reposição considerando a amostra original. O cálculo do erro padrão utilizando os valores de $t$ obtidos deste modo é denominado bootstrap
+
+<div class='alert alert-danger'>
+**Algoritmo: Metodo bootstrap**
+
+Seja $x_1,\ldots,x_n$ a amostra observada. Para $i=1,\ldots,B$
+
+ * Passo $i$:  colete $x_1^*,\ldots,x_n^*$ utilizando uma amostragem aleatória simples com reposição de $x_1,\ldots,x_n$. Calcule $t_i=T(x_1^*,\ldots,x_n^*)$
+
+ * Calcule 
+
+$$\widehat{SE}(T)=\sqrt{\frac{1}{B-1}\sum_{i=1}^B(t_i-\bar{t})^2}$$
+</div>
+
+
+<div class='alert alert-info'>
+**Exemplo.** Considere o seguinte subconjunto da amostra utilizada no exemplo anterior:
+
+```{r}
+amostra <- dados$PESO[1:30]
+amostra
+```
+
+Podemos obter uma amostra da função de distribuição empírica sorteando 30 dos números acima ao acaso com reposição
+
+```{r}
+sorteio <- sample(amostra, 30, T)
+sorteio
+```
+
+Vamos calcular o erro padrão de $\bar{X}_{30}$ utilizano do método bootstrap:
+
+
+```{r}
+t <- NULL
+B <- 10000
+for( i in 1:B){ 
+sorteio <- sample(amostra, 30, T)
+t[i] <- mean(sorteio)
+}
+
+# erro padrão
+sd(t)
+```
+Compare esse valor com o erro padrão estimado por $S_n/\sqrt{30}$:
+```{r}
+sd(amostra)/sqrt(30)
+```
+</div>
+
+
+## Tópicos de maximização de funções*
+
+Seja $f(.)$ uma função real. Dizemos que $x^*$ é um ponto de máximo global se, para todo $x$ no domínio de $f$, 
+$$f(x)\leq f(x^*).$$
+
+<div class='alert alert-info'>
+**Exemplo.**
+Seja
+$$f(x)= -x^2.$$
+Quando $x=0$, teremos que $f(0)=0$. Para qualquer outro valor de $x$, teremos $f(x)<0$. Portanto,
+$$f(x)\leq f(0)$$
+e $x^*=0$ é o ponto de máximo.
+</div>
+
+<div class='alert alert-info'>
+**Exemplo.**
+Seja
+$$f(x)= I(0\leq x \leq 2).$$
+
+Quando $x\notin[0,2]$, teremos que $f(x)=0$. Para qualquer valor de $x\in[0,2]$, teremos $f(x)=1$. Portanto,
+$$f(x)\leq f(x^*)$$
+onde $x^*$ é qualquer ponto dentro do intervalo $[0,1]$. Nesse caso, existem infinitos pontos de máximo.
+</div>
+
+<div class='alert alert-info'>
+**Exemplo.**
+Seja
+
+$$f(x)= xI(0\leq x < 2).$$
+
+Quando $x\notin[0,2)$, teremos que $f(x)=0$. Para qualquer valor de $x\in[0,2)$, teremos $f(x)=x$. 
+
+Sabemos que, quanto mais próximo de 2, maior é o valor de $x$. Entretanto, como $f(2)=0$, temos que o máximo não está definido.
+</div>
+
+Quando $f(x)$ é contínua, podemos procurar numericamente pelo ponto de máximo utilizando um algoritmo de subida de montanha.
+
+<div class='alert alert-danger'>
+**Algoritmo de subida de montanha**
+
+Seja $f(x)$ uma função contínua no domínio $D\subseteq \mathbb{R}$. Escolha um valor $m^{(1)}$ como candidato a ponto máximo. Fixe $\delta>0$ pequeno. Na $j$-ésima iteração
+
+1. Compute $f(m^{(j)}-\delta)$ e $f(m^{(j)}+\delta)$.
+2. Se 
+$$f(m^{(j)})< f(m^{(j)}+\delta),$$
+então $m^{(j)}$ não pode ser ponto de máximo. Crie um candidato novo $m^{(j+1)}=m^{(j)}+\delta$.
+
+3. Se 
+$$f(m^{(j)})< f(m^{(j)}-\delta),$$
+então $m^{(j)}$ não pode ser ponto de máximo. Crie um candidato novo $m^{(j+1)}=m^{(j)}-\delta$.
+
+Repita o algoritmo até encontrar um ponto de máximo.
+</div>
+
+A figura abaixo apresenta uma função com diferentes regiões que podem interferir na determinação do ponto de máximo global via um algoritmo de subida de montanha. Os pontos em vermelho são diferentes valores iniciais para o algoritmo e os respectivos extremos dos segmentos vermelhos indicam os valores $m-\delta$ e $m+\delta$ que serão testados. Observe que:
+
+* Ao começar em $A$, o algoritmo encontra o ponto de máximo global.
+
+* Ao começar em $B$, o algoritmo vai parar em um ponto de máximo local
+
+* Ao começar em $C$, o algortimo vai parar em algum ponto do platô.
+
+```{r echo = F}
+Fun <- function(x){
+  a <- (1-x^2)*ifelse( x>=-1 & x<=1,1,0)
+  b <-  (1-(x-2)^2)*ifelse( x>1 & x<=2.6,.5,0)
+  c <- ifelse( x>2.6 & x<3.5,.5*(1-(2.6-2)^2),0)
+  d <-  .32*(3.5^8/(x)^8)*ifelse( x>=3.5,1,0)
+  a+b+c+d
+}
+plot.new()
+plot.window( xlim=c(-1,5), ylim=c(0,1.2))
+curve(Fun(x),add=T, lwd = 3)
+axis(1);axis(2)
+points(0,1,pch=16, cex=2)
+points(2,.5,pch=16, cex=2)
+text(0,1.2,'máximo global')
+text(2,.7,'máximo local')
+arrows(3.2,.5,3.5,.7,code=1, length = .1, lwd = 2)
+text(3.8,.8,'platô')
+points(-.8, (1-(-.8)^2), pch = 16, col='red', cex = 1.5)
+text(-.8, (1-(-.8)^2)+.1, 'A')
+segments(-1,(1-(-.8)^2),-.6,(1-(-.8)^2), lwd = 2, col = 'red')
+points(1.3, .5*(1-(1.3-2)^2), pch = 16, col='red', cex = 1.5)
+text(1.3, .5*(1-(1.3-2)^2)+.1, 'B')
+segments(1.1,.5*(1-(1.3-2)^2),1.5,.5*(1-(1.3-2)^2), lwd = 2, col = 'red')
+points(4, .32*(3.5^8/(4)^8), pch = 16, col='red', cex = 1.5)
+text(4, .32*(3.5^8/(4)^8)+.1, 'C')
+
+segments(3.8,.32*(3.5^8/(4)^8),4.2,.32*(3.5^8/(4)^8), lwd = 2, col = 'red')
+
+```
+
+<div class='alert alert-success'>
+**Definição** Seja $f$ uma função definida em $D\subseteq \mathbb{R}$. Dizemos que $x^{*}$ é um ponto de máximo local se, para algum $B\subset D$, 
+$$f(x)\leq f(x^{*}),\;\;\forall\;\;x\in B.$$
+</div>
+
+Por definição, todo máximo global também é um máximo local. Vamos discutir em quais condições é possível encontrar os pontos de máximo locais. Considere que $f(x)$ é diferenciável para todo $x$ e que sua derivada é contínua. Como $f'(x)$ é o coeficiente angular da reta que passa tangente ao ponto $x$, temos que $x^*$ ponto que satisfaz $f'(x^*)=0$ só pode ser um ponto de máximo (local), mínimo (local) ou ponto de inflexão (essas três possibilidades são denominadas pontos críticos). A figura abaixo ilustra essas três situações.
+
+```{r echo = FALSE}
+oo <- par( mfrow=c(1,3))
+curve( x^2,-.5,.5, lwd = 2, main='Mínimo local')
+points(0,0, pch=16, cex= 1.2)
+arrows(-.3,0,.3,0, code = 2,lwd=2, length=.1)
+curve( -(x)^2,-.5,.5, lwd = 2, main='Máximo local')
+points(0,0, pch=16, cex= 1.2)
+arrows(-.3,0,.3,0, code = 2,lwd=2, length=.1)
+curve( (x)^3,-.5,.5, lwd = 2, main='Ponto de inflexão')
+points(0,0, pch=16, cex= 1.2)
+arrows(-.3,0,.3,0, code = 2,lwd=2, length=.1)
+par(oo)
+```
+Para distinguir se o ponto crítico é um ponto de máximo local, devemos verificar a concavidade da função no ponto.
+
+* se $f''(x^*)>0$, então a concavidade de $f$ no ponto $x^*$ é voltada para cima (no formato $\cup$). Então $x^*$ é um ponto de mínimo local
+
+* se $f''(x^*)<0$, então a concavidade de $f$ no ponto $x^*$ é voltada para baixo (no formato $\cap$). Então $x^*$ é um ponto de máximo local
+
+Portanto, desde que a função possua as duas derivadas contínuas, pode-se encontrar todos os pontos críticos e determinar o máximo global da função.
+
+<div class='alert alert-warning'>
+**Importante.** Em problemas de maximização, tanto analíticos quanto computacionais, é usual procupar pelo ponto de máximo global de $f(x)$ na função $\log f(x)$. Para entender o motivo, observe que
+
+1. Se $f(x)\leq f(x^*)$ para todo $x$, então $\log f(x)\leq \log f(x^*)$. Portanto, o ponto que maximiza $f$ também maximiza $\log f$ (e vice e versa)
+
+2. Ao aplicar o logaritmo, produtos são transformados em somas e potências em multiplicaçõces. Desse modo, o cálculo das derivadas tendem a ser mais simples.  
+</div>
+
+<div class='alert alert-info'>
+**Exemplo.** Seja
+$$f(x)=\frac{1}{\sqrt{2\pi}}e^{-\frac{x^2}{2}}$$
+Vamos encontrar o ponto de máximo global dessa função. Primeiro, observe que
+$$\log f(x)=\log\left(\frac{1}{\sqrt{2\pi}}\right)+\log\left(e^{-\frac{x^2}{2}}\right)=\log\left(\frac{1}{\sqrt{2\pi}}\right)-\frac{x^2}{2}$$
+A primeira derivada da função acima é
+$$\frac{d}{dx}\log f(x)=-x$$
+e o ponto crítico $x^*$ é encontrado como segue:
+$$-x^*=0\Rightarrow x^*=0$$
+
+A segunda derivada da função é
+$$\frac{d^2}{dx^2}\log f(x)=-1$$
+Como essa derivada sempre é negativa, ela também o será para $x^*$. Portanto $x^*$ é um ponto de máximo local. Como esse é o único ponto, ele também é o máximo global.
+</div>
+
+<div class='alert alert-info'>
+**Exemplo.** Seja
+$$f(x)=x^a(1-x)^b,$$
+onde $x\in(0,1)$ e $a,b>0$. Vamos encontrar o ponto de máximo global dessa função. Primeiro, observe que
+$$\log f(x)= a\log(x)+b\log(1-x)$$
+A primeira derivada da função acima é
+$$\frac{d}{dx}\log f(x)=\frac{a}{x}-\frac{b}{1-x}$$
+e o ponto crítico $x^*$ é encontrado como segue:
+$$\frac{a}{x^*}-\frac{b}{1-x^*}=0\Rightarrow a(1-x^*)-bx^{*}=0\Rightarrow x^*=\frac{a}{a+b}$$
+
+A segunda derivada da função é
+$$\frac{d^2}{dx^2}\log f(x)=-\frac{a}{x^2}-\frac{b}{(1-x)^2}.$$
+Como essa derivada sempre é negativa, ela também o será para $x^*$. Portanto $x^*$ é um ponto de máximo local. Como esse é o único ponto, ele também é o máximo global.
+</div>
+
+Observe que nem sempre teremos um ponto crítico, mas isso não implica na inexistência do ponto de máximo global. Entre os casos de interesse nesse curso, estão as funções monótonas em um intervalo.
+
+<div class='alert alert-success'>
+**Definição** Dizemos que $f(x)$ é monótona crescente no intervalo $D$ se, para quaisquer $x>y\in D$,
+$$f(x)<f(y).$$
+Por outro lado, se para quaisquer $x>y\in D$ se observar a relação
+$$f(x)>f(y),$$
+então $f(x)$ será dita ser monótona decrescente no intervalo $D$.
+</div>
+
+<div class='alert alert-success'>
+**Proposição.**
+
+1. Se $f'(x)>0$ para todo $x$, então $f$ é monótona crescente.
+2. Se $f'(x)<0$ para todo $x$, então $f$ é monótona decrescente.
+</div>
+
+<div class='alert alert-info'>
+**Exemplo.** Seja 
+$$f(x)=\log(x)I(0<x\leq 4)$$
+Observe que
+$$\frac{d}{dx}f(x)=\frac{1}{x}I(0<x\leq 4).$$
+Observe que a derivada acima não pode ser nula no intervalo de interesse ($D=(0,4]$). Como ela é sempre positiva, a função $f$ é monótona crescente. Como o maior valor possível em $D$ é 4, teremo que $x^*=4$ é o ponto de máximo global.
+</div>
+
+
+<div class='alert alert-info'>
+**Exemplo.** Seja 
+$$f(x)=\frac{1}{x}I(x\geq 3)$$
+Observe que
+$$\frac{d}{dx}f(x)=-\frac{1}{x^2}I(x\geq 3).$$
+Observe que a derivada acima não pode ser nula no intervalo de interesse ($D=[3,\infty)$). Como ela é sempre negativa, a função $f$ é monótona decrescente em $D$. Como o menor valor possível em $D$ é 3, teremo que $x^*=3$ é o ponto de máximo global.
+</div>
 

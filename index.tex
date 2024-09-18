@@ -52,6 +52,46 @@
   \renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
 \fi
 
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{241,243,245}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.40,0.45,0.13}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\BuiltInTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{\textit{#1}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{\textit{#1}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\ExtensionTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.28,0.35,0.67}{#1}}
+\newcommand{\ImportTok}[1]{\textcolor[rgb]{0.00,0.46,0.62}{#1}}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\NormalTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\RegionMarkerTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.07,0.07,0.07}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{\textit{#1}}}
 
 \providecommand{\tightlist}{%
   \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}\usepackage{longtable,booktabs,array}
@@ -1044,6 +1084,378 @@ onde \[\sigma_{r,s}=Cov(X^r,X^s).\]
 
 \section{A função de distribuição empírica e o método
 bootstrap}\label{a-funuxe7uxe3o-de-distribuiuxe7uxe3o-empuxedrica-e-o-muxe9todo-bootstrap}
+
+Seja \(X_1,\ldots,X_n\) uma amostra alestória da população, cuja função
+distribuição, denotada por \(F\), é desconhecida. Nesse caso, \(F\)
+pertence à classe de todas as funções de distribuição.
+
+\textbf{Definição.} A função de distribuição empírica (FDE) é definida
+por \[\hat{F}_{n}(x)=\frac{1}{n}\sum_{i=1}^n I(X_i\leq x).\]
+
+Observe que a função de distribuição empírica é uma estatística, cuja
+distribuição empírica se altera para cada valor de \(x\) fixado. É
+importante notar que \(x\) é o argumento da função e não está
+relacionado com a amostra observada. O valor observado dessa
+estatística, para \(x\) fixado, recebe a mesma notação:
+
+\[\hat{F}_{n}(x)=\frac{1}{n}\sum_{i=1}^n I(x_i\leq x).\] Nos textos
+básicos de estatística, \(\hat{F}_n(x)\) é comumente denominada função
+de distribuição acumulada.
+
+Observe que
+
+\[E(\hat{F}_{n}(x))=\frac{1}{n}\sum_{i=1}^n E(I(X_i\leq x))=E(I(X\leq x))=0.P(X>x)+1.P(X\leq 1)=F(x),\]
+logo, a função de distribuição empírica é um estimador não viciado para
+a população. Além disso,
+
+\[\begin{align}Var(\hat{F}_{n}(x))&=\frac{1}{n^2}\sum_{i=1}^n Var(I(X_i\leq x))=\frac{1}{n}Var(I(X\leq x))\\&=\frac{1}{n}\left[(0-F(x))^2.P(X>x)+(1-F(x))^2.P(X\leq x)\right]\\&=\frac{1}{n}\left[F(x)^2(1-F(x))+F(x)+F(x)^3-2F(x)^2\right]\\&=\frac{1}{n}\left[F(x)-F(x)^2\right]=\frac{1}{n}F(x)(1-F(x)),\end{align}\]
+portanto, para qualquer valor de \(x\) fixado,
+\[\lim_{n\rightarrow\infty }EQM_{\hat{F}_n}(F)=0,\] e \(\hat{F}_n\) é um
+estimador consistente.
+
+A função de distribuição empírica é equivalente a função de distribuição
+obtida quando consideramos que cada ponto de uma amostra observada de
+tamanho \(n\) possui probabilidade \(1/n\).
+
+\textbf{Exemplo.} O banco de dados abaixo possui o peso, em gramas, de
+37.439 bebês nascidos no Amazonas em 2010 com mais de 47 semanas de
+gestação.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{url }\OtherTok{\textless{}{-}} \StringTok{\textquotesingle{}https://docs.google.com/spreadsheets/d/1mEpPFyVaU3DjwYvWGhZDS\_0EsESLRERSed475P{-}\_29U/edit?usp=sharing\textquotesingle{}}
+\FunctionTok{require}\NormalTok{(gsheet)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+Carregando pacotes exigidos: gsheet
+\end{verbatim}
+
+\begin{verbatim}
+Warning: package 'gsheet' was built under R version 4.3.2
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{dados }\OtherTok{\textless{}{-}}  \FunctionTok{gsheet2tbl}\NormalTok{(url)}
+\end{Highlighting}
+\end{Shaded}
+
+O comando \texttt{ecdf} retorna a função de distribuição empírica da
+amostra. Abaixo, mostramos o gráfico dessa função estimada.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{Fn }\OtherTok{\textless{}{-}} \FunctionTok{ecdf}\NormalTok{(dados}\SpecialCharTok{$}\NormalTok{PESO)}
+\FunctionTok{plot}\NormalTok{( Fn, }\AttributeTok{main =} \StringTok{\textquotesingle{} \textquotesingle{}}\NormalTok{, }\AttributeTok{xlab =} \StringTok{\textquotesingle{}Peso\textquotesingle{}}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{pontual_files/figure-pdf/unnamed-chunk-2-1.pdf}
+
+Observe na figura acima o típico formato em S esperado pela função de
+distribuição da distribuição normal. Assumindo que os dados são
+provenientes de uma população normal, podemos utilizar o princípio da
+substituição e estimar sua função por
+\[\tilde{F}_n(x)=\int_{-\infty}^x \frac{1}{\sqrt{2\pi s_n^2}}e^{-\frac{1}{2s_n^2}(x-\bar{x})^2}.\]
+Portanto, temos duas estimativas para a função de distribuição. Comparar
+as duas é a base dos testes de bondade de ajuste. Se as duas diferem,
+temos evidências de que o modelo paramétrico escolhido não é adequado. A
+figura abaixo faz o gráfico de \(\hat{F}_n\) e \(\tilde{F}_n\),
+monstrando que há evidências de que os dados são provenientes de uma
+população normal.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{Fn }\OtherTok{\textless{}{-}} \FunctionTok{ecdf}\NormalTok{(dados}\SpecialCharTok{$}\NormalTok{PESO)}
+\NormalTok{Ftil }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(x) }\FunctionTok{pnorm}\NormalTok{(x, }\FunctionTok{mean}\NormalTok{(dados}\SpecialCharTok{$}\NormalTok{PESO), }\FunctionTok{sd}\NormalTok{(dados}\SpecialCharTok{$}\NormalTok{PESO))}
+\FunctionTok{plot}\NormalTok{( Fn, }\AttributeTok{main =} \StringTok{\textquotesingle{} \textquotesingle{}}\NormalTok{, }\AttributeTok{xlab =} \StringTok{\textquotesingle{}Peso\textquotesingle{}}\NormalTok{, }\AttributeTok{lwd =} \DecValTok{2}\NormalTok{, }\AttributeTok{col =}\StringTok{\textquotesingle{}darkorange4\textquotesingle{}}\NormalTok{)}
+\FunctionTok{curve}\NormalTok{(}\FunctionTok{Ftil}\NormalTok{(x), }\AttributeTok{add=}\NormalTok{T, }\AttributeTok{col =}\StringTok{\textquotesingle{}seagreen\textquotesingle{}}\NormalTok{, }\AttributeTok{lwd =} \DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{pontual_files/figure-pdf/unnamed-chunk-3-1.pdf}
+
+\subsection{Estimação do erro padrão via
+bootstrap}\label{estimauxe7uxe3o-do-erro-padruxe3o-via-bootstrap}
+
+Seja \(X_1,\ldots,X_n\) uma amostra aleatória e seja \(T\) uma
+estatística. Sabemos que o erro padrão de \(T\) é uma importante da
+qualidade de \(T\). Entretando, nem sempre é trivial obter uma
+estimativa para o erro padrão.
+
+Suponha que é possível repetir esse experimento \(B\) vezes e seja
+\(t_i\) o valor observado da estatística na \(i\)-ésima repetição.
+Então, o erro padrão poderia ser facilmente estimado por
+
+\[\widehat{SE}(T)=\sqrt{\frac{1}{B-1}\sum_{i=1}^B(t_i-\bar{t})^2},\]
+onde \(\bar{t}\) é a média amostral de \(t_1,\ldots,t_B\).
+
+Em geral não é possível repetir o experimento várias vezes. Em vez
+disso, podemos simular novas amostras considerando que a verdadeira
+distribuição é \(\hat{F}_n(.)\). Cada amostra aleatória simulada é
+obtida via amostragem aleatória simples com reposição considerando a
+amostra original. O cálculo do erro padrão utilizando os valores de
+\(t\) obtidos deste modo é denominado bootstrap
+
+\textbf{Algoritmo: Metodo bootstrap}
+
+Seja \(x_1,\ldots,x_n\) a amostra observada. Para \(i=1,\ldots,B\)
+
+\begin{itemize}
+\item
+  Passo \(i\): colete \(x_1^*,\ldots,x_n^*\) utilizando uma amostragem
+  aleatória simples com reposição de \(x_1,\ldots,x_n\). Calcule
+  \(t_i=T(x_1^*,\ldots,x_n^*)\)
+\item
+  Calcule
+\end{itemize}
+
+\[\widehat{SE}(T)=\sqrt{\frac{1}{B-1}\sum_{i=1}^B(t_i-\bar{t})^2}\]
+
+\textbf{Exemplo.} Considere o seguinte subconjunto da amostra utilizada
+no exemplo anterior:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{amostra }\OtherTok{\textless{}{-}}\NormalTok{ dados}\SpecialCharTok{$}\NormalTok{PESO[}\DecValTok{1}\SpecialCharTok{:}\DecValTok{30}\NormalTok{]}
+\NormalTok{amostra}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+ [1] 3230 3960 3070 3670 3770 3135 3095 3085 3095 3405 3575 2600 3645 3255 3140
+[16] 3070 2970 2650 3195 3450 3125 3130 3370 2960 2945 2965 2795 3195 3680 2825
+\end{verbatim}
+
+Podemos obter uma amostra da função de distribuição empírica sorteando
+30 dos números acima ao acaso com reposição
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{sorteio }\OtherTok{\textless{}{-}} \FunctionTok{sample}\NormalTok{(amostra, }\DecValTok{30}\NormalTok{, T)}
+\NormalTok{sorteio}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+ [1] 3195 3770 3450 2650 3140 2965 3195 3960 3085 2970 2965 3230 3770 3405 3405
+[16] 2650 3140 3195 3085 2825 3125 3370 3255 2960 2600 3230 3135 3095 3085 3255
+\end{verbatim}
+
+Vamos calcular o erro padrão de \(\bar{X}_{30}\) utilizano do método
+bootstrap:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{t }\OtherTok{\textless{}{-}} \ConstantTok{NULL}
+\NormalTok{B }\OtherTok{\textless{}{-}} \DecValTok{10000}
+\ControlFlowTok{for}\NormalTok{( i }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\NormalTok{B)\{ }
+\NormalTok{sorteio }\OtherTok{\textless{}{-}} \FunctionTok{sample}\NormalTok{(amostra, }\DecValTok{30}\NormalTok{, T)}
+\NormalTok{t[i] }\OtherTok{\textless{}{-}} \FunctionTok{mean}\NormalTok{(sorteio)}
+\NormalTok{\}}
+
+\CommentTok{\# erro padrão}
+\FunctionTok{sd}\NormalTok{(t)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] 58.20815
+\end{verbatim}
+
+Compare esse valor com o erro padrão estimado por \(S_n/\sqrt{30}\):
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{sd}\NormalTok{(amostra)}\SpecialCharTok{/}\FunctionTok{sqrt}\NormalTok{(}\DecValTok{30}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] 59.83766
+\end{verbatim}
+
+\section{Tópicos de maximização de
+funções*}\label{tuxf3picos-de-maximizauxe7uxe3o-de-funuxe7uxf5es}
+
+Seja \(f(.)\) uma função real. Dizemos que \(x^*\) é um ponto de máximo
+global se, para todo \(x\) no domínio de \(f\), \[f(x)\leq f(x^*).\]
+
+\textbf{Exemplo.} Seja \[f(x)= -x^2.\] Quando \(x=0\), teremos que
+\(f(0)=0\). Para qualquer outro valor de \(x\), teremos \(f(x)<0\).
+Portanto, \[f(x)\leq f(0)\] e \(x^*=0\) é o ponto de máximo.
+
+\textbf{Exemplo.} Seja \[f(x)= I(0\leq x \leq 2).\]
+
+Quando \(x\notin[0,2]\), teremos que \(f(x)=0\). Para qualquer valor de
+\(x\in[0,2]\), teremos \(f(x)=1\). Portanto, \[f(x)\leq f(x^*)\] onde
+\(x^*\) é qualquer ponto dentro do intervalo \([0,1]\). Nesse caso,
+existem infinitos pontos de máximo.
+
+\textbf{Exemplo.} Seja
+
+\[f(x)= xI(0\leq x < 2).\]
+
+Quando \(x\notin[0,2)\), teremos que \(f(x)=0\). Para qualquer valor de
+\(x\in[0,2)\), teremos \(f(x)=x\).
+
+Sabemos que, quanto mais próximo de 2, maior é o valor de \(x\).
+Entretanto, como \(f(2)=0\), temos que o máximo não está definido.
+
+Quando \(f(x)\) é contínua, podemos procurar numericamente pelo ponto de
+máximo utilizando um algoritmo de subida de montanha.
+
+\textbf{Algoritmo de subida de montanha}
+
+Seja \(f(x)\) uma função contínua no domínio \(D\subseteq \mathbb{R}\).
+Escolha um valor \(m^{(1)}\) como candidato a ponto máximo. Fixe
+\(\delta>0\) pequeno. Na \(j\)-ésima iteração
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  Compute \(f(m^{(j)}-\delta)\) e \(f(m^{(j)}+\delta)\).
+\item
+  Se \[f(m^{(j)})< f(m^{(j)}+\delta),\] então \(m^{(j)}\) não pode ser
+  ponto de máximo. Crie um candidato novo \(m^{(j+1)}=m^{(j)}+\delta\).
+\item
+  Se \[f(m^{(j)})< f(m^{(j)}-\delta),\] então \(m^{(j)}\) não pode ser
+  ponto de máximo. Crie um candidato novo \(m^{(j+1)}=m^{(j)}-\delta\).
+\end{enumerate}
+
+Repita o algoritmo até encontrar um ponto de máximo.
+
+A figura abaixo apresenta uma função com diferentes regiões que podem
+interferir na determinação do ponto de máximo global via um algoritmo de
+subida de montanha. Os pontos em vermelho são diferentes valores
+iniciais para o algoritmo e os respectivos extremos dos segmentos
+vermelhos indicam os valores \(m-\delta\) e \(m+\delta\) que serão
+testados. Observe que:
+
+\begin{itemize}
+\item
+  Ao começar em \(A\), o algoritmo encontra o ponto de máximo global.
+\item
+  Ao começar em \(B\), o algoritmo vai parar em um ponto de máximo local
+\item
+  Ao começar em \(C\), o algortimo vai parar em algum ponto do platô.
+\end{itemize}
+
+\includegraphics{pontual_files/figure-pdf/unnamed-chunk-8-1.pdf}
+
+\textbf{Definição} Seja \(f\) uma função definida em
+\(D\subseteq \mathbb{R}\). Dizemos que \(x^{*}\) é um ponto de máximo
+local se, para algum \(B\subset D\),
+\[f(x)\leq f(x^{*}),\;\;\forall\;\;x\in B.\]
+
+Por definição, todo máximo global também é um máximo local. Vamos
+discutir em quais condições é possível encontrar os pontos de máximo
+locais. Considere que \(f(x)\) é diferenciável para todo \(x\) e que sua
+derivada é contínua. Como \(f'(x)\) é o coeficiente angular da reta que
+passa tangente ao ponto \(x\), temos que \(x^*\) ponto que satisfaz
+\(f'(x^*)=0\) só pode ser um ponto de máximo (local), mínimo (local) ou
+ponto de inflexão (essas três possibilidades são denominadas pontos
+críticos). A figura abaixo ilustra essas três situações.
+
+\includegraphics{pontual_files/figure-pdf/unnamed-chunk-9-1.pdf}
+
+Para distinguir se o ponto crítico é um ponto de máximo local, devemos
+verificar a concavidade da função no ponto.
+
+\begin{itemize}
+\item
+  se \(f''(x^*)>0\), então a concavidade de \(f\) no ponto \(x^*\) é
+  voltada para cima (no formato \(\cup\)). Então \(x^*\) é um ponto de
+  mínimo local
+\item
+  se \(f''(x^*)<0\), então a concavidade de \(f\) no ponto \(x^*\) é
+  voltada para baixo (no formato \(\cap\)). Então \(x^*\) é um ponto de
+  máximo local
+\end{itemize}
+
+Portanto, desde que a função possua as duas derivadas contínuas, pode-se
+encontrar todos os pontos críticos e determinar o máximo global da
+função.
+
+\textbf{Importante.} Em problemas de maximização, tanto analíticos
+quanto computacionais, é usual procupar pelo ponto de máximo global de
+\(f(x)\) na função \(\log f(x)\). Para entender o motivo, observe que
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  Se \(f(x)\leq f(x^*)\) para todo \(x\), então
+  \(\log f(x)\leq \log f(x^*)\). Portanto, o ponto que maximiza \(f\)
+  também maximiza \(\log f\) (e vice e versa)
+\item
+  Ao aplicar o logaritmo, produtos são transformados em somas e
+  potências em multiplicaçõces. Desse modo, o cálculo das derivadas
+  tendem a ser mais simples.\\
+\end{enumerate}
+
+\textbf{Exemplo.} Seja \[f(x)=\frac{1}{\sqrt{2\pi}}e^{-\frac{x^2}{2}}\]
+Vamos encontrar o ponto de máximo global dessa função. Primeiro, observe
+que
+\[\log f(x)=\log\left(\frac{1}{\sqrt{2\pi}}\right)+\log\left(e^{-\frac{x^2}{2}}\right)=\log\left(\frac{1}{\sqrt{2\pi}}\right)-\frac{x^2}{2}\]
+A primeira derivada da função acima é \[\frac{d}{dx}\log f(x)=-x\] e o
+ponto crítico \(x^*\) é encontrado como segue:
+\[-x^*=0\Rightarrow x^*=0\]
+
+A segunda derivada da função é \[\frac{d^2}{dx^2}\log f(x)=-1\] Como
+essa derivada sempre é negativa, ela também o será para \(x^*\).
+Portanto \(x^*\) é um ponto de máximo local. Como esse é o único ponto,
+ele também é o máximo global.
+
+\textbf{Exemplo.} Seja \[f(x)=x^a(1-x)^b,\] onde \(x\in(0,1)\) e
+\(a,b>0\). Vamos encontrar o ponto de máximo global dessa função.
+Primeiro, observe que \[\log f(x)= a\log(x)+b\log(1-x)\] A primeira
+derivada da função acima é
+\[\frac{d}{dx}\log f(x)=\frac{a}{x}-\frac{b}{1-x}\] e o ponto crítico
+\(x^*\) é encontrado como segue:
+\[\frac{a}{x^*}-\frac{b}{1-x^*}=0\Rightarrow a(1-x^*)-bx^{*}=0\Rightarrow x^*=\frac{a}{a+b}\]
+
+A segunda derivada da função é
+\[\frac{d^2}{dx^2}\log f(x)=-\frac{a}{x^2}-\frac{b}{(1-x)^2}.\] Como
+essa derivada sempre é negativa, ela também o será para \(x^*\).
+Portanto \(x^*\) é um ponto de máximo local. Como esse é o único ponto,
+ele também é o máximo global.
+
+Observe que nem sempre teremos um ponto crítico, mas isso não implica na
+inexistência do ponto de máximo global. Entre os casos de interesse
+nesse curso, estão as funções monótonas em um intervalo.
+
+\textbf{Definição} Dizemos que \(f(x)\) é monótona crescente no
+intervalo \(D\) se, para quaisquer \(x>y\in D\), \[f(x)<f(y).\] Por
+outro lado, se para quaisquer \(x>y\in D\) se observar a relação
+\[f(x)>f(y),\] então \(f(x)\) será dita ser monótona decrescente no
+intervalo \(D\).
+
+\textbf{Proposição.}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Se \(f'(x)>0\) para todo \(x\), então \(f\) é monótona crescente.
+\item
+  Se \(f'(x)<0\) para todo \(x\), então \(f\) é monótona decrescente.
+\end{enumerate}
+
+\textbf{Exemplo.} Seja \[f(x)=\log(x)I(0<x\leq 4)\] Observe que
+\[\frac{d}{dx}f(x)=\frac{1}{x}I(0<x\leq 4).\] Observe que a derivada
+acima não pode ser nula no intervalo de interesse (\(D=(0,4]\)). Como
+ela é sempre positiva, a função \(f\) é monótona crescente. Como o maior
+valor possível em \(D\) é 4, teremo que \(x^*=4\) é o ponto de máximo
+global.
+
+\textbf{Exemplo.} Seja \[f(x)=\frac{1}{x}I(x\geq 3)\] Observe que
+\[\frac{d}{dx}f(x)=-\frac{1}{x^2}I(x\geq 3).\] Observe que a derivada
+acima não pode ser nula no intervalo de interesse (\(D=[3,\infty)\)).
+Como ela é sempre negativa, a função \(f\) é monótona decrescente. Como
+o menor valor possível em \(D\) é 3, teremo que \(x^*=3\) é o ponto de
+máximo global.
 
 \bookmarksetup{startatroot}
 
