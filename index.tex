@@ -884,10 +884,10 @@ substituição}\label{o-princuxedpio-da-substituiuxe7uxe3o}
 
 Discutimos anteriormente que as características de interesse presentes
 na população são funções dos parâmetros populacionais. Ao se obter uma
-estimativa para \(\theta\), é natural que essa estimativa seja
-utilizadas para estimar qualquer função de \(\theta\).
+estimativa para \(\theta\), é natural que essa estimativa seja utilizada
+para estimar qualquer função de \(\theta\).
 
-\textbf{Princípio da substituição.} Seja \(T\) uma estimador para
+\textbf{Princípio da substituição.} Seja \(T\) um estimador para
 \(\theta\). Então, para qualquer função real \(g(.)\), \(g(T)\) será um
 estimador para \(g(\theta)\).
 
@@ -924,7 +924,7 @@ logo
 \[\underbrace{E\left(g(T_n)-g(\theta)\right)^2}_{EQM_{g(T_n)}(g(\theta))}\approx \underbrace{E\left(T-\theta\right)^2}_{EQM_{T_n}(\theta)} [g'(\theta)]^2\]
 
 Portanto, se \(T_n\) for consistente, então \(g(T_n)\) também será
-consistente. Além disso, pode-se mostrar que\\
+consistente. Pode-se mostrar que\\
 \[\underbrace{E(g(T_n))-g(\theta)}_{\hbox{Vício}_{g(T_n)}(g(\theta))}\approx \underbrace{(E(T_n )-\theta)}_{\hbox{Vício}_{T_n}(\theta)}g'(\theta),\]
 e, se \(T_n\) é não viciado, teremos que \(g(T_n)\) será aproximadamente
 não viciado. Além disso,
@@ -1085,7 +1085,7 @@ onde \[\sigma_{r,s}=Cov(X^r,X^s).\]
 \section{A função de distribuição empírica e o método
 bootstrap}\label{a-funuxe7uxe3o-de-distribuiuxe7uxe3o-empuxedrica-e-o-muxe9todo-bootstrap}
 
-Seja \(X_1,\ldots,X_n\) uma amostra alestória da população, cuja função
+Seja \(X_1,\ldots,X_n\) uma amostra aleatória da população, cuja função
 distribuição, denotada por \(F\), é desconhecida. Nesse caso, \(F\)
 pertence à classe de todas as funções de distribuição.
 
@@ -1162,8 +1162,8 @@ substituição e estimar sua função por
 Portanto, temos duas estimativas para a função de distribuição. Comparar
 as duas é a base dos testes de bondade de ajuste. Se as duas diferem,
 temos evidências de que o modelo paramétrico escolhido não é adequado. A
-figura abaixo faz o gráfico de \(\hat{F}_n\) e \(\tilde{F}_n\),
-monstrando que há evidências de que os dados são provenientes de uma
+figura abaixo apresenta o gráfico de \(\hat{F}_n\) e \(\tilde{F}_n\),
+mostrando que há evidências de que os dados são provenientes de uma
 população normal.
 
 \begin{Shaded}
@@ -1181,9 +1181,9 @@ população normal.
 bootstrap}\label{estimauxe7uxe3o-do-erro-padruxe3o-via-bootstrap}
 
 Seja \(X_1,\ldots,X_n\) uma amostra aleatória e seja \(T\) uma
-estatística. Sabemos que o erro padrão de \(T\) é uma importante da
-qualidade de \(T\). Entretando, nem sempre é trivial obter uma
-estimativa para o erro padrão.
+estatística. Sabemos que o erro padrão de \(T\) é uma quantidade
+importante para avaliar a qualidade de \(T\). Entretando, nem sempre é
+trivial obter uma estimativa para o erro padrão.
 
 Suponha que é possível repetir esse experimento \(B\) vezes e seja
 \(t_i\) o valor observado da estatística na \(i\)-ésima repetição.
@@ -1240,11 +1240,11 @@ Podemos obter uma amostra da função de distribuição empírica sorteando
 \end{Shaded}
 
 \begin{verbatim}
- [1] 3195 3770 3450 2650 3140 2965 3195 3960 3085 2970 2965 3230 3770 3405 3405
-[16] 2650 3140 3195 3085 2825 3125 3370 3255 2960 2600 3230 3135 3095 3085 3255
+ [1] 2650 3960 3370 3680 3095 3130 2965 2795 3255 2825 2600 3370 3095 3095 3195
+[16] 2795 3960 3670 2945 3095 3125 3140 3095 3575 2600 3770 3230 3125 3195 3370
 \end{verbatim}
 
-Vamos calcular o erro padrão de \(\bar{X}_{30}\) utilizano do método
+Vamos calcular o erro padrão de \(\bar{X}_{30}\) utilizando do método
 bootstrap:
 
 \begin{Shaded}
@@ -1262,7 +1262,7 @@ bootstrap:
 \end{Shaded}
 
 \begin{verbatim}
-[1] 58.20815
+[1] 58.74776
 \end{verbatim}
 
 Compare esse valor com o erro padrão estimado por \(S_n/\sqrt{30}\):
@@ -1340,10 +1340,10 @@ testados. Observe que:
 \item
   Ao começar em \(B\), o algoritmo vai parar em um ponto de máximo local
 \item
-  Ao começar em \(C\), o algortimo vai parar em algum ponto do platô.
+  Ao começar em \(C\), o algoritmo vai parar em algum ponto do platô.
 \end{itemize}
 
-\includegraphics{pontual_files/figure-pdf/unnamed-chunk-8-1.pdf}
+\includegraphics{pontual_files/figure-pdf/unnamed-chunk-9-1.pdf}
 
 \textbf{Definição} Seja \(f\) uma função definida em
 \(D\subseteq \mathbb{R}\). Dizemos que \(x^{*}\) é um ponto de máximo
@@ -1359,7 +1359,7 @@ passa tangente ao ponto \(x\), temos que \(x^*\) ponto que satisfaz
 ponto de inflexão (essas três possibilidades são denominadas pontos
 críticos). A figura abaixo ilustra essas três situações.
 
-\includegraphics{pontual_files/figure-pdf/unnamed-chunk-9-1.pdf}
+\includegraphics{pontual_files/figure-pdf/unnamed-chunk-10-1.pdf}
 
 Para distinguir se o ponto crítico é um ponto de máximo local, devemos
 verificar a concavidade da função no ponto.
@@ -1368,7 +1368,7 @@ verificar a concavidade da função no ponto.
 \item
   se \(f''(x^*)>0\), então a concavidade de \(f\) no ponto \(x^*\) é
   voltada para cima (no formato \(\cup\)). Então \(x^*\) é um ponto de
-  mínimo local
+  mínimo local. Essa função também é denominada convexa.
 \item
   se \(f''(x^*)<0\), então a concavidade de \(f\) no ponto \(x^*\) é
   voltada para baixo (no formato \(\cap\)). Então \(x^*\) é um ponto de
@@ -1380,8 +1380,9 @@ encontrar todos os pontos críticos e determinar o máximo global da
 função.
 
 \textbf{Importante.} Em problemas de maximização, tanto analíticos
-quanto computacionais, é usual procupar pelo ponto de máximo global de
-\(f(x)\) na função \(\log f(x)\). Para entender o motivo, observe que
+quanto computacionais, é usual procurar pelo ponto de máximo global de
+\(f(x)\) através da função \(\log f(x)\). Para entender o motivo,
+observe que
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -1391,8 +1392,8 @@ quanto computacionais, é usual procupar pelo ponto de máximo global de
   também maximiza \(\log f\) (e vice e versa)
 \item
   Ao aplicar o logaritmo, produtos são transformados em somas e
-  potências em multiplicaçõces. Desse modo, o cálculo das derivadas
-  tendem a ser mais simples.\\
+  potências em multiplicações. Desse modo, os cálculos das derivadas
+  tendem a serem mais simples.\\
 \end{enumerate}
 
 \textbf{Exemplo.} Seja \[f(x)=\frac{1}{\sqrt{2\pi}}e^{-\frac{x^2}{2}}\]
@@ -1422,6 +1423,182 @@ essa derivada sempre é negativa, ela também o será para \(x^*\).
 Portanto \(x^*\) é um ponto de máximo local. Como esse é o único ponto,
 ele também é o máximo global.
 
+Para funções com mais de uma variável, diferenciáveis duas vezes, a
+ideia se mantém. Por exemplo, para duas variáveis, o vetor gradiente
+contém os coeficientes das retas que geram o plano que passa tangente ao
+ponto. Portanto, um ponto de máximo terá o vetor gradiente nulo. A
+figura abaixo ilustra essa situação.
+
+\begin{figure}
+
+\centering{
+
+\captionsetup{labelsep=none}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x}\OtherTok{\textless{}{-}} \FunctionTok{seq}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{2}\NormalTok{,}\DecValTok{2}\NormalTok{,.}\DecValTok{1}\NormalTok{)}
+\NormalTok{y }\OtherTok{\textless{}{-}}\NormalTok{ x}
+\NormalTok{z }\OtherTok{\textless{}{-}} \FunctionTok{outer}\NormalTok{(x,y,}\ControlFlowTok{function}\NormalTok{(a,b)}\FunctionTok{exp}\NormalTok{(}\SpecialCharTok{{-}}\NormalTok{a}\SpecialCharTok{\^{}}\DecValTok{2} \SpecialCharTok{{-}}\NormalTok{ b}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{) )}
+\NormalTok{rgl}\SpecialCharTok{::}\FunctionTok{persp3d}\NormalTok{( x,y,z,}\AttributeTok{zlim=}\FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\FloatTok{1.5}\NormalTok{))}
+\NormalTok{sqdf }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{x=}\FunctionTok{c}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{3}\NormalTok{,}\DecValTok{3}\NormalTok{,}\DecValTok{3}\NormalTok{,}\SpecialCharTok{{-}}\DecValTok{3}\NormalTok{),}
+                   \AttributeTok{y=}\FunctionTok{c}\NormalTok{(}\DecValTok{3}\NormalTok{,}\DecValTok{3}\NormalTok{,}\SpecialCharTok{{-}}\DecValTok{3}\NormalTok{,}\SpecialCharTok{{-}}\DecValTok{3}\NormalTok{),}
+                   \AttributeTok{z=}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{1}\NormalTok{) )}
+\NormalTok{rgl}\SpecialCharTok{::}\FunctionTok{polygon3d}\NormalTok{(sqdf}\SpecialCharTok{$}\NormalTok{x, sqdf}\SpecialCharTok{$}\NormalTok{y, sqdf}\SpecialCharTok{$}\NormalTok{z, }\AttributeTok{alpha=}\FloatTok{0.5}\NormalTok{,}
+          \AttributeTok{color=}\StringTok{"purple"}\NormalTok{, }\AttributeTok{add=}\ConstantTok{TRUE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{pontual_files/figure-pdf/unnamed-chunk-11-1-rgl.png}
+
+../../../AppData/Local/Temp/RtmpMnaSkf/file12ec27ca7cc5.png
+
+}
+
+\caption{\label{fig-rgl}}
+
+\end{figure}%
+
+Novamente, os pontos que tornam o vetor gradiente nulo são denominados
+pontos críticos. Para verificar se eles são pontos de máximo, podemos
+fazer o teste da concavidade, realizado com a hessiana (matriz
+construída com as derivadas parciais de segunda ordem):
+
+\begin{itemize}
+\item
+  Se a matriz hessiana aplicada no ponto crítico é positiva
+  semi-definida, \(f\) é uma função é convexa e o ponto é um mínimo
+  local.
+\item
+  Se a matriz hessiana aplicada no ponto crítico é negativa
+  semi-definida, \(f\) é uma função é concava e o ponto é um máximo
+  local.
+\end{itemize}
+
+A condição para que uma matriz hessiana seja negativa semi-definida é
+ter todos os seus autovalores reais e negativos.
+
+\textbf{Exemplo.} Considere a função \[f(x,y)=e^{-x^2 - y^2},\] onde
+\((x,y)\in\mathbb{R}^2\). Temos que \[\log f(x,y)=-x^2 - y^2.\] O vetor
+gradiente de \(\log f\) é
+
+\[\nabla\log f=\left(\begin{array}{c}\frac{\partial}{\partial x}f \\ \frac{\partial}{\partial y}f\end{array}\right)=\left(\begin{array}{c} -2x \\ -2y\end{array}\right)\]
+Igualando o vetor gradiente a zero, teremos os pontos críticos:
+
+\[\left\{\begin{array}{c} -2x^*=0 \\ -2y^*=0\end{array}\right.\Rightarrow\left\{\begin{array}{c} x^*=0 \\ y^*=0\end{array}\right.\]
+Agora vamos encontrar a matriz hessiana de \(\log f\):
+
+\[\mathcal{H}=\left(\begin{array}{cc}\frac{\partial^2}{\partial x^2}\log f & \frac{\partial^2}{\partial x\partial y}\log f\\  \frac{\partial^2}{\partial y \partial x}\log f & \frac{\partial^2}{\partial y^2}\log f\end{array}\right)=\left(\begin{array}{cc}-2&0\\0&-2\end{array}\right).\]
+O autovalores \(\lambda\) são a solução da equação:
+
+\[\begin{align}|\mathcal{H}-\lambda \textbf{I}_2|=0&\Rightarrow \left|\left(\begin{array}{cc} -2&0\\0&-2\end{array}\right)-\left(\begin{array}{cc}\lambda & 0 \\ 0 & \lambda\end{array}\right)\right|=0 \\
+&\Rightarrow\left|\begin{array}{cc} -2-\lambda& 0\\0&-2-\lambda\end{array}\right|=0\\
+&\Rightarrow (2+\lambda)^2=0\end{align}\] logo, os autovalores são
+\(\lambda_1=-2\) e \(\lambda_2=-2\). Como ambos são negativos para
+qualquer \(x,y\), o ponto crítico é ponto de máximo.
+
+\textbf{Exemplo.} Seja \[f(x,y)=x^5y^2e^{-x(1+y^2)}.\] Vamos encontrar o
+ponto de máximo dessa função. Temos que \(\log f\) é dado por
+\[\log f(x,y)=5\log x+2\log y-x(1+y^2).\] O vetor gradiente é dado por
+\[\nabla \log f=\left(\begin{array}{c}\frac{5}{x}-1-y^2 \\ \frac{2}{y}-2xy\end{array}\right).\]
+Os pontos críticos \((x^*,y^*)\) são
+\[\left\{\begin{array}{c}\frac{5}{x^*}-1-y^{*2}&=0 \\ \frac{2}{y^*}-2x^*y^*&=0\end{array}\right.\Rightarrow \left\{\begin{array}{c}x^*=4 \\ y^*=\frac{1}{2}\end{array}\right.\]
+A matriz hessiana é dada por
+\[\mathcal{H}=\left(\begin{array}{cc}-\frac{5}{x^2} & -2y \\ -2y & -\frac{2}{y^2}-2x\end{array}\right)\]
+Aplicando o ponto crítico na matriz acima, teremos
+\[\mathcal{H}=\left(\begin{array}{cc}-\frac{5}{16} & -1 \\ -1 & -16\end{array}\right)\]
+Resolvendo
+\[|\mathcal{H}-\lambda\textbf{I}|=0\Rightarrow \left|\begin{array}{cc}-\frac{5}{16}-\lambda & -1\\ -1 & -16-\lambda\end{array}\right|=\left(\frac{5}{16}+\lambda\right)(16+\lambda)-1=0.\]
+Desenvolvendo a expressão acima, teremos
+\[\lambda^2 +16,3125\lambda +4=0\] e os autovalores são
+\(\lambda_1=-0,249\) e \(\lambda_2=-16,063\). Como ambos são negativos,
+o ponto crítico é um ponto de máximo.
+
+\textbf{Otimização numérica no \texttt{R}}. A função \texttt{optim} é
+uma poderosa ferramenta de otimização. Por padrão, ela procura minimizar
+\(f\). Isso não é um problema, pois maximizar \(f\) é equivalente a
+minimizar \(-f\).
+
+Considere novamente a função \[\log f(x,y)=5\log(x)+2\log(y)-x(1+y^2).\]
+Vamos implementar a função -\(\log f\):
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{menoslogf }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(w) }\SpecialCharTok{{-}}\DecValTok{5} \SpecialCharTok{*} \FunctionTok{log}\NormalTok{(w[}\DecValTok{1}\NormalTok{]) }\SpecialCharTok{{-}}\DecValTok{2} \SpecialCharTok{*} \FunctionTok{log}\NormalTok{(w[}\DecValTok{2}\NormalTok{]) }\SpecialCharTok{+}\NormalTok{ w[}\DecValTok{1}\NormalTok{] }\SpecialCharTok{*}\NormalTok{ (}\DecValTok{1} \SpecialCharTok{+}\NormalTok{ w[}\DecValTok{2}\NormalTok{]}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+Precisamos de um valor inicial para começar a busca. Vamos começar em
+\((x,y)=(1,1)\).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{opt }\OtherTok{\textless{}{-}} \FunctionTok{optim}\NormalTok{( }\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{1}\NormalTok{), menoslogf)}
+\end{Highlighting}
+\end{Shaded}
+
+É sempre importante verificar se o algoritmo conseguiu convergir (ou
+seja, ficou preso em um máximo local). Quando isso acontece,
+\texttt{opt\$convergence} vai assumir o valor 0.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{opt}\SpecialCharTok{$}\NormalTok{convergence}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] 0
+\end{verbatim}
+
+O ponto de máximo encontrado foi
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{opt}\SpecialCharTok{$}\NormalTok{par}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] 3.9999204 0.5000218
+\end{verbatim}
+
+que está bem próximo da solução exata. É possível retornar uma
+aproximação da matriz hessiana aplicada no ponto de máximo:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{opt }\OtherTok{\textless{}{-}} \FunctionTok{optim}\NormalTok{( }\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{1}\NormalTok{), menoslogf, }\AttributeTok{hessian =}\NormalTok{ T)}
+\NormalTok{H }\OtherTok{\textless{}{-}} \SpecialCharTok{{-}}\NormalTok{opt}\SpecialCharTok{$}\NormalTok{hessian}
+\NormalTok{H}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+           [,1]       [,2]
+[1,] -0.3125125  -1.000044
+[2,] -1.0000436 -15.999208
+\end{verbatim}
+
+Note que precisamos colocar o sinal negativo na saída porque desejamos a
+hessina de \(\log f\). Mais uma vez os valores estão próximos da solução
+exata.
+
+Embora não seja necessário, podemos mostrar que a hessiana é negativa
+semi-definida encontrando seus autovalores e mostrando que são todos
+reais e negativos:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{decomposicao }\OtherTok{\textless{}{-}} \FunctionTok{eigen}\NormalTok{(H)}
+\NormalTok{decomposicao}\SpecialCharTok{$}\NormalTok{values}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1]  -0.2490157 -16.0627048
+\end{verbatim}
+
 Observe que nem sempre teremos um ponto crítico, mas isso não implica na
 inexistência do ponto de máximo global. Entre os casos de interesse
 nesse curso, estão as funções monótonas em um intervalo.
@@ -1450,12 +1627,205 @@ ela é sempre positiva, a função \(f\) é monótona crescente. Como o maior
 valor possível em \(D\) é 4, teremo que \(x^*=4\) é o ponto de máximo
 global.
 
-\textbf{Exemplo.} Seja \[f(x)=\frac{1}{x}I(x\geq 3)\] Observe que
-\[\frac{d}{dx}f(x)=-\frac{1}{x^2}I(x\geq 3).\] Observe que a derivada
-acima não pode ser nula no intervalo de interesse (\(D=[3,\infty)\)).
-Como ela é sempre negativa, a função \(f\) é monótona decrescente. Como
-o menor valor possível em \(D\) é 3, teremo que \(x^*=3\) é o ponto de
-máximo global.
+\textbf{Cuidado!} Considere a função \[f(x)=g(x)I(x\in D).\] Ao derivar,
+a função indicadora permanece como está:
+\[\frac{d}{dx}f(x)=\left[\frac{d}{dx}g(x)\right]I(x\in D).\] A
+explicação é simples:
+\[f(x)=\left\{\begin{array}{ll}g(x),&\;\;\hbox{se }x\in D,\\0,&\;\;\hbox{ caso contrário}\end{array}\right.\]
+logo
+\[\frac{d}{dx}f(x)=\left\{\begin{array}{ll}\frac{d}{dx}g(x),&\;\;\hbox{se }x\in D,\\0,&\;\;\hbox{ caso contrário}\end{array}\right.\Rightarrow g'(x)I(x\in D)\]
+
+\textbf{Exemplo.} Seja \[f(x)=\frac{1}{x}I(x\geq 3)\] A derivada de
+\(f(x)\) é \[\frac{d}{dx}f(x)=-\frac{1}{x^2}I(x\geq 3).\] Observe que a
+derivada acima não pode ser nula no intervalo de interesse
+(\(D=[3,\infty)\)). Como ela é sempre negativa, a função \(f\) é
+monótona decrescente em \(D\). Como o menor valor possível em \(D\) é 3,
+teremos que \(x^*=3\) é o ponto de máximo global.
+
+\section{O método da máxima
+verossimilhança}\label{o-muxe9todo-da-muxe1xima-verossimilhanuxe7a}
+
+\subsection{A função de
+verossimilhança}\label{a-funuxe7uxe3o-de-verossimilhanuxe7a}
+
+Na língua portuguesa a palavra verossímil é o adjetivo daquilo que é
+semelhante à verdade, ou plausível. Em inferência, a função de
+verossimilhança reflete o quão plausível é certo valor do parâmetro
+considerando a amostra observada.
+
+\textbf{Definição.} Seja \(X_1,\ldots,X_n\) uma amostra aleatória com
+densidade/função de probabilidade conjunta dada por
+\[\prod_{i=1}^nf(x_i|\theta).\] A função
+\(L:\Theta\rightarrow [0,\infty)\)
+\[L(\theta)=\prod_{i=1}^nf(x_i|\theta)\] é denominada função de
+verossimilhança.
+
+Para compreender o papel desta função, considere uma moeda cuja a
+probabilidade de dar cara é \(\theta\) (ou seja, se \(X\) é a indicadora
+de resultado ``cara'\,', \(X\sim\hbox{Bernoulli}(\theta)\)).
+Inicialmente, considere que existem apenas duas moedas:
+
+\begin{itemize}
+\tightlist
+\item
+  A moeda tem ambas as faces, com \(\theta=1/2\).
+\item
+  A moeda tem ambas as faces, com \(\theta=1/10\) (moeda viciada)
+\end{itemize}
+
+Jogamos uma moeda 2 vezes (sem saber qual) e os dois resultados deram
+coroa (ou seja \(x_1=0,x_2=0\)). Então \[\begin{align*}
+L(\theta)&=P(X_1=0,X_2=0|\theta)=P(X_1=0|\theta) 
+P(X_2=0|\theta)\\
+&=(1-\theta) (1-\theta)\\
+&=(1-\theta)^2=\left\{\begin{array}{ll}
+\left(\frac{9}{10}\right)^2=0,81,& \theta=1/10\\
+\left(\frac{1}{2}\right)^2=0,25,& \theta=1/2.
+\end{array}\right.
+\end{align*}\] Para \(\theta=1/10\), a probabilidade de ter saído a
+amostra \((0,0)\) seria 0,01 (99 em cada 100), enquanto que para a outra
+moeda seria \(0,25\) (uma em cada 4). Estes números mostram que
+\(\theta=1/10\) é mais verossímil que \(\theta=1/2\). Fazendo,
+\[\frac{L(1/10)}{L(1/2)}=3,96\] vemos que \(\theta=1/10\) é quase 4
+vezes mais verossímil que \(\theta=1/2\). Este é o papel da função de
+verossimilhança: dizer o quão verossímil é um valor de \(\theta\) para a
+amostra observada.
+
+\subsection{O estimador de máxima
+verossimilhança}\label{o-estimador-de-muxe1xima-verossimilhanuxe7a}
+
+A função de verossimilhança representa o quão plausível é determinado
+parâmetro para a amostra observada. Portanto, é natural escolher como
+estimador para \(\theta\) o valor \(\hat{\theta}\in\Theta\) com o maior
+valor para a função de verossimilhança. Este é o princípio do método da
+máxima verossimilhança.
+
+\textbf{Definição.} Dizemos que \(\hat{\theta}_n\in\Theta\) é um
+estimador de máxima verossimilhança se, para qualquer outro valor
+\(\theta\in\Theta\), \[L(\theta)\leq L(\hat{\theta}_n).\]
+
+\textbf{Exemplo.} Seja \(X_1,\ldots,X_n\) uma amostra aleatória da
+população Poisson\((\theta)\). A função de verossimilhança é
+\[L(\theta)=\prod_{i=1}^{n}P(X_i=x|\theta)=\prod_{i=1}^{n}\frac{e^{-\theta}\theta^{x_i}}{x_i!}=\frac{e^{-n\theta}\theta^{\sum
+_{i=1}^{n}x_i}}{\prod_{i=1}^{n}x_i!},\] e a log-verossimilhança é
+\[\begin{align*}
+\log L(\theta)&=\log L(\theta)=\log\left(\frac{e^{-n\theta}\theta^{\sum
+_{i=1}^{n}x_i}}{\prod_{i=1}^{n}x_i!}\right)\\
+&= \log\left(e^{-n\theta}\right) +\log\left(\theta^{\sum
+_{i=1}^{n}x_i}\right) -\log\left(\prod_{i=1}^{n}x_i!\right)\\
+&= -n\theta +\sum_{i=1}^{n}x_i\log(\theta) -\log\left(\prod_{i=1}^{n}x_i!\right)
+\end{align*}\] A primeira derivada de \(\log L(\theta)\) é
+\[\frac{d}{d\theta}\log L(\theta)=-n+\sum_{i=1}^{n}\frac{x_i}{\theta}\]
+e o ponto crítico \(\hat{\theta}_n\) é a solução de
+\[-n+\sum_{i=1}^n \frac{x_i}{\hat{\theta}_n}=0\] que é
+\(\hat{\theta}_n=\bar{x}_n\). A segunda derivada de \(\log L(\theta)\) é
+\[\frac{d^2}{d\theta^2}\log L(\theta)=-\frac{1}{\theta^2}\sum_{i=1}^{n}x_i\]
+e, substituindo \(\hat{\theta}\) na expressão acima, teremos que
+\[-\frac{1}{\bar{x}_n^2}\sum_{i=1}^n x_i=-\frac{n}{\bar{x}}<0,\] desde
+que \(\hat{\theta}>0\). Portanto, \[\hat{\theta}_n=\bar{X}_n\] é o
+estimador de máxima verossimilhança para \(\theta\).
+
+\textbf{Exemplo.} Seja \(X_1,\ldots,X_n\) uma amostra aleatória da
+população \(\hbox{Uniforme}(0,\theta)\). A função de verossimilhança é
+\[L(\theta)=\prod_{i=1}^{n}f(x_i|\theta)=\prod_{i=1}^{n}\frac{1}{\theta}I(x_i\leq\theta)=\frac{1}{\theta^n}I(x_{(n)}\leq \theta).\]
+
+Note que
+
+\[\frac{d}{d\theta}L(\theta)=-\frac{n}{\theta^{n-1}}I(x_{(n)}\leq \theta),\]
+que é negativa para todo \(\theta \geq x_{(n)}\). Como \(L(\theta)\) é
+uma função monótona decrescente, seu ponto de máximo será o menor valor
+possível para \(\theta\). Portanto \(\hat{\theta}_n=X_{(n)}\) é o
+estimador de máxima verossimilhança para \(\theta\).
+
+\textbf{Exemplo.} Seja \(X_1,\ldots,X_n\) uma amostra aleatória da
+população Exponencial\((\theta)\). A função de verossimilhança é
+\[L(\theta)=\prod_{i=1}^{n}f(x_i|\theta)=\prod_{i=1}^{n}\theta e^{-\theta x_i}=\theta^n e^{-\theta\sum_{i=1}^n x_i},\]
+e a log-verossimilhança é \[\begin{align*}
+\log L(\theta)&=\log L(\theta)=\log\left(\theta^n e^{-\theta\sum_{i=1}^n x_i}\right)\\
+&= \log(\theta^n) + \log\left(e^{-\theta\sum_{i=1}^n x_i}\right)\\
+&= n\log(\theta) -\theta\sum_{i=1}^{n}x_i \end{align*}\] A primeira
+derivada de \(\log L(\theta)\) é
+\[\frac{d}{d\theta}\log L(\theta)=\frac{n}{\theta}-\sum_{i=1}^{n}x_i\] e
+o ponto crítico \(\hat{\theta}_n\) é a solução de
+\[\frac{n}{\hat{\theta}_n}-\sum_{i=1}^n x_i=0\Rightarrow \hat{\theta}_n=\frac{1}{\bar{x}_n}.\]
+A segunda derivada de \(\log L(\theta)\) é
+\[\frac{d^2}{d\theta^2}\log L(\theta)=-\frac{n}{\theta^2}\] e,
+substituindo \(\hat{\theta}\) na expressão acima, teremos que
+\[-n\bar{x}_n^2<0.\] Portanto, \(\hat{\theta}_n=1/\bar{X}_n\) é o
+estimador de máxima verossimilhança para \(\theta\).
+
+\textbf{Exemplo.} Seja \(X_1,\ldots,X_n\) uma amostra aleatória da
+população cuja função densidade é dada por
+
+\[f(x|\mu)=e^{-(x-\mu)}I(x\geq \mu),\] onde \(\mu>0\). A função de
+verossimilhança é
+\[L(\mu)=\prod_{i=1}^{n}f(x_i|\mu)=\prod_{i=1}^{n}e^{-x_i+\mu}I(x_i\geq\mu)=e^{n\mu-\sum_{i=1}^n x_i}I(x_{(1)}\geq \mu).\]
+
+Note que
+
+\[\frac{d}{d\mu}L(\mu)=\left[\frac{d}{d\mu}e^{n\mu}\right]e^{-\sum_{i=1}^n x_i}I(x_{(1)}\geq \mu)=ne^{n\mu}e^{-\sum_{i=1}^n x_i}I(x_{(1)}\geq \mu),\]
+que é positiva para todo \(\mu \leq x_{(1)}\). Como \(L(\mu)\) é uma
+função monótona decrescente, seu ponto de máximo será o maior valor
+possível para \(\mu\). Portanto \(\hat{\mu}_n=X_{(1)}\) é o estimador de
+máxima verossimilhança para \(\mu\).
+
+\textbf{Exemplo.} Seja \(X_1,\ldots,X_n\) uma amostra aleatória da
+população Normal\((\mu,\sigma^2)\). Vamos encontrar os estimadores de
+máxima verossimilhança. A função de verossimilhança é dada por
+\[\begin{align*}
+L(\theta)&=\prod_{i=1}^{n}f(x_i|\theta)=\prod_{i=1}^{n}\left(\frac{1}{2\pi\sigma^2}\right)^{1/2}\exp\left\{-\frac{1}{2\sigma^2}(x_i-\mu)^2\right\}\\
+&= \left(\frac{1}{2\pi\sigma^2}\right)^{n/2}\prod_{i=1}^{n}\exp\left\{-\frac{1}{2\sigma^2}(x_i-\mu)^2\right\}\\
+&= \left(\frac{1}{2\pi\sigma^2}\right)^{n/2}\exp\left\{-\frac{1}{2\sigma^2}\sum_{i=1}^{n}(x_i-\mu)^2\right\}\\
+\end{align*}\] e seu logaritmo é \[\begin{align*}
+\log L(\theta)&=\log\left(\left(\frac{1}{2\pi\sigma^2}\right)^{n/2}\exp\left\{-\frac{1}{2\sigma^2}\sum_{i=1}^{n}(x_i-\mu)^2\right\}\right)\\
+&=\log\left(\left(\frac{1}{2\pi\sigma^2}\right)^{n/2}\right)+\log\left(\exp\left\{-\frac{1}{2\sigma^2}\sum_{i=1}^{n}(x_i-\mu)^2\right\}\right)\\
+&=-\frac{n}{2}\log(2\pi\sigma^2)-\frac{1}{2\sigma^2}\sum_{i=1}^{n}(x_i-\mu)^2.
+\end{align*}\] As derivadas de primeira ordem são \[\begin{align*}
+\frac{\partial}{\partial\mu}\log L(\theta)&= \frac{1}{2\sigma^2}\sum_{i=1}^{n}(x_i-\mu) \\
+\frac{\partial}{\partial\sigma^2}\log L(\theta)&= 
+-\frac{n}{2\sigma^2} +\frac{1}{2\left(\sigma^2\right)^2}\sum_{i=1}^{n}(x_i-\mu)^2
+\end{align*}\] e os pontos críticos \((\hat{\mu}_n,\hat{\sigma}^2_n)\)
+são obtidos resolvendo \[\begin{align*}
+-\frac{1}{\hat{\sigma}_n^2}\sum_{i=1}^{n}(x_i-\hat{\mu}_{n})&=0 \\
+-\frac{n}{2\hat{\sigma}^2_n} +\frac{1}{2\left(\hat{\sigma}^2_n\right)^2}\sum_{i=1}^{n}(x_i-\hat{\mu}_n)^2&=0.
+\end{align*}\] Após algumas contas, concluímos que os pontos críticos
+são \[\begin{align*}
+\hat{\mu}_n&=\bar{x}_n\\
+\hat{\sigma}^2_n&=\frac{1}{n}\sum_{i=1}^{n}(x_i-\bar{x}_n)^2.
+\end{align*}\] Para mostrar que estes são pontos de máximo, considere as
+derivadas parciais de segunda ordem: \[\begin{align*}
+\frac{\partial^2}{\partial\mu^2}\log L(\theta)&= -\frac{n}{\sigma^2} \\
+\frac{\partial}{\partial\sigma^2}\log(\theta)&= 
+\frac{n}{2(\sigma^2)^2} -\frac{1}{\left(\sigma^2\right)^3}\sum_{i=1}^{n}(x_i-\mu)^2\\
+\frac{\partial^2}{\partial\mu\partial\sigma}\log L(\theta)&=\frac{1}{(\sigma^2)^2}\sum_{i=1}^{n}(x_i-\mu)^2
+\end{align*}\] formando a matriz Hessiana
+\[\mathcal{H}=\left(\begin{array}{cc}
+-\frac{n}{\sigma^2} & \frac{1}{(\sigma^2)^2}\sum_{i=1}^{n}(x_i-\mu) \\\frac{1}{(\sigma^2)^2}\sum_{i=1}^{n}(x_i-\mu) & \frac{n}{2(\sigma^2)^2} -\frac{1}{\left(\sigma^2\right)^3}\sum_{i=1}^{n}(x_i-\mu)^2
+\end{array}\right)\] que aplicada no ponto crítico é igual a
+\[\begin{align*}
+\mathcal{H}&=\left(\begin{array}{cc}
+-\frac{n}{\hat{\sigma}^2_n} & \frac{1}{(\hat{\sigma}^2_n)^2}\sum_{i=1}^{n}(x_i-\bar{x}_n) \\\frac{1}{(\hat{\sigma}^2)^2_n}\sum_{i=1}^{n}(x_i-\bar{x}_n) & \frac{n}{2(\hat{\sigma}^2_n)^2} -\frac{1}{\left(\hat{\sigma}^2_n\right)^3}\sum_{i=1}^{n}(x_i-\bar{x}_n)^2
+\end{array}\right)\\
+&=\left(\begin{array}{cc}
+-\frac{n}{\hat{\sigma}^2_n} & 0 \\
+0 & \frac{n}{2(\hat{\sigma}^2_n)^2} -\frac{1}{\left(\hat{\sigma}^2_n\right)^3}\sum_{i=1}^{n}(x_i-\bar{x}_n)^2
+\end{array}\right)\\
+&=\left(\begin{array}{cc}
+-\frac{n}{\hat{\sigma}^2_n} & 0 \\
+0 & \frac{n}{2(\hat{\sigma}^2_n)^2} -\frac{n}{\left(\hat{\sigma}^2_n\right)^2}
+\end{array}\right)\\
+&=\frac{n}{\hat{\sigma}^2_n}\left(\begin{array}{cc}
+-1 & 0 \\
+0 & -1/2\hat{\sigma}^2_n
+\end{array}\right)
+\end{align*}\]
+
+Os autovalores da hessiana são encontrados resolvendo
+\[\left(\frac{n}{\hat{\sigma}_n^2}+\lambda\right)\left(\frac{n}{2\hat{\sigma}_n^4}+\lambda\right)=0.\]
+Os autovalores são \(\lambda_1=-n/\hat{\sigma}^2_n\) e
+\(\lambda_2=-n/2\hat{\sigma}^4_n\). Por serem reais e negativos, temos
+que \((\bar{x}_n,\hat{\sigma}^2_n)\) são os estimadores de máxima
+verossimilhança para \((\mu,\sigma^2)\).
 
 \bookmarksetup{startatroot}
 
