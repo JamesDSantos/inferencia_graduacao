@@ -43,14 +43,28 @@
 \setlength{\emergencystretch}{3em} % prevent overfull lines
 \setcounter{secnumdepth}{5}
 % Make \paragraph and \subparagraph free-standing
+\makeatletter
 \ifx\paragraph\undefined\else
   \let\oldparagraph\paragraph
-  \renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
+  \renewcommand{\paragraph}{
+    \@ifstar
+      \xxxParagraphStar
+      \xxxParagraphNoStar
+  }
+  \newcommand{\xxxParagraphStar}[1]{\oldparagraph*{#1}\mbox{}}
+  \newcommand{\xxxParagraphNoStar}[1]{\oldparagraph{#1}\mbox{}}
 \fi
 \ifx\subparagraph\undefined\else
   \let\oldsubparagraph\subparagraph
-  \renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
+  \renewcommand{\subparagraph}{
+    \@ifstar
+      \xxxSubParagraphStar
+      \xxxSubParagraphNoStar
+  }
+  \newcommand{\xxxSubParagraphStar}[1]{\oldsubparagraph*{#1}\mbox{}}
+  \newcommand{\xxxSubParagraphNoStar}[1]{\oldsubparagraph{#1}\mbox{}}
 \fi
+\makeatother
 
 \usepackage{color}
 \usepackage{fancyvrb}
@@ -70,7 +84,7 @@
 \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
 \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{\textit{#1}}}
 \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
-\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{\textbf{#1}}}
 \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
 \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
 \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{\textit{#1}}}
@@ -80,7 +94,7 @@
 \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.28,0.35,0.67}{#1}}
 \newcommand{\ImportTok}[1]{\textcolor[rgb]{0.00,0.46,0.62}{#1}}
 \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
-\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{\textbf{#1}}}
 \newcommand{\NormalTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
 \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
 \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
@@ -196,6 +210,7 @@
 \@ifpackageloaded{caption}{}{\usepackage{caption}}
 \@ifpackageloaded{subcaption}{}{\usepackage{subcaption}}
 \makeatother
+
 \ifLuaTeX
   \usepackage{selnolig}  % disable illegal ligatures
 \fi
@@ -213,6 +228,7 @@
   urlcolor={Blue},
   pdfcreator={LaTeX via pandoc}}
 
+
 \title{Inferência Estatística - um curso de graduação}
 \author{James D Santos}
 \date{2025-12-08}
@@ -226,6 +242,7 @@
 \setcounter{tocdepth}{2}
 \tableofcontents
 }
+
 \bookmarksetup{startatroot}
 
 \chapter*{Preface}\label{preface}
@@ -1240,8 +1257,8 @@ Podemos obter uma amostra da função de distribuição empírica sorteando
 \end{Shaded}
 
 \begin{verbatim}
- [1] 2650 3960 3370 3680 3095 3130 2965 2795 3255 2825 2600 3370 3095 3095 3195
-[16] 2795 3960 3670 2945 3095 3125 3140 3095 3575 2600 3770 3230 3125 3195 3370
+ [1] 3070 3770 2600 2795 3195 3095 3405 3960 3195 2650 3140 3195 2650 2650 3135
+[16] 2960 2970 2650 2825 3095 2795 3125 3255 3095 3085 2960 2650 3085 3125 2600
 \end{verbatim}
 
 Vamos calcular o erro padrão de \(\bar{X}_{30}\) utilizando do método
@@ -1262,7 +1279,7 @@ bootstrap:
 \end{Shaded}
 
 \begin{verbatim}
-[1] 58.74776
+[1] 58.77839
 \end{verbatim}
 
 Compare esse valor com o erro padrão estimado por \(S_n/\sqrt{30}\):
@@ -1433,8 +1450,6 @@ figura abaixo ilustra essa situação.
 
 \centering{
 
-\captionsetup{labelsep=none}
-
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{x}\OtherTok{\textless{}{-}} \FunctionTok{seq}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{2}\NormalTok{,}\DecValTok{2}\NormalTok{,.}\DecValTok{1}\NormalTok{)}
@@ -1451,7 +1466,7 @@ figura abaixo ilustra essa situação.
 
 \includegraphics{pontual_files/figure-pdf/unnamed-chunk-11-1-rgl.png}
 
-../../../AppData/Local/Temp/RtmpMnaSkf/file12ec27ca7cc5.png
+../../../AppData/Local/Temp/RtmpETxMcS/file21101014125.png
 
 }
 
@@ -1827,6 +1842,379 @@ Os autovalores são \(\lambda_1=-n/\hat{\sigma}^2_n\) e
 que \((\bar{x}_n,\hat{\sigma}^2_n)\) são os estimadores de máxima
 verossimilhança para \((\mu,\sigma^2)\).
 
+\subsection{A Informação de Fisher e a invariância dos estimadores de
+máxima
+verossimilhança}\label{a-informauxe7uxe3o-de-fisher-e-a-invariuxe2ncia-dos-estimadores-de-muxe1xima-verossimilhanuxe7a}
+
+Seja \(x_1,\ldots,x_n\) uma amostra observada de uma população cuja
+função de verossimilhança é dada por \(L(\theta)\). Considere os
+seguintes casos extremos:
+
+\begin{itemize}
+\item
+  \(L(\theta)\) é constante para todo \(\theta\in\Theta\): nesse caso,
+  todos os valores de \(\theta\) são igualmente verossímeis.
+\item
+  \(L(\theta)\) é zero, exceto no ponto \(\hat{\theta}_n\), que satisfaz
+  \(L(\theta)<L(\hat{\theta}_n)\). Nesse caso, \(\hat{\theta}\) é o
+  único valor verossímil para \$\$ \(\theta\in\Theta\).
+\end{itemize}
+
+Os dois casos estão ilustrados abaixo:
+
+\phantomsection\label{fig}
+\includegraphics{pontual_files/figure-pdf/unnamed-chunk-18-1.pdf}
+
+Dois casos extremos sobre a função de verossimilhança. Em (a) todos os
+pontos são verossímeis. Em (b) somente um ponto e verossímil.
+
+Considerando as situações acima, em geral a função de verossmilhança vai
+se comportar de maneira intermediária. Abaixmo mostramos dois exemplos,
+nos quais as setas indicam a reta tangente aos pontos marcados. Observe
+que, quanto mais a função de verossimilhança se concentra ao redor de um
+único ponto, maior em valor absoluto é o valor da derivada naquele
+ponto.
+
+\phantomsection\label{fig}
+\includegraphics{pontual_files/figure-pdf/unnamed-chunk-19-1.pdf}
+
+Dois casos intermediários. Em (a), há um ponto de máximo, mas seus
+vizinhos são possuem valores próximos para a função de verossimilhança.
+Em (b), há um ponto de máximo e a verossimilhança cai para zero
+rapidamente a medida que nos afastamos dele.
+
+Deste modo, quanto maior for o valor de \(|L'(\theta)|\) na vizinhança
+de seu ponto de máximo , mais verossímil será a nossa estimativa.
+Podemos então definir a informação de Fisher.
+
+\textbf{Definição.} Seja \(X_1,\ldots,X_n\) uma amostra aleatória com
+função de verossimilhança \(L(\theta)\). A informação de Fisher é
+definida por
+\[\mathcal{I}_n(\theta)=E\left(\left[\frac{d}{d\theta}\log L(\theta)\right]^2\right)\]
+
+Intuitivamente, quanto maior for a informação de Fisher, mais
+concentrada, em média, está a função de verossimilhança em torno de seu
+ponto de máximo.
+
+\textbf{Proposição.} Se \(X_1,\ldots,X_n\) é uma amostra aleatória de
+uma população pertencente à família exponencial, então
+
+\[\mathcal{I}_n(\theta)=-E\left(\frac{d^2}{d\theta^2}\log L(\theta)\right).\]
+
+\textbf{Exemplo.} Sejam \(X_1,\ldots,X_n\) uma amostra aleatória da
+população Normal(\(\mu,1\)). A função de verossimilhança é
+\[L(\mu)=\left(\frac{1}{2\pi}\right)^{n/2}\exp\left\{-\frac{1}{2}\sum_{i=1}^{n}(x_i-\mu)^2\right\}\]
+e, após algumas contas, concluímos que
+\[\frac{d^2}{d\mu^2}\log L(\mu)=-n\] logo, a informação de Fisher é
+\[-E\left(\frac{d^2}{d\mu^2}\log L(\mu)\right)=n,\] portanto, quanto
+maior for o valor do tamanho da amostra, mais concentrada estará a
+função de verossimilhança em torno da estimativa de verossimilhança.
+
+\textbf{Exemplo.} Seja \(X_1,\ldots,X_n\) uma amostra aleatória da
+população Geométrica\((\theta)\), cuja função de probabilidade é dada
+por \[P(X=x|\theta)=\theta(1-\theta)^{x-1},\] com \(x=1,2,\ldots\) e
+\(\theta\in(0,1)\). A função de verossimilhan\c{c}a é
+\[L(\theta)=\prod_{i=1}^{n}P(X_i=x_i|\theta)=\prod_{i=1}^{n}\theta(1-\theta)^{x_i-1}=\theta^n(1-\theta)^{\sum_{i=1}^{n}x_i-n}.\]
+Disto, teremos que \[\begin{align*}
+\log L(\theta)&= n\log(\theta) +\left(\sum_{i=1}^{n}x_i-n\right)\log(1-\theta)\\
+\frac{d}{d\theta}\log L(\theta)&= \frac{n}{\theta} -\frac{\sum_{i=1}^{n}x_i-n}{1-\theta}\\
+\frac{d^2}{d\theta^2}\log L(\theta)&=-\frac{n}{\theta^2}-\frac{\sum_{i=1}^{n}x_i-n}{(1-\theta)^2}.
+\end{align*}\] Como \(E(X)=1/\theta\), teremos que \[\begin{align*}
+\mathcal{I}_n(\theta)&=E\left(\frac{n}{\theta^2}+\frac{\sum_{i=1}^{n}X_i-n}{(1-\theta)^2}\right)\\
+&=\frac{n}{\theta^2}+\frac{E\left(\sum_{i=1}^{n}X_i-n\right)}{(1-\theta)^2}\\
+&=\frac{n}{\theta^2}+\frac{n-\sum_{i=1}^{n}E(X_i)}{(1-\theta)^2}\\
+&=\frac{n}{\theta^2}+\frac{n/\theta-n}{(1-\theta)^2}\\
+&=\frac{n}{\theta^2}+\frac{1}{\theta}\frac{n-\theta n}{(1-\theta)^2}\\
+&=\frac{n}{\theta}\left[\frac{1}{\theta}+\frac{1-\theta}{(1-\theta)^2}\right]\\
+&=\frac{n}{\theta}\left[\frac{1}{\theta}+\frac{1}{1-\theta}\right]\\
+&=\frac{n}{\theta^2(1-\theta)}
+\end{align*}\] Portanto, a informação de Fisher o sobre \(\theta\) é uma
+função linear em \(n\). Isto implica que, quanto maior for o tamanho da
+amostra, em média, maior será a concentra\c{c}ão da verossimilhança em
+torno da estimativa de máxima verossimilhança.
+
+Nos exemplos acima vimos que o tamanho da amostra \(n\) aumenta a
+informação sobre \(\theta\). Seja é verdade que,
+\[\frac{d}{d\theta}E(L(\theta))=E\left(\frac{d}{d\theta}L(\theta)\right),\]
+a Informação de Fisher é aditiva, ou seja
+
+\[\mathcal{I}_n(\theta)=n\mathcal{I}_{1}(\theta).
+\] onde \(\mathcal{I}_1(\theta)\) é a informação de Fisher para uma
+amostra de tamanho 1.
+
+Quando \(\theta\) é um vetor, a informação de Fisher é uma matriz,
+definda por
+\[\mathcal{I}_n(\theta)=E\left(\nabla\log L(\theta)\left[\nabla\log L(\theta)\right]^T\right)\]
+Além disso, se a família pertence a família exponencial, teremos
+\[\mathcal{I}_n(\theta)=-E\left(\mathcal{H}(\theta)\right),\] onde
+\(\mathcal{H}\) é a matriz hessiana de \(\log L(\theta)\).
+
+\textbf{Exemplo.} Seja \(X_1,\ldots,X_n\) uma amostra aleatória a
+população Normal(\(\mu,\sigma^2\)). Vimos anteriormente que
+\[\mathcal{H}(\mu,\sigma^2)=\left(\begin{array}{cc}
+-\frac{n}{\sigma^2} & \frac{1}{(\sigma^2)^2}\sum_{i=1}^{n}(x_i-\mu) \\\frac{1}{(\sigma^2)^2}\sum_{i=1}^{n}(x_i-\mu) & \frac{n}{2(\sigma^2)^2} -\frac{1}{\left(\sigma^2\right)^3}\sum_{i=1}^{n}(x_i-\mu)^2
+\end{array}\right)\] logo, \[\begin{align*}
+\mathcal{I}(\mu,\sigma^2)&=-E\left(\begin{array}{cc}
+-\frac{n}{\sigma^2} & \frac{1}{(\sigma^2)^2}\sum_{i=1}^{n}(X_i-\mu) \\\frac{1}{(\sigma^2)^2}\sum_{i=1}^{n}(X_i-\mu) & \frac{n}{2(\sigma^2)^2} -\frac{1}{\left(\sigma^2\right)^3}\sum_{i=1}^{n}(X_i-\mu)^2
+\end{array}\right)\\
+&=\left(\begin{array}{cc}
+\frac{n}{\sigma^2} & -E\left(\frac{1}{(\sigma^2)^2}\sum_{i=1}^{n}(X_i-\mu)\right) \\
+-E\left(\frac{1}{(\sigma^2)^2}\sum_{i=1}^{n}(X_i-\mu)\right) & -\frac{n}{2(\sigma^2)^2} +E\left(\frac{1}{\left(\sigma^2\right)^3}\sum_{i=1}^{n}(X_i-\mu)^2\right)
+\end{array}\right)\\
+&=\left(\begin{array}{cc}
+\frac{n}{\sigma^2} & -\frac{1}{(\sigma^2)^2}\sum_{i=1}^{n}(E(X_i)-\mu) \\
+-\frac{1}{(\sigma^2)^2}\sum_{i=1}^{n}(E(X_i)-\mu) & -\frac{n}{2(\sigma^2)^2} +\frac{1}{\left(\sigma^2\right)^3}\sum_{i=1}^{n}E(X_i-\mu)^2
+\end{array}\right)\\
+&=\left(\begin{array}{cc}
+\frac{n}{\sigma^2} & 0 \\
+0 & -\frac{n}{2(\sigma^2)^2} +\frac{n}{\left(\sigma^2\right)^2}
+\end{array}\right)=\frac{n}{\sigma^2}\left(\begin{array}{cc}
+1 & 0 \\
+0 & \frac{1}{2\sigma^2}
+\end{array}\right),
+\end{align*}\]
+
+\textbf{Teorema.} Sejam \(X_1,X_2\ldots,X_n\) uma amostra aleatória.
+Seja \(\hat{\theta}_n\) o estimador de máxima verossimilhança para
+\(\theta\) e seja \(\mathcal{I}_{1}(\theta)\) a informação de Fisher
+para uma amostra de tamanho 1. Sob certas condições de regularidade,
+\[\sqrt{n}(\hat{\theta}_n-\theta)\stackrel{D}{\rightarrow}N\left(0,\mathcal{I}(\theta)^{-1}\right),\]
+quando \(n\rightarrow\infty\).
+
+O teorema acima diz que, para \(n\) suficientemente grande,
+\[\hat{\theta}_n\approx N\left(\theta,\mathcal{I}_n(\theta)^{-1}\right).\]
+Isso implica que \(E(\hat{\theta}_n)\approx \theta\), ou seja, o vício
+do estimador desaparece com o aumento do tamanho da amostra. Além disso,
+\[Var(\hat{\theta})\approx\mathcal{I}_{n}(\theta)^{-1}=\frac{1}{n}\mathcal{I}_1(\theta)^{-1},\]
+logo \(\hat{\theta}_n\) é um estimador consistente.
+
+\textbf{Exemplo} Seja \(X_1,\ldots,X_n\) uma amostra aleatóra da
+população Exponencial(\(\theta\)). Temos: \[\begin{align*}
+L(\theta)&=\theta^ne^{-\theta\sum_{i=1}^{n}x_i}\\
+\log L(\theta)&=n\log\theta - \theta \sum_{i=1}^{n}x_i \\
+\frac{d}{d\theta}\log L(\theta)&= \frac{n}{\theta} - \sum_{i=1}^{n}x_i \\
+\frac{d^2}{d\theta^2}\log L(\theta)&=-\frac{n}{\theta^2}\\
+\mathcal{I}_n(\theta)&=\frac{n}{\theta^2} 
+\end{align*}\] Além disso,
+\[\frac{d}{d\theta}\log L(\theta)=0\Rightarrow \hat{\theta}_n=\frac{1}{\bar{x}}.\]
+Portanto, teremos que
+\[\hat{\theta}_n\approx N\left(\theta,\frac{\theta^2}{n}\right).\]
+
+Uma vez que, para grandes amostras, é razoável supor que
+\(Var(\hat{\theta}_n)\approx \mathcal{I}_n(\theta)^{-1}\), temos que o
+erro padrão de \(\hat{\theta}_n\) pode ser aproximado por
+
+\[\hbox{SE}(\hat{\theta}_n)\approx \mathcal{I}_n(\theta)^{-1/2}\] e,
+como esse em geral depende de \(\theta\), pode-se utilizar o princípio
+da substituição para obter a estimativa
+
+\[\widehat{\hbox{SE}}(\hat{\theta}_n)\approx \mathcal{I}_n(\hat{\theta}_{n})^{-1/2}.\]
+O curioso é que o estimador acima é o estimador de máxima
+verossimilhança para \(\hbox{SE}(\hat{\theta}_n)\), conforme podemos ver
+no seguinte teorema.
+
+\textbf{Teorema da Invariância.} Seja \(\hat{\theta}_n\) um estimador de
+máxima verossimilhança para \(\theta\). Então, para qualquer função real
+\(g(.)\), a estatística \(\hat{\phi}_n=g(\hat{\theta}_n)\) será o
+estimador de máxima verossimilhança para \(\phi=g(\theta)\).
+
+O Teorema da Invariância afirma que qualquer estimador criado a partir
+do estimador de máxima verossimilhança também será um estimador de
+máxima verossimilhança.
+
+\textbf{Exemplo.} O banco de dados abaixo contém o tempo (em fração de
+dias) entre os 126 suicídios registrados em Manaus durante 2022.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{require}\NormalTok{(gsheet)}
+\NormalTok{url }\OtherTok{\textless{}{-}} \StringTok{\textquotesingle{}https://docs.google.com/spreadsheets/d/1UUoNR7yDcFjwag3z3C5Ime0oaRCTjTomOaegFnUU{-}ZU/edit?usp=sharing\textquotesingle{}}
+\NormalTok{dados }\OtherTok{\textless{}{-}} \FunctionTok{gsheet2tbl}\NormalTok{(url)}
+\end{Highlighting}
+\end{Shaded}
+
+O modelo mais simples para o tempo entre ocorrências é o exponencial.
+Assumindo que esse modelo é adequado, teremos que a estimativa de máxima
+verossimilhança será dada por
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{theta\_chapeu }\OtherTok{\textless{}{-}} \DecValTok{1}\SpecialCharTok{/}\FunctionTok{mean}\NormalTok{(dados}\SpecialCharTok{$}\NormalTok{tempo)}
+\NormalTok{theta\_chapeu}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] 0.3789949
+\end{verbatim}
+
+Para verificar se este modelo é adequado, podemos comparar a função de
+distribuição empírica com a estimativa de máxima verossimilhança para a
+função de distribuição do modelo exponencial, dada por
+
+\[\tilde{F}_n(x)=P(X\leq |\theta=\hat{\theta}_n)=1-e^{-x\hat{\theta}_n}.\]
+Podemos ver no gráfico abaixo que as duas curvas são semelhantes, dando
+evidências de que os tempos entre os suicídios possuem distribuição
+Exponencial. A informação de Fisher para esse modelo é
+\[\mathcal{I}_n(\theta)=\frac{n}{\theta^2},\] logo, o erro padrão
+estimado para \(\hat{\theta}_n\) é
+
+\[\widehat{SE}(\hat{\theta}_n)=\frac{\hat{\theta}_n}{\sqrt{n}}\]
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{theta\_chapeu}\SpecialCharTok{/}\FunctionTok{sqrt}\NormalTok{(}\DecValTok{126}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] 0.03376355
+\end{verbatim}
+
+Assumindo que \(\hat{\theta}_n\) é 0,3, temos que a estimativa de máxima
+verossimilhança para o tempo entre suicídios é de
+\[\widehat{E(X)}=\frac{1}{\hat{\theta}_n}=\frac{1}{0,3}=3,3\hbox { dias}.\]
+enquanto a estimativa de máxima verossimilhança para o tempo mediano é o
+valor \(\hat{\phi}\) que satisfaz
+
+\[1-e^{-\hat{\phi}\hat{\theta}_n}=\frac{1}{2}\Rightarrow \hat{\phi}=\frac{\log(2)}{\hat{\theta}_n}.\]
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{log}\NormalTok{(}\DecValTok{2}\NormalTok{)}\SpecialCharTok{/}\NormalTok{theta\_chapeu}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] 1.828909
+\end{verbatim}
+
+\textbf{Exemplo} Abaixo, temos os níveis máximos anuais do Rio Negro
+registrados no Porto de Manaus entre 2004 e 2014.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{rio }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}
+\FloatTok{25.42}\NormalTok{, }\FloatTok{28.76}\NormalTok{, }\FloatTok{29.05}\NormalTok{, }\FloatTok{27.16}\NormalTok{, }\FloatTok{28.54}\NormalTok{, }\FloatTok{28.96}\NormalTok{, }\FloatTok{27.58}\NormalTok{, }\FloatTok{29.30}\NormalTok{, }\FloatTok{28.62}\NormalTok{, }\FloatTok{28.21}\NormalTok{, }\FloatTok{28.91}\NormalTok{, }\FloatTok{28.27}\NormalTok{, }\FloatTok{27.13}\NormalTok{, }\FloatTok{28.10}\NormalTok{, }\FloatTok{28.84}\NormalTok{, }\FloatTok{28.18}\NormalTok{, }\FloatTok{28.62}\NormalTok{, }\FloatTok{29.77}\NormalTok{, }\FloatTok{27.96}\NormalTok{, }\FloatTok{28.62}\NormalTok{, }\FloatTok{29.97}\NormalTok{, }\FloatTok{29.33}\NormalTok{, }\FloatTok{29.50}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+O Teorema de Fisher-Tippett diz que uma sequência de máximos de
+variáveis aleatórias independentes e identicamente distribuídas converge
+em distribuição para um membro da família de distribuições de valores
+extremos que pode ser dividida nas famílias Gumbel, Fréchet e Weibull.
+Por isso, é interessante começar nossa análise por uma destas três
+famílias.
+
+Considere o modelo Weibull, cuja função densidade é dada por
+
+\[f(x|\alpha,\beta)=\frac{\alpha}{\beta}\left(\frac{x}{\beta}\right)^{\alpha-1}e^{-\left(\frac{x}{\beta}\right)^\alpha},\]
+
+O pacote \texttt{MASS} possui a fução \texttt{fitdistr}, que é uma
+rotina pronta para encontrar a estimativa de máxima verossimilhança para
+diversos modelos. O código abaixo estima os parâmetros da Weibull.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{require}\NormalTok{(MASS)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+Carregando pacotes exigidos: MASS
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{ajuste }\OtherTok{\textless{}{-}} \FunctionTok{fitdistr}\NormalTok{( rio, }\StringTok{\textquotesingle{}weibull\textquotesingle{}}\NormalTok{)}
+\NormalTok{ajuste}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+     shape        scale   
+  38.2253996   28.8904274 
+ ( 6.2223528) ( 0.1656916)
+\end{verbatim}
+
+Temos \(\hat{\alpha}_n=38,2\) e \(\hat{\beta}_n=28,8\). O erro padrão
+aparece entre parênteses embaixo das estimativas e se refere ao valor
+obtido através da informação de Fisher.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{plot}\NormalTok{(}\FunctionTok{ecdf}\NormalTok{(rio),}\AttributeTok{xlab=}\StringTok{"Nível Máximo Anual"}\NormalTok{,}\AttributeTok{ylab=}\StringTok{"F"}\NormalTok{,}\AttributeTok{main=}\StringTok{""}\NormalTok{)}
+\FunctionTok{curve}\NormalTok{(}\FunctionTok{pweibull}\NormalTok{(x,}\FloatTok{38.2}\NormalTok{,}\FloatTok{28.8}\NormalTok{),}\AttributeTok{add=}\NormalTok{T,}\AttributeTok{col=}\DecValTok{4}\NormalTok{,}\AttributeTok{lwd=}\DecValTok{2}\NormalTok{) }
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{pontual_files/figure-pdf/unnamed-chunk-26-1.pdf}
+
+\section{Melhores estimadores não
+viciados}\label{melhores-estimadores-nuxe3o-viciados}
+
+Discutimos no começo deste capítulo que o estimador \(T\) é melhor que
+\(W\), quando o erro quadrático médio do primeiro é uniformemente menor
+que o do segundo, ou seja \[EQM_T(\theta)<EQM_W(\theta)\] para todo
+\(\theta\in \Theta\).
+
+Se considerarmos que \(T\) e \(W\) são não viciados, basta comparar as
+variâncias dos estimadores.
+
+\textbf{Definição} Dizemos que \(T\) é o melhor estimador não viciado de
+variância uniformemente mínima se, para qualquer outro estimador \(W\)
+não viciado, \(Var(T)<Var(W)\) para todo \(\theta\).
+
+Se existe o melhor estimador não viciado de variância mínima, então ele
+é único. O teorema a seguir mostra como determinar se \(T\) é o melhor
+estimador.
+
+\textbf{Teorema.} \(T\) é o melhor estimador não viciado de variância
+uniformemente mínima para \(\theta\) se e somente se ele for não
+correlacionado com qualquer outro estimador não viciado para zero.
+
+Pela sua natureza, o teorema acima caracteriza os melhores estimadores.
+Entretanto, a sua aplicação não é trivial. O próximo teorema possui
+aplicação mais imediata.
+
+\textbf{Teorema de Lehmann-Scheffé}. Seja \(T\) uma estatística
+suficiente e completa. Então, para qualquer função real \(g(.)\), o
+estimador \(W=g(T)\) é o melhor estimador não viciado de variância
+uniformemente mínima para \(E(W)\).
+
+\textbf{Exemplo.}
+
+Não podemos garantir que os estimadores de máxima verossimilhança são os
+melhores estimadores não viciados de variância uniformemente mínima.
+Contudo, podemos garantir que esse método sempre utilizará estatísticas
+suficientes e completas quando elas existirem.
+
+\textbf{Teorema.} Seja \(T\) uma estatística suficiente e completa e
+seja \(\hat{\theta}_n\) o estimador de máxima verossimilhança. Então,
+\(\hat{\theta}_n\) sempre será função de \(T\) e, nesse caso, ele será o
+estimador não viciado de variância uniformemente mínima para
+\(E(\hat{\theta}_n)\).
+
+\textbf{Exemplo.} Seja \(X_1,\ldots,X_n\) uma amostra aleatória da
+população Exponencial(\(\theta\)). Como
+\[L(\theta)=\prod_{i=1}^n \theta e^{-x_i\theta}=\underbrace{1}_{h(x)}.\underbrace{\theta^n}_{a(\theta)} \exp\left\{\underbrace{-\theta}_{w(\theta)}\underbrace{\sum_{i=1}^n x_i}_{t(x)}\right\}\]
+temos que esse modelo pertence à família exponencial e que
+\(T=\sum_{i=1}^nX_i\) é uma estatística suficiente. Como \(w(\theta)\)
+possui um intervalo aberto em \(\mathbb{R}\), temos que \(T\) também é
+completa. Portanto, por Lehman-Scheffé, qualquer estimador construído
+com \(T\) será o melhor estimador não viciado de variância mínima para
+seu valor esperado. Isso ocorre com o estimador de máxima
+verossmilhança, uma vez que
+
+\[\hat{\theta}_n=\frac{1}{\bar{X}_n}=\frac{n}{T}.\] Pode-se provar que
+\[E(\hat{\theta}_n)=\theta\frac{n}{n-1}\] logo, o estimador de máxima
+verossimilhança é viciado para \(\theta\) (embora o vício cai
+rapidamente para zero com o aumento de \(n\)). O estimador
+\[\frac{n-1}{n}\hat{\theta}_n=\frac{n-1}{\sum_{i=1}^n X_i}=\frac{n-1}{T}\]
+é não viciado para \(\theta\) e como ele é baseado em \(T\), ele é o
+melhor estimador não viciado de variância uniformemente mínima para
+\(\theta\).
+
 \bookmarksetup{startatroot}
 
 \chapter*{References}\label{references}
@@ -1841,6 +2229,7 @@ Ghosh, Malay, N Reid, and DAS Fraser. 2010. {``Ancillary Statistics: A
 Review.''} \emph{Statistica Sinica}, 1309--32.
 
 \end{CSLReferences}
+
 
 
 

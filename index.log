@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2024.3.1)  20 SEP 2024 09:18
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2024.3.1)  2 OCT 2024 13:38
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -319,7 +319,7 @@ Package: longtable 2023-11-01 v4.19 Multi-page Table package (DPC)
 \c@LT@chunks=\count285
 \LT@p@ftn=\toks27
 )
-Class scrartcl Info: longtable captions redefined on input line 98.
+Class scrartcl Info: longtable captions redefined on input line 112.
 (c:/Users/jam_d/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/booktabs/booktabs.sty
 Package: booktabs 2020/01/12 v1.61803398 Publication quality tables
 \heavyrulewidth=\dimen156
@@ -532,8 +532,8 @@ Package caption Info: New subtype `subfigure' on input line 238.
 Package caption Info: New subtype `subtable' on input line 238.
 \c@subtable=\count310
 )
-Package hyperref Info: Option `colorlinks' set `true' on input line 214.
-LaTeX Font Info:    Trying to load font information for T1+lmr on input line 220.
+Package hyperref Info: Option `colorlinks' set `true' on input line 229.
+LaTeX Font Info:    Trying to load font information for T1+lmr on input line 236.
 (c:/Users/jam_d/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/t1lmr.fd
 File: t1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 ) (c:/Users/jam_d/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
@@ -544,46 +544,46 @@ File: l3backend-pdftex.def 2024-02-20 L3 backend support: PDF output (pdfTeX)
 No file index.aux.
 \openout1 = `index.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 220.
-LaTeX Font Info:    ... okay on input line 220.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 220.
-LaTeX Font Info:    ... okay on input line 220.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 220.
-LaTeX Font Info:    ... okay on input line 220.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 220.
-LaTeX Font Info:    ... okay on input line 220.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 220.
-LaTeX Font Info:    ... okay on input line 220.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 220.
-LaTeX Font Info:    ... okay on input line 220.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 220.
-LaTeX Font Info:    ... okay on input line 220.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 220.
-LaTeX Font Info:    ... okay on input line 220.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 220.
-LaTeX Font Info:    ... okay on input line 220.
-Package scrbase Info: activating english \abstractname on input line 220.
-Package scrbase Info: activating english \partname on input line 220.
-Package scrbase Info: activating english \figurename on input line 220.
-Package scrbase Info: activating english \tablename on input line 220.
-Package scrbase Info: activating english \contentsname on input line 220.
-Package scrbase Info: activating english \listfigurename on input line 220.
-Package scrbase Info: activating english \listtablename on input line 220.
-Package scrbase Info: activating english \refname on input line 220.
-Package scrbase Info: activating english \indexname on input line 220.
-LaTeX Info: Redefining \microtypecontext on input line 220.
-Package microtype Info: Applying patch `item' on input line 220.
-Package microtype Info: Applying patch `toc' on input line 220.
-Package microtype Info: Applying patch `eqnum' on input line 220.
-Package microtype Info: Applying patch `footnote' on input line 220.
-Package microtype Info: Applying patch `verbatim' on input line 220.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 236.
+LaTeX Font Info:    ... okay on input line 236.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 236.
+LaTeX Font Info:    ... okay on input line 236.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 236.
+LaTeX Font Info:    ... okay on input line 236.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 236.
+LaTeX Font Info:    ... okay on input line 236.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 236.
+LaTeX Font Info:    ... okay on input line 236.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 236.
+LaTeX Font Info:    ... okay on input line 236.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 236.
+LaTeX Font Info:    ... okay on input line 236.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 236.
+LaTeX Font Info:    ... okay on input line 236.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 236.
+LaTeX Font Info:    ... okay on input line 236.
+Package scrbase Info: activating english \abstractname on input line 236.
+Package scrbase Info: activating english \partname on input line 236.
+Package scrbase Info: activating english \figurename on input line 236.
+Package scrbase Info: activating english \tablename on input line 236.
+Package scrbase Info: activating english \contentsname on input line 236.
+Package scrbase Info: activating english \listfigurename on input line 236.
+Package scrbase Info: activating english \listtablename on input line 236.
+Package scrbase Info: activating english \refname on input line 236.
+Package scrbase Info: activating english \indexname on input line 236.
+LaTeX Info: Redefining \microtypecontext on input line 236.
+Package microtype Info: Applying patch `item' on input line 236.
+Package microtype Info: Applying patch `toc' on input line 236.
+Package microtype Info: Applying patch `eqnum' on input line 236.
+Package microtype Info: Applying patch `footnote' on input line 236.
+Package microtype Info: Applying patch `verbatim' on input line 236.
 Package microtype Info: Generating PDF output.
 Package microtype Info: Character protrusion enabled (level 2).
 Package microtype Info: Using protrusion set `basicmath'.
 Package microtype Info: Automatic font expansion enabled (level 2),
 (microtype)             stretch: 20, shrink: 20, step: 1, non-selected.
 Package microtype Info: Using default expansion set `alltext-nott'.
-LaTeX Info: Redefining \showhyphens on input line 220.
+LaTeX Info: Redefining \showhyphens on input line 236.
 Package microtype Info: No adjustment of tracking.
 Package microtype Info: No adjustment of interword spacing.
 Package microtype Info: No adjustment of character kerning.
@@ -595,11 +595,11 @@ Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 48
 (c:/Users/jam_d/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
 ))
-Package hyperref Info: Link coloring ON on input line 220.
+Package hyperref Info: Link coloring ON on input line 236.
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: float package is loaded.
 Package caption Info: End \AtBeginDocument code.
-LaTeX Font Info:    Trying to load font information for T1+lmss on input line 222.
+LaTeX Font Info:    Trying to load font information for T1+lmss on input line 238.
 (c:/Users/jam_d/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/t1lmss.fd
 File: t1lmss.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
@@ -607,53 +607,53 @@ Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             `lmss' (encoding: T1).
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
-LaTeX Font Info:    Trying to load font information for OT1+lmr on input line 222.
+LaTeX Font Info:    Trying to load font information for OT1+lmr on input line 238.
 (c:/Users/jam_d/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/ot1lmr.fd
 File: ot1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
-LaTeX Font Info:    Trying to load font information for OML+lmm on input line 222.
+LaTeX Font Info:    Trying to load font information for OML+lmm on input line 238.
 (c:/Users/jam_d/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/omllmm.fd
 File: omllmm.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
-LaTeX Font Info:    Trying to load font information for OMS+lmsy on input line 222.
+LaTeX Font Info:    Trying to load font information for OMS+lmsy on input line 238.
 (c:/Users/jam_d/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/omslmsy.fd
 File: omslmsy.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
-LaTeX Font Info:    Trying to load font information for OMX+lmex on input line 222.
+LaTeX Font Info:    Trying to load font information for OMX+lmex on input line 238.
 (c:/Users/jam_d/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/omxlmex.fd
 File: omxlmex.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <14.4> on input line 222.
+(Font)              <14.4> on input line 238.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10> on input line 222.
+(Font)              <10> on input line 238.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <7> on input line 222.
-LaTeX Font Info:    Trying to load font information for U+msa on input line 222.
+(Font)              <7> on input line 238.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 238.
 (c:/Users/jam_d/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 ) (c:/Users/jam_d/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/microtype/mt-msa.cfg
 File: mt-msa.cfg 2006/02/04 v1.1 microtype config. file: AMS symbols (a) (RS)
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 222.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 238.
 (c:/Users/jam_d/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 ) (c:/Users/jam_d/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/microtype/mt-msb.cfg
 File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
 )
-Package tocbasic Info: character protrusion at toc deactivated on input line 227.
+Package tocbasic Info: character protrusion at toc deactivated on input line 243.
 No file index.toc.
 \tf@toc=\write4
 \openout4 = `index.toc'.
 
 ! Undefined control sequence.
-l.231 \chapter
+l.248 \chapter
               *{Preface}\label{preface} 
 Here is how much of TeX's memory you used:
- 18139 strings out of 476076
- 320696 string characters out of 5790601
+ 18143 strings out of 476076
+ 320770 string characters out of 5790601
  1928190 words of memory out of 5000000
- 39967 multiletter control sequences out of 15000+600000
+ 39971 multiletter control sequences out of 15000+600000
  590124 words of font info for 78 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  108i,6n,107p,10900b,388s stack positions out of 10000i,1000n,20000p,200000b,200000s
