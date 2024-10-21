@@ -951,7 +951,7 @@ par(oo)
 Dois casos intermediários. Em (a), há um ponto de máximo, mas seus vizinhos são possuem valores próximos para a função de verossimilhança. Em (b), há um ponto de máximo e a verossimilhança cai para zero rapidamente a medida que nos afastamos dele.
 :::
 
-Deste modo, quanto maior for o valor de $|L'(\theta)|$ na vizinhança de seu ponto de máximo , mais verossímil será a nossa estimativa. Podemos então definir a informação de Fisher.
+Deste modo, quanto maior for o valor de $|L'(\theta)|$ na vizinhança de seu ponto de máximo, mais verossímil será a nossa estimativa. Podemos então definir a informação de Fisher.
 
 <div class='alert alert-success'>
 **Definição.** Seja $X_1,\ldots,X_n$ uma amostra aleatória com função de verossimilhança $L(\theta)$. A informação de Fisher é definida por
@@ -981,7 +981,7 @@ portanto, quanto maior for o valor do tamanho da amostra, mais concentrada estar
 <div class='alert alert-info'>
 **Exemplo.** Seja $X_1,\ldots,X_n$ uma amostra aleatória da população Geométrica$(\theta)$, cuja função de probabilidade é dada por
 $$P(X=x|\theta)=\theta(1-\theta)^{x-1},$$
-com $x=1,2,\ldots$ e $\theta\in(0,1)$. A função de verossimilhan\c{c}a é
+com $x=1,2,\ldots$ e $\theta\in(0,1)$. A função de verossimilhança é
 $$L(\theta)=\prod_{i=1}^{n}P(X_i=x_i|\theta)=\prod_{i=1}^{n}\theta(1-\theta)^{x_i-1}=\theta^n(1-\theta)^{\sum_{i=1}^{n}x_i-n}.$$
 Disto, teremos que
 $$\begin{align*}
@@ -1000,7 +1000,7 @@ $$\begin{align*}
 &=\frac{n}{\theta}\left[\frac{1}{\theta}+\frac{1}{1-\theta}\right]\\
 &=\frac{n}{\theta^2(1-\theta)}
 \end{align*}$$
-Portanto, a informação de Fisher o sobre $\theta$ é uma função linear em $n$. Isto implica que, quanto maior for o tamanho da amostra, em média, maior será a concentra\c{c}ão da verossimilhança em torno da estimativa de máxima verossimilhança.
+Portanto, a informação de Fisher o sobre $\theta$ é uma função linear em $n$. Isto implica que, quanto maior for o tamanho da amostra, em média, maior será a concentração da verossimilhança em torno da estimativa de máxima verossimilhança.
 </div>
 
 
@@ -1013,7 +1013,7 @@ $$\mathcal{I}_n(\theta)=n\mathcal{I}_{1}(\theta).
 $$
 onde $\mathcal{I}_1(\theta)$ é a informação de Fisher para uma amostra de tamanho 1.
 
-Quando $\theta$ é um vetor, a informação de Fisher é uma matriz, definda por
+Quando $\theta$ é um vetor, a informação de Fisher é uma matriz, definida por
 $$\mathcal{I}_n(\theta)=E\left(\nabla\log L(\theta)\left[\nabla\log L(\theta)\right]^T\right)$$
 Além disso, se a família pertence a família exponencial, teremos
 $$\mathcal{I}_n(\theta)=-E\left(\mathcal{H}(\theta)\right),$$
@@ -1061,7 +1061,7 @@ $$Var(\hat{\theta})\approx\mathcal{I}_{n}(\theta)^{-1}=\frac{1}{n}\mathcal{I}_1(
 logo $\hat{\theta}_n$ é um estimador consistente. 
 
 <div class='alert alert-info'>
-**Exemplo** Seja $X_1,\ldots,X_n$ uma amostra aleatóra da população Exponencial($\theta$). Temos:
+**Exemplo** Seja $X_1,\ldots,X_n$ uma amostra aleatória da população Exponencial($\theta$). Temos:
 $$\begin{align*}
 L(\theta)&=\theta^ne^{-\theta\sum_{i=1}^{n}x_i}\\
 \log L(\theta)&=n\log\theta - \theta \sum_{i=1}^{n}x_i \\
@@ -1117,7 +1117,7 @@ $$\widehat{SE}(\hat{\theta}_n)=\frac{\hat{\theta}_n}{\sqrt{n}}$$
 theta_chapeu/sqrt(126)
 ```
 Assumindo que $\hat{\theta}_n$ é 0,3, temos que a estimativa de máxima verossimilhança para o tempo entre suicídios é de
-$$\widehat{E(X)}=\frac{1}{\hat{\theta}_n}=\frac{1}{0,3}=3,3\hbox { dias}.$$
+$$\widehat{E(X)}=\frac{1}{\hat{\theta}_n}=\frac{1}{0,3}=3,3\hbox { dias},$$
 enquanto a estimativa de máxima verossimilhança para o tempo mediano é o valor $\hat{\phi}$ que satisfaz
 
 $$1-e^{-\hat{\phi}\hat{\theta}_n}=\frac{1}{2}\Rightarrow \hat{\phi}=\frac{\log(2)}{\hat{\theta}_n}.$$
@@ -1196,7 +1196,7 @@ Não podemos garantir que os estimadores de máxima verossimilhança são os mel
 <div class='alert alert-info'>
 **Exemplo.** Seja $X_1,\ldots,X_n$ uma amostra aleatória da população Exponencial($\theta$). Como
 $$L(\theta)=\prod_{i=1}^n \theta e^{-x_i\theta}=\underbrace{1}_{h(x)}.\underbrace{\theta^n}_{a(\theta)} \exp\left\{\underbrace{-\theta}_{w(\theta)}\underbrace{\sum_{i=1}^n x_i}_{t(x)}\right\}$$
-temos que esse modelo pertence à família exponencial e que $T=\sum_{i=1}^nX_i$ é uma estatística suficiente. Como $w(\theta)$ possui um intervalo aberto em $\mathbb{R}$, temos que $T$ também é completa. Portanto, por Lehman-Scheffé, qualquer estimador construído com $T$ será o melhor estimador não viciado de variância mínima para seu valor esperado. Isso ocorre com o estimador de máxima verossmilhança, uma vez que
+temos que esse modelo pertence à família exponencial e que $T=\sum_{i=1}^nX_i$ é uma estatística suficiente. Como $w(\theta)$ possui um intervalo aberto em $\mathbb{R}$, temos que $T$ também é completa. Portanto, por Lehman-Scheffé, qualquer estimador construído com $T$ será o melhor estimador não viciado de variância mínima para seu valor esperado. Isso ocorre com o estimador de máxima verossimilhança, uma vez que
 
 $$\hat{\theta}_n=\frac{1}{\bar{X}_n}=\frac{n}{T}.$$
 Pode-se provar que 

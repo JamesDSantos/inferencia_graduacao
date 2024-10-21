@@ -13,6 +13,7 @@ book:
     - suficiencia.qmd
     - pontual.qmd
     - references.qmd
+    - teste.qmd
 
 bibliography: references.bib
 

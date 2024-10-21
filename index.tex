@@ -1257,8 +1257,8 @@ Podemos obter uma amostra da função de distribuição empírica sorteando
 \end{Shaded}
 
 \begin{verbatim}
- [1] 3070 3770 2600 2795 3195 3095 3405 3960 3195 2650 3140 3195 2650 2650 3135
-[16] 2960 2970 2650 2825 3095 2795 3125 3255 3095 3085 2960 2650 3085 3125 2600
+ [1] 2960 3405 3770 3095 2970 3070 3405 2970 2825 3370 2970 2600 3255 3960 2650
+[16] 3370 3125 3095 2945 2795 3230 3195 3135 3140 3670 2825 3070 3405 3140 2960
 \end{verbatim}
 
 Vamos calcular o erro padrão de \(\bar{X}_{30}\) utilizando do método
@@ -1279,7 +1279,7 @@ bootstrap:
 \end{Shaded}
 
 \begin{verbatim}
-[1] 58.77839
+[1] 58.84007
 \end{verbatim}
 
 Compare esse valor com o erro padrão estimado por \(S_n/\sqrt{30}\):
@@ -1466,7 +1466,7 @@ figura abaixo ilustra essa situação.
 
 \includegraphics{pontual_files/figure-pdf/unnamed-chunk-11-1-rgl.png}
 
-../../../AppData/Local/Temp/RtmpETxMcS/file21101014125.png
+../../../AppData/Local/Temp/RtmpOq8hfX/file12b01aed17cc.png
 
 }
 
@@ -1884,8 +1884,8 @@ Em (b), há um ponto de máximo e a verossimilhança cai para zero
 rapidamente a medida que nos afastamos dele.
 
 Deste modo, quanto maior for o valor de \(|L'(\theta)|\) na vizinhança
-de seu ponto de máximo , mais verossímil será a nossa estimativa.
-Podemos então definir a informação de Fisher.
+de seu ponto de máximo, mais verossímil será a nossa estimativa. Podemos
+então definir a informação de Fisher.
 
 \textbf{Definição.} Seja \(X_1,\ldots,X_n\) uma amostra aleatória com
 função de verossimilhança \(L(\theta)\). A informação de Fisher é
@@ -1913,7 +1913,7 @@ função de verossimilhança em torno da estimativa de verossimilhança.
 \textbf{Exemplo.} Seja \(X_1,\ldots,X_n\) uma amostra aleatória da
 população Geométrica\((\theta)\), cuja função de probabilidade é dada
 por \[P(X=x|\theta)=\theta(1-\theta)^{x-1},\] com \(x=1,2,\ldots\) e
-\(\theta\in(0,1)\). A função de verossimilhan\c{c}a é
+\(\theta\in(0,1)\). A função de verossimilhança é
 \[L(\theta)=\prod_{i=1}^{n}P(X_i=x_i|\theta)=\prod_{i=1}^{n}\theta(1-\theta)^{x_i-1}=\theta^n(1-\theta)^{\sum_{i=1}^{n}x_i-n}.\]
 Disto, teremos que \[\begin{align*}
 \log L(\theta)&= n\log(\theta) +\left(\sum_{i=1}^{n}x_i-n\right)\log(1-\theta)\\
@@ -1930,8 +1930,8 @@ Disto, teremos que \[\begin{align*}
 &=\frac{n}{\theta^2(1-\theta)}
 \end{align*}\] Portanto, a informação de Fisher o sobre \(\theta\) é uma
 função linear em \(n\). Isto implica que, quanto maior for o tamanho da
-amostra, em média, maior será a concentra\c{c}ão da verossimilhança em
-torno da estimativa de máxima verossimilhança.
+amostra, em média, maior será a concentração da verossimilhança em torno
+da estimativa de máxima verossimilhança.
 
 Nos exemplos acima vimos que o tamanho da amostra \(n\) aumenta a
 informação sobre \(\theta\). Seja é verdade que,
@@ -1943,7 +1943,7 @@ a Informação de Fisher é aditiva, ou seja
 amostra de tamanho 1.
 
 Quando \(\theta\) é um vetor, a informação de Fisher é uma matriz,
-definda por
+definida por
 \[\mathcal{I}_n(\theta)=E\left(\nabla\log L(\theta)\left[\nabla\log L(\theta)\right]^T\right)\]
 Além disso, se a família pertence a família exponencial, teremos
 \[\mathcal{I}_n(\theta)=-E\left(\mathcal{H}(\theta)\right),\] onde
@@ -1988,7 +1988,7 @@ do estimador desaparece com o aumento do tamanho da amostra. Além disso,
 \[Var(\hat{\theta})\approx\mathcal{I}_{n}(\theta)^{-1}=\frac{1}{n}\mathcal{I}_1(\theta)^{-1},\]
 logo \(\hat{\theta}_n\) é um estimador consistente.
 
-\textbf{Exemplo} Seja \(X_1,\ldots,X_n\) uma amostra aleatóra da
+\textbf{Exemplo} Seja \(X_1,\ldots,X_n\) uma amostra aleatória da
 população Exponencial(\(\theta\)). Temos: \[\begin{align*}
 L(\theta)&=\theta^ne^{-\theta\sum_{i=1}^{n}x_i}\\
 \log L(\theta)&=n\log\theta - \theta \sum_{i=1}^{n}x_i \\
@@ -2073,7 +2073,7 @@ estimado para \(\hat{\theta}_n\) é
 
 Assumindo que \(\hat{\theta}_n\) é 0,3, temos que a estimativa de máxima
 verossimilhança para o tempo entre suicídios é de
-\[\widehat{E(X)}=\frac{1}{\hat{\theta}_n}=\frac{1}{0,3}=3,3\hbox { dias}.\]
+\[\widehat{E(X)}=\frac{1}{\hat{\theta}_n}=\frac{1}{0,3}=3,3\hbox { dias},\]
 enquanto a estimativa de máxima verossimilhança para o tempo mediano é o
 valor \(\hat{\phi}\) que satisfaz
 
@@ -2204,7 +2204,7 @@ possui um intervalo aberto em \(\mathbb{R}\), temos que \(T\) também é
 completa. Portanto, por Lehman-Scheffé, qualquer estimador construído
 com \(T\) será o melhor estimador não viciado de variância mínima para
 seu valor esperado. Isso ocorre com o estimador de máxima
-verossmilhança, uma vez que
+verossimilhança, uma vez que
 
 \[\hat{\theta}_n=\frac{1}{\bar{X}_n}=\frac{n}{T}.\] Pode-se provar que
 \[E(\hat{\theta}_n)=\theta\frac{n}{n-1}\] logo, o estimador de máxima
@@ -2229,6 +2229,367 @@ Ghosh, Malay, N Reid, and DAS Fraser. 2010. {``Ancillary Statistics: A
 Review.''} \emph{Statistica Sinica}, 1309--32.
 
 \end{CSLReferences}
+
+\bookmarksetup{startatroot}
+
+\chapter{Testes de hipóteses}\label{testes-de-hipuxf3teses}
+
+\section{Definição de hipóteses, testes e modos de
+avaliação}\label{definiuxe7uxe3o-de-hipuxf3teses-testes-e-modos-de-avaliauxe7uxe3o}
+
+Existem diversos problemas nos quais o objetivo da inferência é levantar
+evidências de alguma suposição sobre a população \(F(.)\). Tais
+suposições são denominadas hipóteses.
+
+\textbf{Definição.} Qualquer suposição sobre \(F(.)\) é denominada
+
+\textbf{Exemplo.} Seja \(X_1,\ldots,X_n\) uma amostra de variáveis
+aleatórias. Ao menos que existam razões físicas claras, considerar que
+estas variáveis são independentes e identicamente distribuídas é uma
+hipótese.
+
+Podem existir diferentes hipóteses para o mesmo problema. É comum
+identificar a \(i\)-ésima hipótese por \(H_i\), com \(i=0,1,2,\ldots\).
+Seguem alguns exemplos:
+
+\begin{itemize}
+\tightlist
+\item
+  \(H_1:\theta=0\).
+\item
+  \(H_2:\theta>0\).
+\item
+  \(H_3:\) \(X_1,\ldots,X_n\sim\hbox{Normal}(\mu,\sigma^2)\) para algum
+  par \((\mu,\sigma^2)\) desconhecido.
+\item
+  \(H_4:\) \(X_1,\ldots,X_n\) é uma amostra de variáveis aleatórias
+  independentes.
+\item
+  \(H_5:\) \(X_1,\ldots,X_n\) é uma amostra de variáveis aleatórias
+  independentes com distribuição normal.
+\end{itemize}
+
+Nesse curso, será discutida apenas a abordagem paramétrica. Sob essa
+ótica, hipóteses são suposições sobre os parâmetros da população, o que
+implica em hipóteses do tipo \[H_i:\theta\in \Theta_I\subset\Theta.\]
+Nesta abordagem, existem dois tipos importantes de hipóteses: *
+Hipóteses simples: são do tipo \(H:\theta=\theta_0\). Exemplos:
+\(H_0:\theta=\theta_0\);
+\(H_1:\{\alpha=\alpha_0\}\cap\{\beta=\beta_0\}\). Uma hipótese simples
+identifica completamente a população. * Hipóteses compostas: são do tipo
+\(H:\theta\in \Theta'\subset \Theta\). Exemplos:
+\(H_0:\theta\leq \theta_0\);
+\(H_1:\{\alpha\leq\alpha_0\}\cup\{\beta\geq\beta_0\}\). Observe que
+essas hipóteses trazem muitas possibilidades para o valor de \(\theta\),
+tornando impossível determinar completamente a população.
+
+Os testes de hipóteses são procedimentos que utilizam uma amostra para
+decidir se certa hipótese é verdadeira ou falsa. Ao considerar uma certa
+hipótese \(H_0:\theta\in\Theta_0\), onde \(\Theta_0\subset \Theta\),
+após observar os dados existem duas decisões: * Decisão 1: aceitar a
+hipótese \(H_0\) como verdadeira. * Decisão 2: aceitar a hipótese
+\(H_0\) como falsa. Note que estas decisões são estatísticas, uma vez
+que elas são baseadas na amostra.
+
+\textbf{Teste de Hipóteses.} Um teste de hipóteses (também chamado de
+regra de decisão) é qualquer estatística
+\(D:\mathcal{X}^n\rightarrow \{0,1\}\). Se \(D(\textbf{x})=1\), toma-se
+a decisão de rejeitar \(H_0\) e se \(D(\textbf{x})=0\), toma-se a
+decisão de não rejeitar \(H_0\).
+
+Para racionalizar o processo de decisão, seja
+
+\[\delta=\left\{\begin{array}{ll}1,& \hbox{ se $H_0$ é falsa }\\ 0,&\hbox{ se $H_0$ é verdadeira}\end{array}\right.\]
+Observe que o teste \(D\) pode ser considerado um estimador para
+\(\delta\). Deste modo, a qualidade do teste \(D\) pode ser verificada
+através do erro quadrático médio:
+
+\[\begin{align}EQM_{D}(\delta)&=E(D-\delta)^2=\delta^2P(D=0|\delta)+(1-\delta)^2P(D=1|\delta)\\
+&= \delta^2(1-P(D=1|\delta))+(1-\delta)^2 P(D=1|\delta)\\
+&=\delta^2+[-\delta^2+(1-\delta)^2]P(D=1|\delta)\\
+&=\delta^2+[1-2\delta]P(D=1|\delta)\end{align}\]
+
+Observe que o erro quadrático médio depende de \(P(D=1|\delta)\), que
+por sua vez só é conhecido quando \(\delta\) é conhecido. Ao ver essa
+probabilidade como função de \(\delta\), temos a função poder do teste
+(posteriormente definiremos apropriadamente essa função).
+
+Considere os seguintes cenários:
+
+\begin{itemize}
+\tightlist
+\item
+  Se \(\delta=0\) (a hipótese é verdadeira), teremos
+\end{itemize}
+
+\[EQM_D(0)=P(D=1|\delta=0)\] e quanto menor o valor do poder do teste,
+menor é o erro quadrático médio. É imediato que essa probabilidade se
+refere à ação de rejeitar, erroneamente, a hipótese \(H_0\) quando ela é
+verdadeira. Esse erro é denominado \textbf{erro do tipo I}.
+
+\begin{itemize}
+\tightlist
+\item
+  Se \(\delta=1\) ( a hipótese é falsa), então
+  \[EQM_D(1)=1-P(D=1|\delta=1),\] e, nesse caso, quanto maior o valor do
+  poder do teste, menor é o erro quadrático médio. Obviamente,
+  \(1-P(D=1|\delta=1)=P(D=0|\delta=1)\). Portanto, o erro quadrático
+  médio é definido como a probabilidade de não rejeitar (erroneamente) a
+  hipótese \(H_0\) quando ela é falsa. Esse erro é denominado
+  \textbf{erro do tipo II.}
+\end{itemize}
+
+\textbf{Importante!} Os erros do tipo I e II não são complementares, uma
+vez que o primeiro é calculado sob \(\delta=0\) e o segundo sob
+\(\delta=1\). Contudo, há uma relação importante entre eles, ilustrada
+nos cenários abaixo:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  Suponha que o teste \(D\) nunca comete o erro do tipo I. Então
+  \(P(D=1|\delta=0)=0\). Isso só pode acontecer se a decisão \(D=1\)
+  nunca for realizada. Logo, quando \(\delta=1\),
+  \[1-P(D=1|\delta=1)=P(D=0|\delta=1)=1\] e o erro do tipo II será
+  cometido com probabilidade 1.
+\item
+  Alternativamente, suponha que o teste \(D\) nunca comete o erro do
+  tipo II. Então \(P(D=0|\delta=1)=0\). Isso só pode acontecer se a
+  decisão \(D=0\) nunca for realizada. Logo, quando \(\delta=0\),
+  \[0=P(D=0|\delta=0)=1-P(D=1|\delta=0)\Rightarrow P(D=1|\delta=0)=1\] e
+  o erro do tipo I será cometido com probabilidade 1.
+\end{enumerate}
+
+Observe que não é possível eliminar a ocorrência de um dos erros (tipo I
+ou II) sem correr o risco de sempre cometer o outro erro. Para ter algum
+controle sobre o problema, escolhemos a probabilidade de cometer o erro
+tipo I para ficar controlada. Tal probabilidade é denominada nível de
+significância.
+
+\textbf{Definição} Dizemos que o teste \(D\) tem nível de significância
+\(\alpha\) se a probabilidade de cometer o erro do tipo I é menor ou
+igual à \(\alpha\).
+
+Uma vez que decidimos controlar o erro do tipo I, mantendo o nível de
+significância em \(\alpha\), sabemos que nosso teste \(D\) vai cometer o
+erro de rejeitar \(H_0\) com probabilidade \(\alpha\) sempre que \(H_0\)
+for verdadeira. Como apenas esse cenário está controlado, é comum
+formular a hipótese \(H_0\) como algo que \textbf{deve ser rejeitado}
+(daí vem o termo ``hipótese nula'' para ser referir à \(H_0\)).
+
+\textbf{Exemplo.} Dizemos que certa máquina está desregulada se sua
+probabilidade (\(\theta\)) de produzir itens defeituosos é maior que
+\(0,001\). Um lote de peças produzidos por essa máquina é separado e
+cada peça é testada. O objetivo é saber se a máquina está regulada, ou
+seja, se a atual probabilidade é menor que \(0,001\). Recorde que é
+usual definir a hipótese nula como o complementar do que queremos
+testar, o que gera
+\[H_0:\theta\geq 0,001\;\; (\hbox{ máquina desregulada})\]
+
+Vejamos os riscos envolvidos nesse processo de decisão:
+
+\begin{itemize}
+\item
+  Erro tipo I: dizemos que a máquina está operando normalmente, quando
+  na verdade ela está desregulada. Os lotes serão vendidos, os clientes
+  serão prejudicados, a marca vai perder credibilidade, pode ser
+  necessário fazer o recall dos lotes produzidos.
+\item
+  Erro tipo II: dizemos que a máquina está desregulada, quando na
+  verdade ela está operando normalmente. A linha de produção deve ser
+  interrompida e a equipe técnica tem que avaliar a máquina. O problema
+  se resolve dentro da própria empresa.
+\end{itemize}
+
+Para testar essa hipóte, escolhemos um teste \(D\) com nível de
+significância de 1\%. Ao observar a amostra, duas coisas podem
+acontecer:
+
+\begin{itemize}
+\item
+  \(D(\textbf{x})=1\). Nesse caso, assumimos que a máquina está operando
+  normalmente. Tomamos essa decisão porque a probabilidade do teste
+  errar nessa situação é de 1\%
+\item
+  \(D(\textbf{x})=0\). Nesse caso, assumimos que a máquina está
+  desregulada. A probabilidade do erro tipo II em geral é maior que o
+  nível de significância (no nosso caso 1\%). Ainda sim, cometer esse
+  erro implica em acionar a equipe técnica para uma avaliação, algo
+  muito menos problemático que o erro do tipo I.
+\end{itemize}
+
+\textbf{Importante!} Embora \(D(x)=0\) seja a decisão de aceitar \(H_0\)
+como verdadeira, alguns textos utilizam termos como ``não há evidências
+para rejeitar \(H_0\)'', ou ``o teste falhou em rejeitar \(H_0\)''. O
+motivo por trás desses termos está o fato de que o erro tipo II não está
+controlado, logo, não sabemos com que frequência a decisão de aceitar a
+hipótese vai estar equivocada.
+
+\section{A construção de um teste de hipóteses a partir de uma
+estatística de
+teste}\label{a-construuxe7uxe3o-de-um-teste-de-hipuxf3teses-a-partir-de-uma-estatuxedstica-de-teste}
+
+Para construir um teste de hipóteses, é preciso particionar o espaço
+amostral de duas regiões:
+
+\begin{itemize}
+\item
+  Região de rejeição: são todas as amostras que levam à decisão de
+  rejeitar a hipótese nula.
+\item
+  Região de aceitação: são todas as amostras que levam à decisão de
+  aceitar a hipótese nula.
+\end{itemize}
+
+Pode ser uma tarefa árdua descobrir como particionar o espaço amostral
+de maneira adequada para obter um teste de hipóteses. Conforme já
+discutido no Capítulo 3, podemos utilizar uma estatística \(T\) para
+reduzir a dimensão do problema. Uma vez que o teste \(D\) e a
+estatística \(T\) são funções da amostra, podemos definir um teste com a
+composição \(D(T(\textbf{x}))\). Quando utilizada dessa forma, \(T\) é
+denominada \emph{estatística de teste}. A figura abaixo ilustra esse
+conceito.
+
+\begin{figure}
+
+{\centering \includegraphics{fig_stat_test.jpg}
+
+}
+
+\caption{A estatística \(T\) utilizada como estatística de teste. As
+partições em verde formam as regiões de rejeição e as partições laranjas
+as de aceitação.}
+
+\end{figure}%
+
+Em geral, escolhemos uma estatística de teste que possui alguma relação
+com \(\theta\) (como, por exemplo, uma estatística suficiente ou um
+estimador). Tal opção é útil para definir como a partição será feita.
+Para ilustrar, considere que \(T\) é um estimador para \(\theta\) e
+suponha que desejamos testar se \(H_0:\theta\leq \theta_0\). É natural
+pensar que \(H_0\) é falsa se \(t\) observado é muito maior que
+\(\theta_0\). Deste modo, podemos definir um valor \(c>\theta_0\) e
+construir a região de rejeição \[R=\{t:t>c\}.\] Deste modo, criamos o
+teste
+\[D(t)=\left\{\begin{array}{ll}1,&t>c\\0,&t\leq c\end{array}\right.\]
+Para determinar o valor de \(c\), podemos fixar o nível de
+significância. Deste modo, teremos que
+\[\alpha=P(D=1|\theta_0)=P(T>c|\theta_0)=1-F_{T|\theta_0}(c)\Rightarrow F_{T|\theta_0}(c)=1-\alpha.\]
+Portanto, \(c\) é o quantil \(1-\alpha\) da distribuição de \(T\)
+supondo que \(\theta=\theta_0\).
+
+\textbf{Exemplo.} Seja \(X_1,\ldots,X_n\) uma amostra aleatória da
+população Normal(\(\mu\),1). Considere a hipótese nula
+\(H_0:\mu \leq \mu_0\).
+
+Sabemos que \(\bar{X}_n\) é um estimador para \(\mu\). Vamos ter
+evidências para rejeitar \(H_0\) quando \[\bar{x}_n>c>\mu_0.\]. Para
+determinar o valor de \(c\), fixe o nível de significância \(\alpha\).
+Então
+
+\[\alpha=P(\bar{X}_n>c|\mu_0)=1-P(\bar{X}_n\leq c|\mu_0)\Rightarrow F_{\bar{X}_n|\mu_0}(c)=1-\alpha.\]
+Portanto, \(c\) é o quantil \(1-\alpha\) de de
+\(\bar{X}_n|\mu_0\sim N(\mu_0,1/n)\).
+
+\textbf{Exemplo.} Um agricultor afirma que a média de produção de soja
+em sua fazenda maior que 3 toneladas por hectare. Uma amostra de 15
+hectares foi selecionada e a produção de soja média foi de 3,2
+toneladas. Supondo que a produção média de soja por hectare tem
+distribuição normal com desvio padrão de 0,5 tonelada por hectare,
+teste, ao nível de 5\% de significância, a afirmação do agricultor.
+
+\textbf{Solução.} Queremos saber se \(\mu>3\). Portanto, a hipótese nula
+é \[H_0:\mu\leq 3.\] Vamos rejeitar a hipótese nula se houverem
+evidências de que \(\mu\) é maior que 3. Utilizando \(\bar{x}_{15}\)
+para tomar a decisão, teremos a seguinte região de rejeição:
+\[R=\{\bar{x}_{15}:\bar{x}_{15}>c\}.\] Para determinar o valor de \(c\),
+observe que
+\[0,05=P(\bar{X}_{15}>c|\mu=3)=1-P(\bar{X}_{15}\leq c|\mu=3)\Rightarrow F_{\bar{X}_{15}|\mu=3}(c)=0,95\]
+logo \(c\) é o quantil de 95\% da distribuição
+\[\bar{X}_{15}|\mu=3\sim N\left(3,\frac{0,5^2}{15}\right)=N\left(3,\frac{1}{60}\right)\]
+O valor de \(c=3,212\). Portanto, rejeitamos \(H_0\) quando
+\(\bar{x}_{15}>3,212\). Como \(\bar{x}_{15}=3,2\), não rejeitamos a
+hipótese nula.
+
+Anteriormente, definimos a função poder do teste baseada em \(\delta\),
+onde \(\delta=1\) de \(H_0\) era falsa. Contudo, com as hipóteses são
+funções do parâmetro, podemos definir a função poder em relação a estes
+sem perda de generalidade.
+
+\textbf{Definição}. A função \[\beta(\theta)=P(T\in R|\theta)\] é
+denominada função poder o teste.
+
+\textbf{Exemplo (continuado).} Observe que, no exemplo anterior,
+evitamos decidir que \(H_0\) era verdadeira. Para entender melhor,
+considere a função poder para esse teste:
+\[\beta(\mu)=P(\bar{X}_{15}>3,212|\mu).\]
+
+Suponha que \(\mu=3,1\) (ou seja, ocorreu o erro tipo II). A
+probabilidade desse erro ocorrer é \[1-\beta(3,1)=0,80\]
+
+Abaixo, apresentamos o gráfico da função poder. Destacado em vermelho
+está a probabilidade do erro tipo II para o ponto \(\mu=3,1\).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{oo }\OtherTok{\textless{}{-}} \FunctionTok{par}\NormalTok{(}\AttributeTok{cex=}\FloatTok{1.2}\NormalTok{)}
+\NormalTok{poder }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(mu) }\DecValTok{1}\SpecialCharTok{{-}}\FunctionTok{pnorm}\NormalTok{(}\FloatTok{3.212}\NormalTok{,mu,}\DecValTok{1}\SpecialCharTok{/}\FunctionTok{sqrt}\NormalTok{(}\DecValTok{60}\NormalTok{))}
+\FunctionTok{curve}\NormalTok{(}\FunctionTok{poder}\NormalTok{(x),}\FloatTok{2.8}\NormalTok{,}\FloatTok{3.5}\NormalTok{, }\AttributeTok{lwd =} \DecValTok{2}\NormalTok{, }\AttributeTok{xlab =} \FunctionTok{expression}\NormalTok{(mu), }\AttributeTok{ylab=} \FunctionTok{expression}\NormalTok{(}\FunctionTok{beta}\NormalTok{(mu)) )}
+\FunctionTok{abline}\NormalTok{(}\AttributeTok{h=}\NormalTok{.}\DecValTok{05}\NormalTok{, }\AttributeTok{lty=}\DecValTok{2}\NormalTok{)}
+\FunctionTok{points}\NormalTok{(}\FloatTok{3.1}\NormalTok{,}\FunctionTok{poder}\NormalTok{(}\FloatTok{3.1}\NormalTok{), }\AttributeTok{pch=}\DecValTok{16}\NormalTok{,}\AttributeTok{col=}\StringTok{\textquotesingle{}red\textquotesingle{}}\NormalTok{)}
+\FunctionTok{segments}\NormalTok{(}\FloatTok{3.1}\NormalTok{,}\FunctionTok{poder}\NormalTok{(}\FloatTok{3.1}\NormalTok{),}\FloatTok{3.1}\NormalTok{,}\DecValTok{1}\NormalTok{,}\AttributeTok{col=}\StringTok{\textquotesingle{}red\textquotesingle{}}\NormalTok{,}\AttributeTok{lwd =} \DecValTok{2}\NormalTok{)}
+\FunctionTok{segments}\NormalTok{(}\FloatTok{3.1{-}.03}\NormalTok{,}\FunctionTok{poder}\NormalTok{(}\FloatTok{3.1}\NormalTok{),}\FloatTok{3.1+.03}\NormalTok{, }\FunctionTok{poder}\NormalTok{(}\FloatTok{3.1}\NormalTok{), }\AttributeTok{lwd =} \DecValTok{2}\NormalTok{ ,}\AttributeTok{col =}\StringTok{\textquotesingle{}red\textquotesingle{}}\NormalTok{)}
+\FunctionTok{segments}\NormalTok{(}\FloatTok{3.1{-}.03}\NormalTok{,}\DecValTok{1}\NormalTok{,}\FloatTok{3.1+.03}\NormalTok{, }\DecValTok{1}\NormalTok{, }\AttributeTok{lwd =} \DecValTok{2}\NormalTok{ ,}\AttributeTok{col =}\StringTok{\textquotesingle{}red\textquotesingle{}}\NormalTok{)}
+\FunctionTok{text}\NormalTok{(}\DecValTok{3}\NormalTok{,.}\DecValTok{6}\NormalTok{,}\FunctionTok{expression}\NormalTok{(}\DecValTok{1}\SpecialCharTok{{-}}\FunctionTok{beta}\NormalTok{(}\FloatTok{3.1}\NormalTok{)), }\AttributeTok{col=}\StringTok{\textquotesingle{}red\textquotesingle{}}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{teste_files/figure-pdf/unnamed-chunk-1-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{par}\NormalTok{(oo)}
+\end{Highlighting}
+\end{Shaded}
+
+\textbf{Exemplo.} O número de chamadas em um call center possui
+distribuição Poisson com taxa 120 chamadas. Após a implementação de uma
+nova campanha de marketing, a empresa deseja verificar se a taxa média
+de chamadas aumentou. Para isso, foi coletada uma nova amostra de dados,
+correspondente a 100 horas de atendimento, resultando em uma média de
+135 chamadas por hora. Teste, ao nível de significância de 5\%, se a
+nova campanha teve efeito.
+
+\textbf{Solução.} Deseja-se saber se houve aumento na taxa de chamadas,
+ou seja, se \(\theta>120\). Portanto, a hipótese nula pode ser formulada
+como \(H_0:\theta\leq 120\).
+
+Considerando o estimador de máxima verossimilhança como estatística de
+teste, rejeitamos a hipótese nula quando \(\hat{\theta}>c\), com
+\(c>120\). Fixando o nível de significância em 5\%, teremos que
+\[0,05=P(\hat{\theta}>c|\theta=120)=1-P(\hat{\theta}\leq c|\theta=120)\]
+e, como
+\[P(\hat{\theta}\leq c|\theta)=P\left(\sum_{i=1}^{100}X_i\leq 100c|\theta=120\right)=F_T(100c),\]
+onde \(T\sim\hbox{Poisson}(12000)\). Unindo as duas equações acima,
+concluímos que, \[F_T(100c)=0,95\] ou seja \(100c\) é o quantil 95\% da
+distribuição Poisson(12000). Abaixo apresentamos o cálculo de \(c\) no
+\texttt{R}:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{c }\OtherTok{=} \FunctionTok{qpois}\NormalTok{(.}\DecValTok{95}\NormalTok{,}\DecValTok{12000}\NormalTok{)}\SpecialCharTok{/}\DecValTok{100}
+\NormalTok{c}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] 121.8
+\end{verbatim}
+
+Portanto, a região de rejeição desse teste é
+\[R=\{\hat{\theta}:\hat{\theta}>121,8\}.\] Como o valor observado de
+\(\hat{\theta}\) é \(135\), rejeitamos a hipótese nula. Portanto, há
+evidências de que a campanha teve efeito.
 
 
 
