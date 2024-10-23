@@ -328,16 +328,55 @@ window.Quarto = {
 <figcaption>A estatística <span class="math inline">\(T\)</span> utilizada como estatística de teste. As partições em verde formam as regiões de rejeição e as partições laranjas as de aceitação.</figcaption>
 </figure>
 </div>
-<p>Em geral, escolhemos uma estatística de teste que possui alguma relação com <span class="math inline">\(\theta\)</span> (como, por exemplo, uma estatística suficiente ou um estimador). Tal opção é útil para definir como a partição será feita. Para ilustrar, considere que <span class="math inline">\(T\)</span> é um estimador para <span class="math inline">\(\theta\)</span> e suponha que desejamos testar se <span class="math inline">\(H_0:\theta\in \Theta_0\)</span>. É natural pensar que <span class="math inline">\(H_0\)</span> é falsa se <span class="math inline">\(t\)</span> observado está longe da região <span class="math inline">\(\Theta_0\)</span>. Deste modo, podemos definir um valor <span class="math inline">\(c&gt;\theta_0\)</span> e construir a região de rejeição <span class="math display">\[R=\{t:t&gt;c\}.\]</span> Deste modo, criamos o teste <span class="math display">\[D(t)=\left\{\begin{array}{ll}1,&amp;t&gt;c\\0,&amp;t\leq c\end{array}\right.\]</span> Para determinar o valor de <span class="math inline">\(c\)</span>, podemos fixar o nível de significância. Deste modo, teremos que <span class="math display">\[\alpha=P(D=1|\theta_0)=P(T&gt;c|\theta_0)=1-F_{T|\theta_0}(c)\Rightarrow F_{T|\theta_0}(c)=1-\alpha.\]</span> Portanto, <span class="math inline">\(c\)</span> é o quantil <span class="math inline">\(1-\alpha\)</span> da distribuição de <span class="math inline">\(T\)</span> supondo que <span class="math inline">\(\theta=\theta_0\)</span>.</p>
+<p>Em geral, escolhemos uma estatística de teste que possui alguma relação com <span class="math inline">\(\theta\)</span> (como, por exemplo, uma estatística suficiente ou um estimador). Tal opção é útil para definir como a partição será feita. Para ilustrar, considere que <span class="math inline">\(T\)</span> é um estimador para <span class="math inline">\(\theta\)</span> e suponha que desejamos testar se <span class="math inline">\(H_0:\theta\in \Theta_0\)</span>. Como <span class="math inline">\(T\)</span> é um estimador para <span class="math inline">\(\theta\)</span>, pelo princípio das substituição, é razoável inferir que não se deve rejeitar <span class="math inline">\(H_0\)</span> se <span class="math inline">\(T\in\Theta_0.\)</span> Nas próximas 3 figuras, discutimos melhor essas ideias. Nelaas, mostramos o espaço paramétrico <span class="math inline">\(\Theta\)</span> e o espaço da hipótese nula <span class="math inline">\(\Theta_0\)</span> (região em salmão). O ponto em laranja é o verdadeiro valor do parâmetro. Em tons diferentes de verde, temos a densidade da estatística <span class="math inline">\(T\)</span>, sendo que quanto mais escura, maior é a probabilidade de observar <span class="math inline">\(t\)</span> naquela região. Temos as seguintes situações:</p>
+<ul>
+<li>Na figura abaixo, a distribuição da estatística de teste gera somente valores dentro de <span class="math inline">\(\Theta_0\)</span>. Portanto, sempre vamos inferir que <span class="math inline">\(\theta\in\Theta_0\)</span> e é razoável aceitar <span class="math inline">\(H_0\)</span>.</li>
+</ul>
+<div id="fig::stat_testB" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="fig_testA.jpg" class="img-fluid figure-img"></p>
+<figcaption>Nesse exemplo, os valores de <span class="math inline">\(T\)</span> sempre são gerados dentro do espaço da hipótese nula.</figcaption>
+</figure>
+</div>
+<ul>
+<li>Na figura abaixo, a distribuição da estatística de teste nunca gera valores dentro de <span class="math inline">\(\Theta_0\)</span>. Portanto, sempre vamos inferir que <span class="math inline">\(\theta\notin\Theta_0\)</span> e rejeitamos <span class="math inline">\(H_0\)</span>.</li>
+</ul>
+<div id="fig::stat_testB" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="fig_testB.jpg" class="img-fluid figure-img"></p>
+<figcaption>Nesse exemplo, os valores de <span class="math inline">\(T\)</span> nunca são gerados dentro do espaço da hipótese nula.</figcaption>
+</figure>
+</div>
+<ul>
+<li>Nesta figura, a hipótese ainda é verdadeira, mas existe a possibilidade da estatística de teste gerar valores fora do espaço da hipótese nula. É nessa situação que é possível cometer o erro tipo I.</li>
+</ul>
+<div id="fig::stat_testC" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="fig_testc.jpg" class="img-fluid figure-img"></p>
+<figcaption>Aqui, a hipótese nula é verdadeira, mas é possível observar <span class="math inline">\(t\notin\Theta_0\)</span>.</figcaption>
+</figure>
+</div>
+<ul>
+<li>A discussão realizada na última figura foi feita para um único ponto na borda de <span class="math inline">\(\Theta_0\)</span>. Como não sabemos qual ponto é o correto, devemos levar em consideração a borda toda, conforme mostra a figura abaixo. Qualquer ponto <span class="math inline">\(t\)</span> gerado na região mais verde claro pode ter sido gerado supondo que a hipótese nula é verdadeira.</li>
+</ul>
+<div id="fig::stat_testD" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="fig_testD.jpg" class="img-fluid figure-img"></p>
+<figcaption>Considerando todas as possibilidades para a hipótesen ula, valores de <span class="math inline">\(t\)</span> dentro de <span class="math inline">\(\Theta_0\)</span> ou na área verde podem ser gerados quando <span class="math inline">\(H_0\)</span> é verdadeira.</figcaption>
+</figure>
+</div>
+<ul>
+<li>Agora, podemos particionar o espaço, criando uma região de rejeição e outra de aceitação. Como sempre devemos ter uma probabilidade baixa de cometer o erro tipo I, devemos colocar parte da área verde dentro da região de rejeição. Na figura abaixo, aceitamos <span class="math inline">\(H_0\)</span> quando <span class="math inline">\(t\)</span> está dentro do círculo vermelho e rejeitamos em caso contrário.</li>
+</ul>
+<div id="fig::stat_testD" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="fig_testE.jpg" class="img-fluid figure-img"></p>
+<figcaption>Partição do espaço. A área dentro do círculo vermelho é a região de aceitação, que compreende a região <span class="math inline">\(\Theta_0\)</span> e a maioria dos valores de <span class="math inline">\(T\)</span> que podem ser gerados quando <span class="math inline">\(H_0\)</span> é verdadeira. A área fora do círculo vermelho inclui os pontos impossíveis e alguns pontos pouco prováveis de serem gerados por quando <span class="math inline">\(H_0\)</span> é verdadeira.</figcaption>
+</figure>
+</div>
 <div class="alert alert-info">
-<p><strong>Exemplo.</strong> Seja <span class="math inline">\(X_1,\ldots,X_n\)</span> uma amostra aleatória da população Normal(<span class="math inline">\(\mu\)</span>,1). Considere a hipótese nula <span class="math inline">\(H_0:\mu \leq \mu_0\)</span>.</p>
-<p>Sabemos que <span class="math inline">\(\bar{X}_n\)</span> é um estimador para <span class="math inline">\(\mu\)</span>. Vamos ter evidências para rejeitar <span class="math inline">\(H_0\)</span> quando <span class="math display">\[\bar{x}_n&gt;c&gt;\mu_0.\]</span>. Para determinar o valor de <span class="math inline">\(c\)</span>, fixe o nível de significância <span class="math inline">\(\alpha\)</span>. Então</p>
-<p><span class="math display">\[\alpha=P(\bar{X}_n&gt;c|\mu_0)=1-P(\bar{X}_n\leq c|\mu_0)\Rightarrow F_{\bar{X}_n|\mu_0}(c)=1-\alpha.\]</span> Portanto, <span class="math inline">\(c\)</span> é o quantil <span class="math inline">\(1-\alpha\)</span> de de <span class="math inline">\(\bar{X}_n|\mu_0\sim N(\mu_0,1/n)\)</span>. Os exemplos</p>
-<div class="alert alert-info">
-<p><strong>Exemplo.</strong> Um agricultor afirma que a média de produção de soja em sua fazenda maior que 3 toneladas por hectare. Uma amostra de 15 hectares foi selecionada e a produção de soja média foi de 3,2 toneladas. Supondo que a produção média de soja por hectare tem distribuição normal com desvio padrão de 0,5 tonelada por hectare, teste, ao nível de 5% de significância, a afirmação do agricultor.</p>
-<p><strong>Solução.</strong> Queremos saber se <span class="math inline">\(\mu&gt;3\)</span>. Portanto, a hipótese nula é <span class="math display">\[H_0:\mu\leq 3.\]</span> Vamos utilizar o estimador <span class="math inline">\(\bar{x}_{15}\)</span>. A figura abaixo aprenta várias possibilidade para a distribuição de <span class="math inline">\(\bar{X}_{15}\)</span> quando <span class="math inline">\(H_0\)</span> é verdadeira, sendo que a curva mais à direita corresponde à distribuição normal com média <span class="math inline">\(\mu=3\)</span>. Os pontos verdes representam valores que podem ocorrer quando a hipótese nula é verdadeira. Já os pontos vermelhos ocorrem com uma probabilidade muito baixa quando <span class="math inline">\(H_0\)</span> é verdadeira. Nosso objetivo é encontrar o ponto <span class="math inline">\(c\)</span> que vai particionar os valores de <span class="math inline">\(\bar{x}_{15}\)</span>, criando as regiões de rejeição e aceitação.</p>
-<div id="fig">
-<div class="figure-content">
+<p><strong>Exemplo.</strong> Seja <span class="math inline">\(X_1,\ldots,X_{n}\)</span> uma amostra aleatória da população Normal<span class="math inline">\((\mu,1)\)</span>. Suponha que desejamos testar <span class="math inline">\(H_0:\mu=\mu_0\)</span>.</p>
+<p>Sabemos que <span class="math inline">\(\bar{X}_{n}\)</span> é um estimador para <span class="math inline">\(\mu\)</span>. Se <span class="math inline">\(\bar{x}_{n}=\mu_0\)</span>, não temos motivos para rejeitar <span class="math inline">\(H_0\)</span>. Abaixo, mostramos a distribuição de <span class="math inline">\(\bar{X}_{n}\sim N(\mu_0,1/n)\)</span>. É possível notar que para qualquer valor de <span class="math inline">\(\bar{x}_{n}\)</span> muito distantes, onde a cauda da normal é praticamente é praticamente nula, nos leva a rejeitar <span class="math inline">\(H_0\)</span> (uma vez que é improvável que esses valores sejam gerados se <span class="math inline">\(H_0\)</span> fosse verdadeira). Naturalmente, devemos escolher dois pontos, <span class="math inline">\(a\)</span> e <span class="math inline">\(b\)</span> tais que rejeitaremos <span class="math inline">\(H_0\)</span> sempre que <span class="math inline">\(\bar{x}_{n}&lt;a\)</span> ou <span class="math inline">\(\bar{x}_n&gt;b\)</span>.</p>
 <div class="cell">
 <div class="cell-output-display">
 <div>
@@ -347,12 +386,30 @@ window.Quarto = {
 </div>
 </div>
 </div>
+<p>Como precisamos ter chance de cometer o erro tipo I, fixamos o nível de significância em <span class="math inline">\(\alpha\)</span> e em seguida escolhemos dois pontos <span class="math inline">\(a,b\)</span> (<span class="math inline">\(a&lt;b\)</span>) tais que</p>
+<p><span class="math display">\[\alpha=P(\bar{X}_n\leq a\hbox{ ou }\bar{X}_n\geq b|\mu_0,1/n)=P(\bar{X}_n\leq a|\mu_0,1/n)+P(\bar{X}_n\geq b|\mu_0,1/n)\]</span></p>
+<p>Fazendo <span class="math display">\[\frac{\alpha}{2}=P(\bar{X}_n\leq a|\mu_0,1/n),\]</span> teremos que <span class="math inline">\(a\)</span> é o quantil <span class="math inline">\(\alpha/2\)</span> da distribuição Normal(<span class="math inline">\(\mu_0,1/n\)</span>). Fazendo <span class="math display">\[\frac{\alpha}{2}=P(\bar{X}_n\geq b|\mu_0,1/n)\Rightarrow \frac{\alpha}{2}=P(\bar{X}_n\leq b|\mu_0,1/n)=1-\frac{\alpha}{2}\]</span> teremos que <span class="math inline">\(b\)</span> é o quantil <span class="math inline">\(1-\alpha/2\)</span> da distribuição Normal(<span class="math inline">\(\mu_0,1/n\)</span>). Portanto, nosso teste de hipóteses é:</p>
+<p><span class="math display">\[D(\bar{x}_n)=\left\{\begin{array}{ll}1,&amp;\hbox{ se \bar{x}_n&lt;a\hbox{ ou }\bar{x}_n&gt;b} \\
+0,&amp;\hbox{ se a\leq \bar{x}_n \leq b}\end{array}\right.\]</span></p>
+</div>
+<div class="alert alert-info">
+<p><strong>Exemplo.</strong> Um agricultor afirma que a média de produção de soja em sua fazenda maior que 3 toneladas por hectare. Uma amostra de 15 hectares foi selecionada e a produção de soja média foi de 3,2 toneladas. Supondo que a produção média de soja por hectare tem distribuição normal com desvio padrão de 0,5 tonelada por hectare, teste, ao nível de 5% de significância, a afirmação do agricultor.</p>
+<p><strong>Solução.</strong> Queremos saber se <span class="math inline">\(\mu&gt;3\)</span>. Portanto, a hipótese nula é <span class="math display">\[H_0:\mu\leq 3.\]</span> Vamos utilizar o estimador <span class="math inline">\(\bar{x}_{15}\)</span>. A figura abaixo aprenta várias possibilidade para a distribuição de <span class="math inline">\(\bar{X}_{15}\)</span> quando <span class="math inline">\(H_0\)</span> é verdadeira, sendo que a curva mais à direita corresponde à distribuição normal com média <span class="math inline">\(\mu=3\)</span>. Os pontos verdes representam valores que podem ocorrer quando a hipótese nula é verdadeira. Já os pontos vermelhos ocorrem com uma probabilidade muito baixa quando <span class="math inline">\(H_0\)</span> é verdadeira. Nosso objetivo é encontrar o ponto <span class="math inline">\(c\)</span> que vai particionar os valores de <span class="math inline">\(\bar{x}_{15}\)</span>, criando as regiões de rejeição e aceitação.</p>
+<div id="fig">
+<div class="figure-content">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="teste_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
 </div>
 <p>As funções densidade acima são apenas algumas das infinitas possibilidades de distribuição para <span class="math inline">\(\bar{X}_{15}\)</span> quando <span class="math inline">\(H_0:\mu\leq 3\)</span>.</p>
 </div>
-<p>ObserveOVamos rejeitar a hipótese nula se houverem evidências de que <span class="math inline">\(\mu\)</span> é maior que 3.</p>
 <p>Utilizando <span class="math inline">\(\bar{x}_{15}\)</span> para tomar a decisão, teremos a seguinte região de rejeição: <span class="math display">\[R=\{\bar{x}_{15}:\bar{x}_{15}&gt;c\}.\]</span> Para determinar o valor de <span class="math inline">\(c\)</span>, observe que <span class="math display">\[0,05=P(\bar{X}_{15}&gt;c|\mu=3)=1-P(\bar{X}_{15}\leq c|\mu=3)\Rightarrow F_{\bar{X}_{15}|\mu=3}(c)=0,95\]</span> logo <span class="math inline">\(c\)</span> é o quantil de 95% da distribuição <span class="math display">\[\bar{X}_{15}|\mu=3\sim N\left(3,\frac{0,5^2}{15}\right)=N\left(3,\frac{1}{60}\right)\]</span> O valor de <span class="math inline">\(c=3,212\)</span>. Portanto, rejeitamos <span class="math inline">\(H_0\)</span> quando <span class="math inline">\(\bar{x}_{15}&gt;3,212\)</span>. Como <span class="math inline">\(\bar{x}_{15}=3,2\)</span>, não rejeitamos a hipótese nula.</p>
-</div>
 </div>
 <div class="alert alert-info">
 <p><strong>Exemplo.</strong> O número de chamadas em um call center possui distribuição Poisson com taxa 120 chamadas. Após a implementação de uma nova campanha de marketing, a empresa deseja verificar se a taxa média de chamadas aumentou. Para isso, foi coletada uma nova amostra de dados, correspondente a 100 horas de atendimento, resultando em uma média de 135 chamadas por hora. Teste, ao nível de significância de 5%, se a nova campanha teve efeito.</p>
@@ -366,20 +423,6 @@ window.Quarto = {
 </div>
 </div>
 <p>Portanto, a região de rejeição desse teste é <span class="math display">\[R=\{\hat{\theta}:\hat{\theta}&gt;121,8\}.\]</span> Como o valor observado de <span class="math inline">\(\hat{\theta}\)</span> é <span class="math inline">\(135\)</span>, rejeitamos a hipótese nula. Portanto, há evidências de que a campanha teve efeito.</p>
-</div>
-<div class="alert alert-info">
-<p><strong>Exemplo.</strong> Uma fábrica de lâmpadas precisa manter a proporção de peças defeituosas no máximo em 2%. Regularmente, uma equipe de controle de qualidade seleciona aleatoriamente uma amostra de 500 lâmpadas para testar essa hipótese. Em determinado dia, foram encontras 15 lâmpadas com defeito. Verifique se há evidências de que a afirmação da fábrica é verdadeira, ao nível de 5% de significância.</p>
-<p><strong>Solução.</strong> Precisamos determinar qual dos seguintes erros é o pior:</p>
-<ul>
-<li><p>Dizer que a proporção de produção de peças é menor que 2%, quando na verdade é maior.</p></li>
-<li><p>Dizer que a proporção de produção de peças é maior que 2%, quando na verdade é menor.</p></li>
-</ul>
-<p>O primeiro erro implica em problemas com clientes e propaganda negativa da marca. Já o segundo implica apenas no trabalho de rotina do controle de qualidade. Vamos considerar o primeiro como o erro do tipo I. Sendo <span class="math inline">\(\theta\)</span> a probabilidade de produzir uma lâmpada defeituosa, queremos testar <span class="math display">\[H_0:\theta\leq 0,02.\]</span></p>
-<p>Temos uma amostra de 500 variáveis com distribuição Bernoulli, onde <span class="math inline">\(X_i=1\)</span> se a lâmpada <span class="math inline">\(i\)</span> for defeituosa. Observe que vamos ter evidências contra <span class="math inline">\(H_0\)</span> quando <span class="math inline">\(\hat{\theta}\)</span> for maior que 0,02</p>
-<p>A estimativa para <span class="math inline">\(\theta\)</span> encontrada foi <span class="math display">\[\hat{\theta}_{500}=\sum_{i=1}^{500}\frac{x_i}{500}=\frac{15}{500}=0,03\]</span></p>
-<p>Vamos rejeitar</p>
-<p>Enunciado:</p>
-<p>Com base nessa amostra, podemos afirmar, com 95% de confiança, que a taxa de defeitos da fábrica é superior a 2%?</p>
 </div>
 </section>
 <section id="o-teste-da-razão-de-verossimilhanças" class="level2" data-number="5.3">
@@ -397,7 +440,7 @@ L(\theta)\leq L(\hat{\theta}_0),
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="teste_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="teste_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>

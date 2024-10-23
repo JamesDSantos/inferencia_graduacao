@@ -123,23 +123,63 @@ Pode ser uma tarefa árdua descobrir como particionar o espaço amostral de mane
 
 ![A estatística $T$ utilizada como estatística de teste. As partições em verde formam as regiões de rejeição e as partições laranjas as de aceitação.  ](fig_stat_test.jpg){#fig::stat_test}
 
-Em geral, escolhemos uma estatística de teste que possui alguma relação com $\theta$ (como, por exemplo, uma estatística suficiente ou um estimador). Tal opção é útil para definir como a partição será feita. Para ilustrar,  considere que $T$ é um estimador para $\theta$ e suponha que desejamos testar se $H_0:\theta\in \Theta_0$. É natural pensar que $H_0$ é falsa se $t$ observado está longe da região $\Theta_0$. Deste modo, podemos definir um valor $c>\theta_0$ e construir a região de rejeição 
-$$R=\{t:t>c\}.$$
-Deste modo, criamos o teste
-$$D(t)=\left\{\begin{array}{ll}1,&t>c\\0,&t\leq c\end{array}\right.$$
-Para determinar o valor de $c$, podemos fixar o nível de significância. Deste modo, teremos que
-$$\alpha=P(D=1|\theta_0)=P(T>c|\theta_0)=1-F_{T|\theta_0}(c)\Rightarrow F_{T|\theta_0}(c)=1-\alpha.$$
-Portanto, $c$ é o quantil $1-\alpha$ da distribuição de $T$ supondo que $\theta=\theta_0$.
+Em geral, escolhemos uma estatística de teste que possui alguma relação com $\theta$ (como, por exemplo, uma estatística suficiente ou um estimador). Tal opção é útil para definir como a partição será feita. Para ilustrar,  considere que $T$ é um estimador para $\theta$ e suponha que desejamos testar se $H_0:\theta\in \Theta_0$. Como $T$ é um estimador para $\theta$, pelo princípio das substituição, é razoável inferir que não se deve rejeitar $H_0$ se $T\in\Theta_0.$ Nas próximas 3 figuras, discutimos melhor essas ideias. Nelaas, mostramos o espaço paramétrico $\Theta$ e o espaço da hipótese nula $\Theta_0$ (região em salmão). O ponto em laranja é o verdadeiro valor do parâmetro. Em tons diferentes de verde, temos a densidade da estatística $T$, sendo que quanto mais escura, maior é a probabilidade de observar $t$ naquela região. Temos as seguintes situações:
+
+* Na figura abaixo, a distribuição da estatística de teste gera somente valores dentro de $\Theta_0$. Portanto, sempre vamos inferir que $\theta\in\Theta_0$ e é razoável aceitar $H_0$.
+
+![Nesse exemplo, os valores de $T$ sempre são gerados dentro do espaço da hipótese nula.  ](fig_testA.jpg){#fig::stat_testB}
+
+
+* Na figura abaixo, a distribuição da estatística de teste nunca gera valores dentro de $\Theta_0$. Portanto, sempre vamos inferir que $\theta\notin\Theta_0$ e rejeitamos $H_0$.
+
+![Nesse exemplo, os valores de $T$ nunca são gerados dentro do espaço da hipótese nula.  ](fig_testB.jpg){#fig::stat_testB}
+
+
+* Nesta figura, a hipótese ainda é verdadeira, mas existe a possibilidade da estatística de teste gerar valores fora do espaço da hipótese nula. É nessa situação que é possível cometer o erro tipo I.
+
+![Aqui, a hipótese nula é verdadeira, mas é possível observar $t\notin\Theta_0$.  ](fig_testc.jpg){#fig::stat_testC}
+
+* A discussão realizada na última figura foi feita para um único ponto na borda de $\Theta_0$. Como não sabemos qual ponto é o correto, devemos levar em consideração a borda toda, conforme mostra a figura abaixo. Qualquer ponto $t$ gerado na região mais verde claro pode ter sido gerado supondo que a hipótese nula é verdadeira.
+
+![Considerando todas as possibilidades para a hipótesen ula, valores de $t$ dentro de $\Theta_0$ ou na área verde podem ser gerados quando $H_0$ é verdadeira.  ](fig_testD.jpg){#fig::stat_testD}
+
+* Agora, podemos particionar o espaço, criando uma região de rejeição e outra de aceitação. Como sempre devemos ter uma probabilidade baixa de cometer o erro tipo I, devemos colocar parte da área verde dentro da região de rejeição. Na figura abaixo, aceitamos $H_0$ quando $t$ está dentro do círculo vermelho e rejeitamos em caso contrário.
+
+![Partição do espaço. A área dentro do círculo vermelho é a região de aceitação, que compreende a região $\Theta_0$ e a maioria dos valores de $T$ que podem ser gerados quando $H_0$ é verdadeira. A área fora do círculo vermelho inclui os pontos impossíveis e alguns pontos pouco prováveis de serem gerados por quando $H_0$ é verdadeira.](fig_testE.jpg){#fig::stat_testD}
+
+
+
 
 <div class='alert alert-info'>
-**Exemplo.** Seja $X_1,\ldots,X_n$ uma amostra aleatória da população Normal($\mu$,1). Considere a hipótese nula $H_0:\mu \leq \mu_0$.
+**Exemplo.** Seja $X_1,\ldots,X_{n}$ uma amostra aleatória da população Normal$(\mu,1)$. Suponha que desejamos testar $H_0:\mu=\mu_0$. 
 
-Sabemos que $\bar{X}_n$ é um estimador para $\mu$. Vamos ter evidências para rejeitar $H_0$ quando $$\bar{x}_n>c>\mu_0.$$.
-Para determinar o valor de $c$, fixe o nível de significância $\alpha$. Então
+Sabemos que $\bar{X}_{n}$ é um estimador para $\mu$. Se $\bar{x}_{n}=\mu_0$, não temos motivos para rejeitar $H_0$. Abaixo, mostramos a distribuição de $\bar{X}_{n}\sim N(\mu_0,1/n)$. É possível notar que para qualquer valor de $\bar{x}_{n}$ muito distantes, onde a cauda da normal é praticamente é praticamente nula, nos leva a rejeitar $H_0$ (uma vez que é improvável que esses valores sejam gerados se $H_0$ fosse verdadeira). Naturalmente, devemos escolher dois pontos, $a$ e $b$ tais que rejeitaremos $H_0$ sempre que $\bar{x}_{n}<a$ ou $\bar{x}_n>b$.
 
-$$\alpha=P(\bar{X}_n>c|\mu_0)=1-P(\bar{X}_n\leq c|\mu_0)\Rightarrow F_{\bar{X}_n|\mu_0}(c)=1-\alpha.$$
-Portanto, $c$ é o quantil $1-\alpha$ de de $\bar{X}_n|\mu_0\sim N(\mu_0,1/n)$. Os exemplos
+```{r echo = FALSE}
+oo <- par(cex = 1.3)
+plot.new()
+plot.window( xlim=c(-5,5), ylim=c(0,.4))
+polygon( c(seq(-5,-1.96,length=10),seq(-1.96,-5,length=10)), c(dnorm(seq(-5,-1.96,length=10)), rep(0,10)),col='gray')
+polygon( c(seq(5,1.96,length=10),seq(1.96,5,length=10)), c(dnorm(seq(5,1.96,length=10)), rep(0,10)),col='gray')
+curve(dnorm(x), add=T,lwd =2)
+axis(1,at=c(-5,-1.96,0,1.96,5), labels=c('','a',expression(mu[0]),'b',''))
 
+par(oo)
+```
+
+Como precisamos ter chance de cometer o erro tipo I, fixamos o nível de significância em $\alpha$ e em seguida escolhemos dois pontos $a,b$ ($a<b$) tais que
+
+$$\alpha=P(\bar{X}_n\leq a\hbox{ ou }\bar{X}_n\geq b|\mu_0,1/n)=P(\bar{X}_n\leq a|\mu_0,1/n)+P(\bar{X}_n\geq b|\mu_0,1/n)$$
+
+Fazendo 
+$$\frac{\alpha}{2}=P(\bar{X}_n\leq a|\mu_0,1/n),$$
+teremos que $a$ é o quantil $\alpha/2$ da distribuição Normal($\mu_0,1/n$). Fazendo 
+$$\frac{\alpha}{2}=P(\bar{X}_n\geq b|\mu_0,1/n)\Rightarrow \frac{\alpha}{2}=P(\bar{X}_n\leq b|\mu_0,1/n)=1-\frac{\alpha}{2}$$
+teremos que $b$ é o quantil $1-\alpha/2$ da distribuição Normal($\mu_0,1/n$). Portanto, nosso teste de hipóteses é:
+
+$$D(\bar{x}_n)=\left\{\begin{array}{ll}1,&\hbox{ se \bar{x}_n<a\hbox{ ou }\bar{x}_n>b} \\
+0,&\hbox{ se a\leq \bar{x}_n \leq b}\end{array}\right.$$
+</div>
 <div class='alert alert-info'>
 **Exemplo.** Um agricultor afirma que a média de produção de soja em sua fazenda maior que 3 toneladas por hectare. Uma amostra de 15 hectares foi selecionada e a produção de soja média foi de 3,2 toneladas. Supondo que a produção média de soja por hectare tem distribuição normal com desvio padrão de 0,5 tonelada por hectare, teste, ao nível de 5% de significância, a afirmação do agricultor.
 
@@ -152,6 +192,9 @@ Vamos utilizar o estimador $\bar{x}_{15}$. A figura abaixo aprenta várias possi
 ```{r echo = FALSE}
 plot.new()
 plot.window( xlim=c(-3,12), ylim=c(0,.4) )
+polygon( c(seq(qnorm(.95,3),12,length=15),
+           seq(12,qnorm(.95,3),length=15)),
+         c( dnorm(seq(qnorm(.95,3),12,length=15),3),  rep(0,15)), col = 'salmon' )
 curve( dnorm(x,3,1), add =T, lwd = 2)
 curve( dnorm(x,2,1), add =T, lty = 2)
 curve( dnorm(x,1,1), add =T, lty = 2)
@@ -179,8 +222,6 @@ points(qnorm(.95,3,1)+4,0, pch=16, col = 'red')
 As funções densidade acima são apenas algumas das infinitas possibilidades de distribuição para $\bar{X}_{15}$ quando $H_0:\mu\leq 3$. 
 :::
 
-ObserveOVamos rejeitar a hipótese nula se houverem evidências de que $\mu$ é maior que 3. 
-
 
 Utilizando $\bar{x}_{15}$ para tomar a decisão, teremos a seguinte região de rejeição:
 $$R=\{\bar{x}_{15}:\bar{x}_{15}>c\}.$$
@@ -191,7 +232,6 @@ O valor de $c=3,212$. Portanto, rejeitamos $H_0$ quando $\bar{x}_{15}>3,212$. Co
 </div>
 
 
-</div>
 
 <div class='alert alert-info'>
 **Exemplo.** O número de chamadas em um call center possui distribuição Poisson com taxa 120 chamadas. Após a implementação de uma nova campanha de marketing, a empresa deseja verificar se a taxa média de chamadas aumentou. Para isso, foi coletada uma nova amostra de dados, correspondente a 100 horas de atendimento, resultando em uma média de 135 chamadas por hora. Teste, ao nível de significância de 5%, se a nova campanha teve efeito.
@@ -215,30 +255,6 @@ Portanto, a região de rejeição desse teste é $$R=\{\hat{\theta}:\hat{\theta}
 Como o valor observado de $\hat{\theta}$ é $135$, rejeitamos a hipótese nula. Portanto, há evidências de que a campanha teve efeito.
 </div>
 
-<div class = 'alert alert-info'>
-**Exemplo.** Uma fábrica de lâmpadas precisa manter a proporção de peças defeituosas no máximo em 2%. Regularmente, uma equipe de controle de qualidade seleciona aleatoriamente uma amostra de 500 lâmpadas para testar essa hipótese. Em determinado dia, foram encontras 15 lâmpadas com defeito. Verifique se há evidências de que a afirmação da fábrica é verdadeira, ao nível de 5% de significância.
-
-**Solução.** Precisamos determinar qual dos seguintes erros é o pior:
-
-* Dizer que a proporção de produção de peças  é menor que 2%, quando na verdade é maior.
-
-* Dizer que a proporção de produção de peças  é maior que 2%, quando na verdade é menor.
-
-O primeiro erro implica em problemas com clientes e propaganda negativa da marca. Já o segundo implica apenas no trabalho de rotina do controle de qualidade. Vamos considerar o primeiro como o erro do tipo I. Sendo $\theta$ a probabilidade de produzir uma lâmpada defeituosa, queremos testar
-$$H_0:\theta\leq 0,02.$$
-
-
-Temos uma amostra de 500 variáveis com distribuição Bernoulli, onde $X_i=1$ se a lâmpada $i$ for defeituosa. Observe que vamos ter evidências contra $H_0$ quando $\hat{\theta}$ for maior que 0,02
-
-A estimativa para $\theta$ encontrada foi
-$$\hat{\theta}_{500}=\sum_{i=1}^{500}\frac{x_i}{500}=\frac{15}{500}=0,03$$
-
-Vamos rejeitar 
-
-Enunciado:
-
-Com base nessa amostra, podemos afirmar, com 95% de confiança, que a taxa de defeitos da fábrica é superior a 2%?
-</div>
 
 ## O teste da razão de verossimilhanças
 
