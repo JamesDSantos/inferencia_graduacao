@@ -123,7 +123,7 @@ Pode ser uma tarefa árdua descobrir como particionar o espaço amostral de mane
 
 ![A estatística $T$ utilizada como estatística de teste. As partições em verde formam as regiões de rejeição e as partições laranjas as de aceitação.  ](fig_stat_test.jpg){#fig::stat_test}
 
-Em geral, escolhemos uma estatística de teste que possui alguma relação com $\theta$ (como, por exemplo, uma estatística suficiente ou um estimador). Tal opção é útil para definir como a partição será feita. Para ilustrar,  considere que $T$ é um estimador para $\theta$ e suponha que desejamos testar se $H_0:\theta\leq \theta_0$. É natural pensar que $H_0$ é falsa se $t$ observado é muito maior que $\theta_0$. Deste modo, podemos definir um valor $c>\theta_0$ e construir a região de rejeição 
+Em geral, escolhemos uma estatística de teste que possui alguma relação com $\theta$ (como, por exemplo, uma estatística suficiente ou um estimador). Tal opção é útil para definir como a partição será feita. Para ilustrar,  considere que $T$ é um estimador para $\theta$ e suponha que desejamos testar se $H_0:\theta\in \Theta_0$. É natural pensar que $H_0$ é falsa se $t$ observado está longe da região $\Theta_0$. Deste modo, podemos definir um valor $c>\theta_0$ e construir a região de rejeição 
 $$R=\{t:t>c\}.$$
 Deste modo, criamos o teste
 $$D(t)=\left\{\begin{array}{ll}1,&t>c\\0,&t\leq c\end{array}\right.$$
@@ -138,15 +138,51 @@ Sabemos que $\bar{X}_n$ é um estimador para $\mu$. Vamos ter evidências para r
 Para determinar o valor de $c$, fixe o nível de significância $\alpha$. Então
 
 $$\alpha=P(\bar{X}_n>c|\mu_0)=1-P(\bar{X}_n\leq c|\mu_0)\Rightarrow F_{\bar{X}_n|\mu_0}(c)=1-\alpha.$$
-Portanto, $c$ é o quantil $1-\alpha$ de de $\bar{X}_n|\mu_0\sim N(\mu_0,1/n)$.
-</div>
+Portanto, $c$ é o quantil $1-\alpha$ de de $\bar{X}_n|\mu_0\sim N(\mu_0,1/n)$. Os exemplos
 
 <div class='alert alert-info'>
 **Exemplo.** Um agricultor afirma que a média de produção de soja em sua fazenda maior que 3 toneladas por hectare. Uma amostra de 15 hectares foi selecionada e a produção de soja média foi de 3,2 toneladas. Supondo que a produção média de soja por hectare tem distribuição normal com desvio padrão de 0,5 tonelada por hectare, teste, ao nível de 5% de significância, a afirmação do agricultor.
 
 **Solução.** Queremos saber se $\mu>3$. Portanto, a hipótese nula é
 $$H_0:\mu\leq 3.$$
-Vamos rejeitar a hipótese nula se houverem evidências de que $\mu$ é maior que 3. Utilizando $\bar{x}_{15}$ para tomar a decisão, teremos a seguinte região de rejeição:
+Vamos utilizar o estimador $\bar{x}_{15}$. A figura abaixo aprenta várias possibilidade para a distribuição de $\bar{X}_{15}$ quando $H_0$ é verdadeira, sendo que a curva mais à direita corresponde à distribuição normal com média $\mu=3$. Os pontos verdes representam valores que podem ocorrer quando a hipótese nula é verdadeira. Já os pontos vermelhos ocorrem com uma probabilidade muito baixa quando $H_0$ é verdadeira. Nosso objetivo é encontrar o ponto $c$ que vai particionar os valores de $\bar{x}_{15}$, criando as regiões de rejeição e aceitação.
+
+::: {#fig}
+::: {.figure-content}
+```{r echo = FALSE}
+plot.new()
+plot.window( xlim=c(-3,12), ylim=c(0,.4) )
+curve( dnorm(x,3,1), add =T, lwd = 2)
+curve( dnorm(x,2,1), add =T, lty = 2)
+curve( dnorm(x,1,1), add =T, lty = 2)
+curve( dnorm(x,0,1), add =T, lty = 2)
+axis(1,at=c(-3,3,qnorm(.95,3,1),12), labels=c('',3,'c',''))
+title( xlab= expression(bar(x)[15]))
+points(-3,0, pch=16, col = 'green4')
+points(-2,0, pch=16, col = 'green4')
+points(-.5,0, pch=16, col = 'green4')
+points(-1,0, pch=16, col = 'green4')
+points(.4,0, pch=16, col = 'green4')
+points(1.4,0, pch=16, col = 'green4')
+points(3,0, pch=16, col = 'green4')
+points(3.2,0, pch=16, col = 'green4')
+abline(v=qnorm(.95,3,1))
+#points(qnorm(.95,3,1),0, pch=16, col = 'red')
+points(qnorm(.95,3,1)+.5,0, pch=16, col = 'red')
+points(qnorm(.95,3,1)+2,0, pch=16, col = 'red')
+points(qnorm(.95,3,1)+3,0, pch=16, col = 'red')
+points(qnorm(.95,3,1)+4,0, pch=16, col = 'red')
+
+
+```
+:::
+As funções densidade acima são apenas algumas das infinitas possibilidades de distribuição para $\bar{X}_{15}$ quando $H_0:\mu\leq 3$. 
+:::
+
+ObserveOVamos rejeitar a hipótese nula se houverem evidências de que $\mu$ é maior que 3. 
+
+
+Utilizando $\bar{x}_{15}$ para tomar a decisão, teremos a seguinte região de rejeição:
 $$R=\{\bar{x}_{15}:\bar{x}_{15}>c\}.$$
 Para determinar o valor de $c$, observe que
 $$0,05=P(\bar{X}_{15}>c|\mu=3)=1-P(\bar{X}_{15}\leq c|\mu=3)\Rightarrow F_{\bar{X}_{15}|\mu=3}(c)=0,95$$
@@ -154,36 +190,7 @@ logo $c$ é o quantil de 95% da distribuição $$\bar{X}_{15}|\mu=3\sim N\left(3
 O valor de $c=3,212$. Portanto, rejeitamos $H_0$ quando $\bar{x}_{15}>3,212$. Como $\bar{x}_{15}=3,2$, não rejeitamos a hipótese nula.
 </div>
 
-Anteriormente, definimos a função poder do teste baseada em $\delta$, onde $\delta=1$ de $H_0$ era falsa. Contudo, com as hipóteses são funções do parâmetro, podemos definir a função poder em relação a estes sem perda de generalidade.
 
-<div class='alert alert-success'>
-**Definição**. A função
-$$\beta(\theta)=P(T\in R|\theta)$$
-é denominada função poder o teste.
-</div>
-
-<div class='alert alert-info'>
-**Exemplo (continuado).**
-Observe que, no exemplo anterior, evitamos decidir que $H_0$ era verdadeira. Para entender melhor, considere a função poder para esse teste:
-$$\beta(\mu)=P(\bar{X}_{15}>3,212|\mu).$$
-
-Suponha que $\mu=3,1$ (ou seja, ocorreu o erro tipo II). A probabilidade desse erro ocorrer é
-$$1-\beta(3,1)=0,80$$
-
-Abaixo, apresentamos o gráfico da função poder. Destacado em vermelho está a probabilidade do erro tipo II para o ponto $\mu=3,1$.
-
-```{r}
-oo <- par(cex=1.2)
-poder <- function(mu) 1-pnorm(3.212,mu,1/sqrt(60))
-curve(poder(x),2.8,3.5, lwd = 2, xlab = expression(mu), ylab= expression(beta(mu)) )
-abline(h=.05, lty=2)
-points(3.1,poder(3.1), pch=16,col='red')
-segments(3.1,poder(3.1),3.1,1,col='red',lwd = 2)
-segments(3.1-.03,poder(3.1),3.1+.03, poder(3.1), lwd = 2 ,col ='red')
-segments(3.1-.03,1,3.1+.03, 1, lwd = 2 ,col ='red')
-text(3,.6,expression(1-beta(3.1)), col='red')
-par(oo)
-```
 </div>
 
 <div class='alert alert-info'>
@@ -207,3 +214,194 @@ c
 Portanto, a região de rejeição desse teste é $$R=\{\hat{\theta}:\hat{\theta}>121,8\}.$$
 Como o valor observado de $\hat{\theta}$ é $135$, rejeitamos a hipótese nula. Portanto, há evidências de que a campanha teve efeito.
 </div>
+
+<div class = 'alert alert-info'>
+**Exemplo.** Uma fábrica de lâmpadas precisa manter a proporção de peças defeituosas no máximo em 2%. Regularmente, uma equipe de controle de qualidade seleciona aleatoriamente uma amostra de 500 lâmpadas para testar essa hipótese. Em determinado dia, foram encontras 15 lâmpadas com defeito. Verifique se há evidências de que a afirmação da fábrica é verdadeira, ao nível de 5% de significância.
+
+**Solução.** Precisamos determinar qual dos seguintes erros é o pior:
+
+* Dizer que a proporção de produção de peças  é menor que 2%, quando na verdade é maior.
+
+* Dizer que a proporção de produção de peças  é maior que 2%, quando na verdade é menor.
+
+O primeiro erro implica em problemas com clientes e propaganda negativa da marca. Já o segundo implica apenas no trabalho de rotina do controle de qualidade. Vamos considerar o primeiro como o erro do tipo I. Sendo $\theta$ a probabilidade de produzir uma lâmpada defeituosa, queremos testar
+$$H_0:\theta\leq 0,02.$$
+
+
+Temos uma amostra de 500 variáveis com distribuição Bernoulli, onde $X_i=1$ se a lâmpada $i$ for defeituosa. Observe que vamos ter evidências contra $H_0$ quando $\hat{\theta}$ for maior que 0,02
+
+A estimativa para $\theta$ encontrada foi
+$$\hat{\theta}_{500}=\sum_{i=1}^{500}\frac{x_i}{500}=\frac{15}{500}=0,03$$
+
+Vamos rejeitar 
+
+Enunciado:
+
+Com base nessa amostra, podemos afirmar, com 95% de confiança, que a taxa de defeitos da fábrica é superior a 2%?
+</div>
+
+## O teste da razão de verossimilhanças
+
+Considere a $H_0:\theta\in\Theta_0\subset \Theta$. Seja $\hat{\theta}_0$, o valor em $\Theta_0$ tal que
+$$\begin{equation}
+L(\theta)\leq L(\hat{\theta}_0),
+\end{equation}$$
+
+para todo $\theta\in\Theta_0$. O valor $\hat{\theta}_0$ pode ser interpretado como sendo a estimativa de máxima verossimilhança de $\theta$ quando a hipótese $H_0$ é verdadeira.
+
+Agora, seja $\hat{\theta}$ o EMV para $\theta$. Se $L(\hat{\theta}_0)$ estiver próximo do valor de $L(\hat{\theta})$, então o valor mais verossímil de $\Theta_0$ está próximo do valor mais verossímil de $\Theta$, dando evidências de que $H_0$ é verdadeira. Portanto, valores pequenos da estatística 
+$$\begin{align}
+\lambda(\textbf{X})=\frac{L(\hat{\theta}_0)}{L(\hat{\theta})},
+\end{align}$$
+dão evidências de que $H_0$ é falsa.
+
+::: {#fig}
+
+::: {.figure-content}
+```{r echo = FALSE}
+oo <- par( mfrow = c(1,2), cex = 1.2)
+plot.new()
+plot.window( xlim = c(-3,3), ylim=c(0,.4))
+polygon( c(seq(-3,-1,length =20 ),seq(-1,-3,length=20)),
+          c(dnorm(seq(-3,-1,length =20 )), rep(0,20)), col='gray')                            
+curve(dnorm(x), add= T, lwd = 2)
+axis(1, at=c(-3,-1,0,3), 
+labels=c('',expression(theta[0]),expression(hat(theta)),''))
+axis(2, at=c(0,.4),labels = c('',''))
+title( xlab= expression(theta), ylab=expression(L(theta)))
+
+plot.new()
+plot.window( xlim = c(-3,3), ylim=c(0,.4))
+polygon( c(seq(-3,1,length =20 ),seq(1,-3,length=20)),
+          c(dnorm(seq(-3,1,length =20 )), rep(0,20)), col='gray')                            
+curve(dnorm(x), add= T, lwd = 2)
+axis(1, at=c(-3,1,0,3), 
+labels=c('',expression(theta[0]),expression(hat(theta)),''))
+axis(2, at=c(0,.4),labels = c('',''))
+title( xlab= expression(theta), ylab=expression(L(theta)))
+
+par(oo)
+```
+:::
+A região cinza corresponde ao conjunto da hipótese nula. No gráfico da esquerda, o ponto mais verossímil da hipótese nula está afastado da estimativa de máxima verossimilhança, levando à rejeição de $H_0$. Já no gráfico seguinte, a estimativa de máxima verossimilhança está dentro do conjunto da hipótese nula e, portanto, não hà motivos para rejeitá-la.
+:::
+
+<div class='alert alert-success'>
+*Definição* Considere a hipótese $H_0:\theta\in\Theta_0\subset \Theta$. O teste para esta hipótese que utiliza a estatística 
+$$\lambda(\textbf{X})=\frac{L(\hat{\theta}_0)}{\hat{\theta}}$$ com região de rejeição dada por
+$$R=\{ \lambda(\textbf{x}): \lambda(\textbf{x})\leq k \}$$ para algum valor de $0<k<1$ fixado é denominado Teste da Razão de Verossimilhanças (TRV).
+\end{defi}
+
+Em geral, o valor de $k$ da região de rejeição dada na Definição \ref{defi::TRV} é escolhido de modo a satisfazer
+$$\alpha\geq P(\lambda({\bm{X}})<k|\theta),\;\;\forall \theta\in\Theta_0$$
+para o nível de significância $\alpha$ fixado.
+
+\begin{exem}Seja $X_1\sim\hbox{Exponencial}(1/\theta)$, cuja densidade é
+$$f(x|\theta)=\frac{1}{\theta}e^{-x/\theta},$$
+com $x,\theta>0$ e considere a hipótese $$H_0:\theta= 1.$$ Será encontrado um teste da razão de verossimilhanças para $H_0$ com nível de significância $\alpha$ fixado. Primeiro, tem-se que
+$$\log f(x_1|\theta)=-\log(\theta) - \frac{x}{\theta},$$
+logo, é fácil mostrar que o EMV para $\theta$ é $\hat{\theta}=X_1$. Sob a hipótese nula, o único valor possível para $\theta$ é 1, logo $\hat{\theta}_0=1$ é o EMV sob esta hipótese. A estatística do TRV é
+$$\lambda(X_1)=\frac{L(\hat{\theta}_0)}{L(\hat{\theta})}=X_1e^{-X_1 + 1} $$ 
+e a região de rejeição deste teste é dada por 
+$$\bm{R}=\{X_1>0:X_1e^{-X_1 + 1}<k\},$$
+para algum $k\in(0,1)$. O valor de $k$ é escolhido de tal forma que
+$$\alpha\geq P(\lambda(X_1)\leq k|\theta=1).$$
+A figura abaixo mostra o esboço do gráfico de $\lambda(x)$ em função de $x_1$. 
+\begin{center}
+%\includegraphics[width=0.7\linewidth]{.~/Figuras/TRV_uma_exponencial}
+\end{center}
+Pode-se perceber que, para qualquer $k$ fixado existem $c_1$ e $c_2$ tais que 
+$$\{\lambda(x)\leq k\}\Leftrightarrow \{x\leq c_1\}\cup\{x\geq c_2\}$$
+logo,
+\begin{align*}
+\alpha &\geq P(X_1\leq c_1)+P(X_1\geq c_2)=1-e^{-c_1} + e^{-c_2}
+\end{align*}
+Portanto, o teste de nível $\alpha$ que rejeita $H_0$ se $\lambda(x_1)\leq k$ pode ser reescrito sem perda de generalidade como um teste que rejeita $H_0$ se $x_1\leq c_1$ ou $x_1\geq c_2$. Por exemplo, tomando $c_1$ e $c_2$ como sendo os valores que satisfazem 
+$$P(X_1\leq c_1|\theta=1)=\frac{\alpha}{2}$$
+e
+$$P(X_1\geq c_2|\theta=1)=\frac{\alpha}{2}$$
+tem-se que 
+$$c_1 = -\log\left(1-\frac{\alpha}{2}\right)$$
+e
+$$c_2 = -\log\left(\frac{\alpha}{2}\right)$$
+sendo o respectivo TRV de nível $\alpha$ dado por
+$$D(x_1)=\left\{\begin{array}{ll}
+1, & \hbox{ se }x_1\leq -\log(1-\alpha/2)\hbox{ ou }x_1\geq -\log(\alpha/2)\\
+0, & c.c.
+\end{array}\right.$$
+\end{exem}
+
+
+\textcolor{blue}{O exemplo a seguir foi corrigido no dia 01/07/2015.}
+{\begin{exem}\label{exem::TRV_exponencial}Seja $X_1,\ldots,X_n$ uma amostra de vaiid com $X_1\sim\hbox{Exponencial}(\theta)$. Queremos testar $H_0:\theta\geq \theta_0$. Sabemos que o EMV para $\theta$ é $\hat{\theta}=1/\bar{X}$. Sob $H_0$, devemos maximizar a seguinte verossimilhança
+$$L(\theta)=\theta^{n}e^{-\theta n \bar{x}}I(\theta\geq \theta_0).$$
+
+Se $\theta_0\leq1/\bar{x}$ a função possui uma única moda no ponto $1/\bar{x}$, logo $\hat{\theta}_0=1/\bar{x}$.
+
+Se $\theta_0 > 1/\bar{x}$ a função é monótona decrescente em $\theta$ e seu máximo será atingido em $\hat{\theta}_0=\theta_0$.
+
+Portanto, teremos que $\hat{\theta}_0=\frac{1}{\bar{x}}
+       I\left(\theta_0\leq \frac{1}{\bar{x}}\right)+
+       \theta_0I \left(\theta_0>\frac{1}{\bar{x}}\right)$.
+Se $\theta_0<1/\bar{X}$, a estatística do TRV será igual a um. Em caso contrário, 
+\begin{align*}
+\lambda({\bf X})&=\frac{L(\hat{\theta}_0)}{L(\hat{\theta})}=\left(\frac{\hat{\theta}_0}{\hat{\theta}}\right)^n \exp\left\{-n\bar{x}(\hat{\theta}_0-\hat{\theta})\right\}\\
+&= 	\left(\theta_0\bar{x}\right)^n \exp\left\{-n\bar{x}\theta_0+n\right\}=\lambda^\star (\bar{x})\\
+\end{align*}
+A Figura \ref{fig::TRV_exponencial} mostra o gráfico de $\lambda^\star(\bar{x})$. Como $\lambda^\star(\bar{x})$ é monótona decrescente para $\bar{x}>1/\theta_0$, para qualquer $k\in(0,1)$ existe um único valor $c$ tal que
+$$\bm{R}=\{\bm{x}\in\mathbb{R}_+^n:\lambda(\bm{x})<k\}\equiv\{ \bar{x}\in\mathbb{R}_+:\bar{x}>c\}$$
+
+O valor de $c$ pode ser encontrado para qualquer nível de significância $\alpha$ desejado. Sabemos que, $\sum_{i=1}^{n}X_i\sim\hbox{Gama}(n,\theta)$, logo $\bar{X}\sim\hbox{Gama}(n,n\theta)$. Defina  $G=\bar{X}\theta\sim\hbox{Gama}(n,n)$ (note que a distribuição de $G$ não depende de $\theta$). Sob $H_0$, teremos
+\begin{align*}
+\alpha &\geq \sup_{\theta\in\Theta_0}P(\bm{X}\in \bm{R}|H_0)=\sup_{\theta\in\Theta_0}P\left(\theta\bar{X}>c\theta|\theta\geq \theta_0\right)\\
+&=\sup_{\theta\in\Theta_0}P\left(G>c\theta\right)=P\left(G>c\theta_0\right).
+\end{align*}
+Seja $g_\gamma$ o valor que satisfaz $P(G> g_\gamma)=\gamma$. Então 
+$$P\left(G> c\theta_0\right)=\alpha
+\Rightarrow c\theta_0 = g_\alpha 
+\Rightarrow c=\frac{g_{\alpha}}{\theta_0}.$$
+Portanto, o TRV de nível $\alpha$ possui região de rejeição $$\bm{R}=\{\bar{x}\in\mathbb{R}_+: \bar{x}>g_{\alpha}/\theta_0\}.$$
+\end{exem}
+
+\begin{center}
+\begin{figure}
+%\includegraphics[scale=.5]{.~/Figuras/TRV_exponencial}
+\caption{$\lambda({\bf X})$ vista como função de $\bar{X}$ para o TRV da exponencial apresentado no Exemplo \ref{exem::TRV_exponencial}.}\label{fig::TRV_exponencial}
+\end{figure}
+\end{center}
+
+\begin{exem}[Teste $t$ Bilateral]\label{exem::teste_t_bilateral}\textcolor{red}{(Ainda não corrigi este exemplo)}Sejam $X_1,\ldots,X_n$ vaiid com $X_1|\bm{\theta}\sim\hbox{Normal}(\mu,\sigma^2)$. Consideremos a hipótese $H_0:\mu=\mu_0$. Sabemos que $\hat{\bm{\theta}}=(\bar{X},\hat{\sigma}^2)$, onde $\hat{\sigma}^2 =(n-1)S^2/n$. Sob $H_0$, temos que $\hat{\bm{\theta}}_0=(\mu_0,\sigma^2_0)$, onde 
+$$\sigma^2_0=\frac{1}{n}\sum_{i=1}^{n}(X_i-\mu_0)^2.$$
+Assim,
+\begin{align*}
+\lambda({\bf X})&=\frac{L(\hat{\theta}_0)}{L(\hat{\theta})}=\frac{(1/\sigma^2_0)^{n/2}\exp\left\{-\frac{1}{2\sigma^2}\sum_{i=1}^{n}(X_i-\mu_0)^2\right\}}{(1/\hat{\sigma}^2)^{n/2}\exp\left\{-\frac{(n-1)}{2}\right\}}\\
+&\varpropto \left(\frac{\hat{\sigma}^2}{\sigma_0^2}\right)^{n/2}.
+\end{align*}
+Lembrando que $\sum_i(X_i-\mu_0)^2=\sum_i(X_i-\bar{X})^2+n(\bar{X}-\mu_0)^2$, a região de rejeição será dada por
+\begin{align*}
+R&=\{{\bf X}\in\mathbb{R}^n: \lambda({\bf X})<k_1\}\equiv \left\{{\bf X}\in\mathbb{R}^n: \left(\frac{\hat{\sigma}^2}{\sigma^2_0}\right)^{n/2}<k_1\right\}\\
+&\equiv \left\{{\bf X}\in\mathbb{R}^n: \frac{\hat{\sigma}^2}{\hat{\sigma^2}+(\bar{X}-\mu_0)^2}<k_2\right\},\hbox{  onde }k_2=k_1^{2/n}\\
+&\equiv \left\{{\bf X}\in\mathbb{R}^n: \frac{1}{1+\frac{(\bar{X}-\mu_0)^2}{\hat{\sigma}^2}}<k_2\right\}\\
+&\equiv \left\{{\bf X}\in\mathbb{R}^n: \frac{1-k_2}{k_2}<\frac{(\bar{X}-\mu_0)^2}{\hat{\sigma}^2}\right\},\hbox{ fazendo }k_3=\frac{1-k_2}{k_2},\\
+&\equiv \left\{{\bf X}\in\mathbb{R}^n: \left|\frac{(\bar{X}-\mu_0)}{\hat{\sigma}}\right|>k_3\right\}.
+\end{align*}
+O cálculo das constantes $k_1$, $k_2$ e $k_3$ foram realizados para que o leitor acompanhasse as contas. Na prática, a expressão que levou a estas constantes é irrelevante. Antes de darmos a forma final de nossa estatística de teste, sabemos que $\bar{X}$ e $S^2$ são independentes. Sabemos ainda que $\sqrt{n}(\bar{X}-\mu_0)/\sigma^2\sim\hbox{Normal}(0,1)$, que 
+$$S^2\sim\hbox{Gama}\left(\frac{n-1}{2},\frac{n-1}{2\sigma^2}\right)\Rightarrow \frac{\hat{\sigma}^2}{\sigma^2}=\frac{n-1}{n}\frac{S^2}{\sigma^2}\sim\chi^2_{n-1},$$
+e 
+$$\frac{(\bar{X}-\mu_0)}{\hat{\sigma}/\sqrt{n-1}}=\frac{(\bar{X}-\mu_0)/\sigma}{\sqrt{\frac{1}{n}S^/\sigma^2}}=\sqrt{n}\frac{\bar{X}-\mu_0}{S}\sim t_{n-1}.$$
+Assim,
+\begin{align*}
+R&\equiv \left\{{\bf X}\in\mathbb{R}^n: \left|\frac{(\bar{X}-\mu_0)}{\hat{\sigma}}\right|>k_3\right\}\equiv \left\{{\bf X}\in\mathbb{R}^n: \left|\sqrt{n}\frac{\bar{X}-\mu_0}{S}\right|>k_4\right\}.
+\end{align*}
+A estatística $T=\sqrt{n}(\bar{X}-\mu_0)/S$ será nossa estatística de teste. Seja $t_\gamma$ o valor da distribuição $T\sim t_(n-1)$ tal que $P(T\leq t_\gamma)=\gamma$. Fixando o nível de significância em $\alpha$, e lembrando que a distribuição $t$ é simétrica em torno de zero, teremos
+\begin{align*}
+\alpha&=P\left({\bf X}\in R|H_0\right)=P\left(|T|>k_4\right)\\
+&=P(T>k_4)+P(T<-k_4)= 2P(T< -k_4)\\
+\end{align*}
+logo $\alpha/2=P(T<-k_4)\Rightarrow -k_4=t_{\alpha/2}$. Notando que $-t_{\alpha/2}=t_{1-\alpha/2}$. Assim a região de rejeição do TRV de nível $\alpha$ é dada por
+$$R=\{{\bf X}\in\mathbb{R}: |T|>t_{1-\alpha/2}\}.$$
+Este teste é denominado {\bf Teste $t$ Bilateral}.
+\end{exem}
+
+
+## A função poder e os testes mais poderosos

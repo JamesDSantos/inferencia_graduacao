@@ -222,6 +222,7 @@ window.Quarto = {
   <ul>
   <li><a href="#definição-de-hipóteses-testes-e-modos-de-avaliação" id="toc-definição-de-hipóteses-testes-e-modos-de-avaliação" class="nav-link active" data-scroll-target="#definição-de-hipóteses-testes-e-modos-de-avaliação"><span class="header-section-number">5.1</span> Definição de hipóteses, testes e modos de avaliação</a></li>
   <li><a href="#a-construção-de-um-teste-de-hipóteses-a-partir-de-uma-estatística-de-teste" id="toc-a-construção-de-um-teste-de-hipóteses-a-partir-de-uma-estatística-de-teste" class="nav-link" data-scroll-target="#a-construção-de-um-teste-de-hipóteses-a-partir-de-uma-estatística-de-teste"><span class="header-section-number">5.2</span> A construção de um teste de hipóteses a partir de uma estatística de teste</a></li>
+  <li><a href="#o-teste-da-razão-de-verossimilhanças" id="toc-o-teste-da-razão-de-verossimilhanças" class="nav-link" data-scroll-target="#o-teste-da-razão-de-verossimilhanças"><span class="header-section-number">5.3</span> O teste da razão de verossimilhanças</a></li>
   </ul>
 </nav>
     </div>
@@ -327,34 +328,17 @@ window.Quarto = {
 <figcaption>A estatística <span class="math inline">\(T\)</span> utilizada como estatística de teste. As partições em verde formam as regiões de rejeição e as partições laranjas as de aceitação.</figcaption>
 </figure>
 </div>
-<p>Em geral, escolhemos uma estatística de teste que possui alguma relação com <span class="math inline">\(\theta\)</span> (como, por exemplo, uma estatística suficiente ou um estimador). Tal opção é útil para definir como a partição será feita. Para ilustrar, considere que <span class="math inline">\(T\)</span> é um estimador para <span class="math inline">\(\theta\)</span> e suponha que desejamos testar se <span class="math inline">\(H_0:\theta\leq \theta_0\)</span>. É natural pensar que <span class="math inline">\(H_0\)</span> é falsa se <span class="math inline">\(t\)</span> observado é muito maior que <span class="math inline">\(\theta_0\)</span>. Deste modo, podemos definir um valor <span class="math inline">\(c&gt;\theta_0\)</span> e construir a região de rejeição <span class="math display">\[R=\{t:t&gt;c\}.\]</span> Deste modo, criamos o teste <span class="math display">\[D(t)=\left\{\begin{array}{ll}1,&amp;t&gt;c\\0,&amp;t\leq c\end{array}\right.\]</span> Para determinar o valor de <span class="math inline">\(c\)</span>, podemos fixar o nível de significância. Deste modo, teremos que <span class="math display">\[\alpha=P(D=1|\theta_0)=P(T&gt;c|\theta_0)=1-F_{T|\theta_0}(c)\Rightarrow F_{T|\theta_0}(c)=1-\alpha.\]</span> Portanto, <span class="math inline">\(c\)</span> é o quantil <span class="math inline">\(1-\alpha\)</span> da distribuição de <span class="math inline">\(T\)</span> supondo que <span class="math inline">\(\theta=\theta_0\)</span>.</p>
+<p>Em geral, escolhemos uma estatística de teste que possui alguma relação com <span class="math inline">\(\theta\)</span> (como, por exemplo, uma estatística suficiente ou um estimador). Tal opção é útil para definir como a partição será feita. Para ilustrar, considere que <span class="math inline">\(T\)</span> é um estimador para <span class="math inline">\(\theta\)</span> e suponha que desejamos testar se <span class="math inline">\(H_0:\theta\in \Theta_0\)</span>. É natural pensar que <span class="math inline">\(H_0\)</span> é falsa se <span class="math inline">\(t\)</span> observado está longe da região <span class="math inline">\(\Theta_0\)</span>. Deste modo, podemos definir um valor <span class="math inline">\(c&gt;\theta_0\)</span> e construir a região de rejeição <span class="math display">\[R=\{t:t&gt;c\}.\]</span> Deste modo, criamos o teste <span class="math display">\[D(t)=\left\{\begin{array}{ll}1,&amp;t&gt;c\\0,&amp;t\leq c\end{array}\right.\]</span> Para determinar o valor de <span class="math inline">\(c\)</span>, podemos fixar o nível de significância. Deste modo, teremos que <span class="math display">\[\alpha=P(D=1|\theta_0)=P(T&gt;c|\theta_0)=1-F_{T|\theta_0}(c)\Rightarrow F_{T|\theta_0}(c)=1-\alpha.\]</span> Portanto, <span class="math inline">\(c\)</span> é o quantil <span class="math inline">\(1-\alpha\)</span> da distribuição de <span class="math inline">\(T\)</span> supondo que <span class="math inline">\(\theta=\theta_0\)</span>.</p>
 <div class="alert alert-info">
 <p><strong>Exemplo.</strong> Seja <span class="math inline">\(X_1,\ldots,X_n\)</span> uma amostra aleatória da população Normal(<span class="math inline">\(\mu\)</span>,1). Considere a hipótese nula <span class="math inline">\(H_0:\mu \leq \mu_0\)</span>.</p>
 <p>Sabemos que <span class="math inline">\(\bar{X}_n\)</span> é um estimador para <span class="math inline">\(\mu\)</span>. Vamos ter evidências para rejeitar <span class="math inline">\(H_0\)</span> quando <span class="math display">\[\bar{x}_n&gt;c&gt;\mu_0.\]</span>. Para determinar o valor de <span class="math inline">\(c\)</span>, fixe o nível de significância <span class="math inline">\(\alpha\)</span>. Então</p>
-<p><span class="math display">\[\alpha=P(\bar{X}_n&gt;c|\mu_0)=1-P(\bar{X}_n\leq c|\mu_0)\Rightarrow F_{\bar{X}_n|\mu_0}(c)=1-\alpha.\]</span> Portanto, <span class="math inline">\(c\)</span> é o quantil <span class="math inline">\(1-\alpha\)</span> de de <span class="math inline">\(\bar{X}_n|\mu_0\sim N(\mu_0,1/n)\)</span>.</p>
-</div>
+<p><span class="math display">\[\alpha=P(\bar{X}_n&gt;c|\mu_0)=1-P(\bar{X}_n\leq c|\mu_0)\Rightarrow F_{\bar{X}_n|\mu_0}(c)=1-\alpha.\]</span> Portanto, <span class="math inline">\(c\)</span> é o quantil <span class="math inline">\(1-\alpha\)</span> de de <span class="math inline">\(\bar{X}_n|\mu_0\sim N(\mu_0,1/n)\)</span>. Os exemplos</p>
 <div class="alert alert-info">
 <p><strong>Exemplo.</strong> Um agricultor afirma que a média de produção de soja em sua fazenda maior que 3 toneladas por hectare. Uma amostra de 15 hectares foi selecionada e a produção de soja média foi de 3,2 toneladas. Supondo que a produção média de soja por hectare tem distribuição normal com desvio padrão de 0,5 tonelada por hectare, teste, ao nível de 5% de significância, a afirmação do agricultor.</p>
-<p><strong>Solução.</strong> Queremos saber se <span class="math inline">\(\mu&gt;3\)</span>. Portanto, a hipótese nula é <span class="math display">\[H_0:\mu\leq 3.\]</span> Vamos rejeitar a hipótese nula se houverem evidências de que <span class="math inline">\(\mu\)</span> é maior que 3. Utilizando <span class="math inline">\(\bar{x}_{15}\)</span> para tomar a decisão, teremos a seguinte região de rejeição: <span class="math display">\[R=\{\bar{x}_{15}:\bar{x}_{15}&gt;c\}.\]</span> Para determinar o valor de <span class="math inline">\(c\)</span>, observe que <span class="math display">\[0,05=P(\bar{X}_{15}&gt;c|\mu=3)=1-P(\bar{X}_{15}\leq c|\mu=3)\Rightarrow F_{\bar{X}_{15}|\mu=3}(c)=0,95\]</span> logo <span class="math inline">\(c\)</span> é o quantil de 95% da distribuição <span class="math display">\[\bar{X}_{15}|\mu=3\sim N\left(3,\frac{0,5^2}{15}\right)=N\left(3,\frac{1}{60}\right)\]</span> O valor de <span class="math inline">\(c=3,212\)</span>. Portanto, rejeitamos <span class="math inline">\(H_0\)</span> quando <span class="math inline">\(\bar{x}_{15}&gt;3,212\)</span>. Como <span class="math inline">\(\bar{x}_{15}=3,2\)</span>, não rejeitamos a hipótese nula.</p>
-</div>
-<p>Anteriormente, definimos a função poder do teste baseada em <span class="math inline">\(\delta\)</span>, onde <span class="math inline">\(\delta=1\)</span> de <span class="math inline">\(H_0\)</span> era falsa. Contudo, com as hipóteses são funções do parâmetro, podemos definir a função poder em relação a estes sem perda de generalidade.</p>
-<div class="alert alert-success">
-<p><strong>Definição</strong>. A função <span class="math display">\[\beta(\theta)=P(T\in R|\theta)\]</span> é denominada função poder o teste.</p>
-</div>
-<div class="alert alert-info">
-<p><strong>Exemplo (continuado).</strong> Observe que, no exemplo anterior, evitamos decidir que <span class="math inline">\(H_0\)</span> era verdadeira. Para entender melhor, considere a função poder para esse teste: <span class="math display">\[\beta(\mu)=P(\bar{X}_{15}&gt;3,212|\mu).\]</span></p>
-<p>Suponha que <span class="math inline">\(\mu=3,1\)</span> (ou seja, ocorreu o erro tipo II). A probabilidade desse erro ocorrer é <span class="math display">\[1-\beta(3,1)=0,80\]</span></p>
-<p>Abaixo, apresentamos o gráfico da função poder. Destacado em vermelho está a probabilidade do erro tipo II para o ponto <span class="math inline">\(\mu=3,1\)</span>.</p>
+<p><strong>Solução.</strong> Queremos saber se <span class="math inline">\(\mu&gt;3\)</span>. Portanto, a hipótese nula é <span class="math display">\[H_0:\mu\leq 3.\]</span> Vamos utilizar o estimador <span class="math inline">\(\bar{x}_{15}\)</span>. A figura abaixo aprenta várias possibilidade para a distribuição de <span class="math inline">\(\bar{X}_{15}\)</span> quando <span class="math inline">\(H_0\)</span> é verdadeira, sendo que a curva mais à direita corresponde à distribuição normal com média <span class="math inline">\(\mu=3\)</span>. Os pontos verdes representam valores que podem ocorrer quando a hipótese nula é verdadeira. Já os pontos vermelhos ocorrem com uma probabilidade muito baixa quando <span class="math inline">\(H_0\)</span> é verdadeira. Nosso objetivo é encontrar o ponto <span class="math inline">\(c\)</span> que vai particionar os valores de <span class="math inline">\(\bar{x}_{15}\)</span>, criando as regiões de rejeição e aceitação.</p>
+<div id="fig">
+<div class="figure-content">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>oo <span class="ot">&lt;-</span> <span class="fu">par</span>(<span class="at">cex=</span><span class="fl">1.2</span>)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>poder <span class="ot">&lt;-</span> <span class="cf">function</span>(mu) <span class="dv">1</span><span class="sc">-</span><span class="fu">pnorm</span>(<span class="fl">3.212</span>,mu,<span class="dv">1</span><span class="sc">/</span><span class="fu">sqrt</span>(<span class="dv">60</span>))</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">curve</span>(<span class="fu">poder</span>(x),<span class="fl">2.8</span>,<span class="fl">3.5</span>, <span class="at">lwd =</span> <span class="dv">2</span>, <span class="at">xlab =</span> <span class="fu">expression</span>(mu), <span class="at">ylab=</span> <span class="fu">expression</span>(<span class="fu">beta</span>(mu)) )</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h=</span>.<span class="dv">05</span>, <span class="at">lty=</span><span class="dv">2</span>)</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(<span class="fl">3.1</span>,<span class="fu">poder</span>(<span class="fl">3.1</span>), <span class="at">pch=</span><span class="dv">16</span>,<span class="at">col=</span><span class="st">'red'</span>)</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">segments</span>(<span class="fl">3.1</span>,<span class="fu">poder</span>(<span class="fl">3.1</span>),<span class="fl">3.1</span>,<span class="dv">1</span>,<span class="at">col=</span><span class="st">'red'</span>,<span class="at">lwd =</span> <span class="dv">2</span>)</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">segments</span>(<span class="fl">3.1-.03</span>,<span class="fu">poder</span>(<span class="fl">3.1</span>),<span class="fl">3.1+.03</span>, <span class="fu">poder</span>(<span class="fl">3.1</span>), <span class="at">lwd =</span> <span class="dv">2</span> ,<span class="at">col =</span><span class="st">'red'</span>)</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">segments</span>(<span class="fl">3.1-.03</span>,<span class="dv">1</span>,<span class="fl">3.1+.03</span>, <span class="dv">1</span>, <span class="at">lwd =</span> <span class="dv">2</span> ,<span class="at">col =</span><span class="st">'red'</span>)</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="dv">3</span>,.<span class="dv">6</span>,<span class="fu">expression</span>(<span class="dv">1</span><span class="sc">-</span><span class="fu">beta</span>(<span class="fl">3.1</span>)), <span class="at">col=</span><span class="st">'red'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -362,7 +346,12 @@ window.Quarto = {
 </figure>
 </div>
 </div>
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(oo)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<p>As funções densidade acima são apenas algumas das infinitas possibilidades de distribuição para <span class="math inline">\(\bar{X}_{15}\)</span> quando <span class="math inline">\(H_0:\mu\leq 3\)</span>.</p>
+</div>
+<p>ObserveOVamos rejeitar a hipótese nula se houverem evidências de que <span class="math inline">\(\mu\)</span> é maior que 3.</p>
+<p>Utilizando <span class="math inline">\(\bar{x}_{15}\)</span> para tomar a decisão, teremos a seguinte região de rejeição: <span class="math display">\[R=\{\bar{x}_{15}:\bar{x}_{15}&gt;c\}.\]</span> Para determinar o valor de <span class="math inline">\(c\)</span>, observe que <span class="math display">\[0,05=P(\bar{X}_{15}&gt;c|\mu=3)=1-P(\bar{X}_{15}\leq c|\mu=3)\Rightarrow F_{\bar{X}_{15}|\mu=3}(c)=0,95\]</span> logo <span class="math inline">\(c\)</span> é o quantil de 95% da distribuição <span class="math display">\[\bar{X}_{15}|\mu=3\sim N\left(3,\frac{0,5^2}{15}\right)=N\left(3,\frac{1}{60}\right)\]</span> O valor de <span class="math inline">\(c=3,212\)</span>. Portanto, rejeitamos <span class="math inline">\(H_0\)</span> quando <span class="math inline">\(\bar{x}_{15}&gt;3,212\)</span>. Como <span class="math inline">\(\bar{x}_{15}=3,2\)</span>, não rejeitamos a hipótese nula.</p>
 </div>
 </div>
 <div class="alert alert-info">
@@ -370,16 +359,62 @@ window.Quarto = {
 <p><strong>Solução.</strong> Deseja-se saber se houve aumento na taxa de chamadas, ou seja, se <span class="math inline">\(\theta&gt;120\)</span>. Portanto, a hipótese nula pode ser formulada como <span class="math inline">\(H_0:\theta\leq 120\)</span>.</p>
 <p>Considerando o estimador de máxima verossimilhança como estatística de teste, rejeitamos a hipótese nula quando <span class="math inline">\(\hat{\theta}&gt;c\)</span>, com <span class="math inline">\(c&gt;120\)</span>. Fixando o nível de significância em 5%, teremos que <span class="math display">\[0,05=P(\hat{\theta}&gt;c|\theta=120)=1-P(\hat{\theta}\leq c|\theta=120)\]</span> e, como <span class="math display">\[P(\hat{\theta}\leq c|\theta)=P\left(\sum_{i=1}^{100}X_i\leq 100c|\theta=120\right)=F_T(100c),\]</span> onde <span class="math inline">\(T\sim\hbox{Poisson}(12000)\)</span>. Unindo as duas equações acima, concluímos que, <span class="math display">\[F_T(100c)=0,95\]</span> ou seja <span class="math inline">\(100c\)</span> é o quantil 95% da distribuição Poisson(12000). Abaixo apresentamos o cálculo de <span class="math inline">\(c\)</span> no <code>R</code>:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>c <span class="ot">=</span> <span class="fu">qpois</span>(.<span class="dv">95</span>,<span class="dv">12000</span>)<span class="sc">/</span><span class="dv">100</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>c</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>c <span class="ot">=</span> <span class="fu">qpois</span>(.<span class="dv">95</span>,<span class="dv">12000</span>)<span class="sc">/</span><span class="dv">100</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>c</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 121.8</code></pre>
 </div>
 </div>
 <p>Portanto, a região de rejeição desse teste é <span class="math display">\[R=\{\hat{\theta}:\hat{\theta}&gt;121,8\}.\]</span> Como o valor observado de <span class="math inline">\(\hat{\theta}\)</span> é <span class="math inline">\(135\)</span>, rejeitamos a hipótese nula. Portanto, há evidências de que a campanha teve efeito.</p>
 </div>
+<div class="alert alert-info">
+<p><strong>Exemplo.</strong> Uma fábrica de lâmpadas precisa manter a proporção de peças defeituosas no máximo em 2%. Regularmente, uma equipe de controle de qualidade seleciona aleatoriamente uma amostra de 500 lâmpadas para testar essa hipótese. Em determinado dia, foram encontras 15 lâmpadas com defeito. Verifique se há evidências de que a afirmação da fábrica é verdadeira, ao nível de 5% de significância.</p>
+<p><strong>Solução.</strong> Precisamos determinar qual dos seguintes erros é o pior:</p>
+<ul>
+<li><p>Dizer que a proporção de produção de peças é menor que 2%, quando na verdade é maior.</p></li>
+<li><p>Dizer que a proporção de produção de peças é maior que 2%, quando na verdade é menor.</p></li>
+</ul>
+<p>O primeiro erro implica em problemas com clientes e propaganda negativa da marca. Já o segundo implica apenas no trabalho de rotina do controle de qualidade. Vamos considerar o primeiro como o erro do tipo I. Sendo <span class="math inline">\(\theta\)</span> a probabilidade de produzir uma lâmpada defeituosa, queremos testar <span class="math display">\[H_0:\theta\leq 0,02.\]</span></p>
+<p>Temos uma amostra de 500 variáveis com distribuição Bernoulli, onde <span class="math inline">\(X_i=1\)</span> se a lâmpada <span class="math inline">\(i\)</span> for defeituosa. Observe que vamos ter evidências contra <span class="math inline">\(H_0\)</span> quando <span class="math inline">\(\hat{\theta}\)</span> for maior que 0,02</p>
+<p>A estimativa para <span class="math inline">\(\theta\)</span> encontrada foi <span class="math display">\[\hat{\theta}_{500}=\sum_{i=1}^{500}\frac{x_i}{500}=\frac{15}{500}=0,03\]</span></p>
+<p>Vamos rejeitar</p>
+<p>Enunciado:</p>
+<p>Com base nessa amostra, podemos afirmar, com 95% de confiança, que a taxa de defeitos da fábrica é superior a 2%?</p>
+</div>
+</section>
+<section id="o-teste-da-razão-de-verossimilhanças" class="level2" data-number="5.3">
+<h2 data-number="5.3" class="anchored" data-anchor-id="o-teste-da-razão-de-verossimilhanças"><span class="header-section-number">5.3</span> O teste da razão de verossimilhanças</h2>
+<p>Considere a <span class="math inline">\(H_0:\theta\in\Theta_0\subset \Theta\)</span>. Seja <span class="math inline">\(\hat{\theta}_0\)</span>, o valor em <span class="math inline">\(\Theta_0\)</span> tal que <span class="math display">\[\begin{equation}
+L(\theta)\leq L(\hat{\theta}_0),
+\end{equation}\]</span></p>
+<p>para todo <span class="math inline">\(\theta\in\Theta_0\)</span>. O valor <span class="math inline">\(\hat{\theta}_0\)</span> pode ser interpretado como sendo a estimativa de máxima verossimilhança de <span class="math inline">\(\theta\)</span> quando a hipótese <span class="math inline">\(H_0\)</span> é verdadeira.</p>
+<p>Agora, seja <span class="math inline">\(\hat{\theta}\)</span> o EMV para <span class="math inline">\(\theta\)</span>. Se <span class="math inline">\(L(\hat{\theta}_0)\)</span> estiver próximo do valor de <span class="math inline">\(L(\hat{\theta})\)</span>, então o valor mais verossímil de <span class="math inline">\(\Theta_0\)</span> está próximo do valor mais verossímil de <span class="math inline">\(\Theta\)</span>, dando evidências de que <span class="math inline">\(H_0\)</span> é verdadeira. Portanto, valores pequenos da estatística <span class="math display">\[\begin{align}
+\lambda(\textbf{X})=\frac{L(\hat{\theta}_0)}{L(\hat{\theta})},
+\end{align}\]</span> dão evidências de que <span class="math inline">\(H_0\)</span> é falsa.</p>
+<div id="fig">
+<div class="figure-content">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="teste_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<p>A região cinza corresponde ao conjunto da hipótese nula. No gráfico da esquerda, o ponto mais verossímil da hipótese nula está afastado da estimativa de máxima verossimilhança, levando à rejeição de <span class="math inline">\(H_0\)</span>. Já no gráfico seguinte, a estimativa de máxima verossimilhança está dentro do conjunto da hipótese nula e, portanto, não hà motivos para rejeitá-la.</p>
+</div>
+<div class="alert alert-success">
+<p><em>Definição</em> Considere a hipótese <span class="math inline">\(H_0:\theta\in\Theta_0\subset \Theta\)</span>. O teste para esta hipótese que utiliza a estatística <span class="math display">\[\lambda(\textbf{X})=\frac{L(\hat{\theta}_0)}{\hat{\theta}}\]</span> com região de rejeição dada por <span class="math display">\[R=\{ \lambda(\textbf{x}): \lambda(\textbf{x})\leq k \}\]</span> para algum valor de <span class="math inline">\(0&lt;k&lt;1\)</span> fixado é denominado Teste da Razão de Verossimilhanças (TRV). \end{defi}</p>
+<p>Em geral, o valor de <span class="math inline">\(k\)</span> da região de rejeição dada na Definição <span class="math inline">\(\ref{defi::TRV}\)</span> é escolhido de modo a satisfazer <span class="math display">\[\alpha\geq P(\lambda({\bm{X}})&lt;k|\theta),\;\;\forall \theta\in\Theta_0\]</span> para o nível de significância <span class="math inline">\(\alpha\)</span> fixado.</p>
+{
+<section id="a-função-poder-e-os-testes-mais-poderosos" class="level2" data-number="5.4">
+<h2 data-number="5.4" class="anchored" data-anchor-id="a-função-poder-e-os-testes-mais-poderosos"><span class="header-section-number">5.4</span> A função poder e os testes mais poderosos</h2>
 
 
+</section>
+</div>
 </section>
 
 </main> <!-- /main -->
