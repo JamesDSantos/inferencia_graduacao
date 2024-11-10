@@ -299,125 +299,278 @@ title( xlab= expression(theta), ylab=expression(L(theta)))
 par(oo)
 ```
 :::
-A região cinza corresponde ao conjunto da hipótese nula. No gráfico da esquerda, o ponto mais verossímil da hipótese nula está afastado da estimativa de máxima verossimilhança, levando à rejeição de $H_0$. Já no gráfico seguinte, a estimativa de máxima verossimilhança está dentro do conjunto da hipótese nula e, portanto, não hà motivos para rejeitá-la.
+Figura. A região cinza corresponde ao conjunto da hipótese nula. No gráfico da esquerda, o ponto mais verossímil da hipótese nula está afastado da estimativa de máxima verossimilhança, levando à rejeição de $H_0$. Já no gráfico seguinte, a estimativa de máxima verossimilhança está dentro do conjunto da hipótese nula e, portanto, não hà motivos para rejeitá-la.
 :::
 
 <div class='alert alert-success'>
-*Definição* Considere a hipótese $H_0:\theta\in\Theta_0\subset \Theta$. O teste para esta hipótese que utiliza a estatística 
-$$\lambda(\textbf{X})=\frac{L(\hat{\theta}_0)}{\hat{\theta}}$$ com região de rejeição dada por
-$$R=\{ \lambda(\textbf{x}): \lambda(\textbf{x})\leq k \}$$ para algum valor de $0<k<1$ fixado é denominado Teste da Razão de Verossimilhanças (TRV).
-\end{defi}
-
-Em geral, o valor de $k$ da região de rejeição dada na Definição \ref{defi::TRV} é escolhido de modo a satisfazer
-$$\alpha\geq P(\lambda({\bm{X}})<k|\theta),\;\;\forall \theta\in\Theta_0$$
-para o nível de significância $\alpha$ fixado.
-
-\begin{exem}Seja $X_1\sim\hbox{Exponencial}(1/\theta)$, cuja densidade é
-$$f(x|\theta)=\frac{1}{\theta}e^{-x/\theta},$$
-com $x,\theta>0$ e considere a hipótese $$H_0:\theta= 1.$$ Será encontrado um teste da razão de verossimilhanças para $H_0$ com nível de significância $\alpha$ fixado. Primeiro, tem-se que
-$$\log f(x_1|\theta)=-\log(\theta) - \frac{x}{\theta},$$
-logo, é fácil mostrar que o EMV para $\theta$ é $\hat{\theta}=X_1$. Sob a hipótese nula, o único valor possível para $\theta$ é 1, logo $\hat{\theta}_0=1$ é o EMV sob esta hipótese. A estatística do TRV é
-$$\lambda(X_1)=\frac{L(\hat{\theta}_0)}{L(\hat{\theta})}=X_1e^{-X_1 + 1} $$ 
-e a região de rejeição deste teste é dada por 
-$$\bm{R}=\{X_1>0:X_1e^{-X_1 + 1}<k\},$$
-para algum $k\in(0,1)$. O valor de $k$ é escolhido de tal forma que
-$$\alpha\geq P(\lambda(X_1)\leq k|\theta=1).$$
-A figura abaixo mostra o esboço do gráfico de $\lambda(x)$ em função de $x_1$. 
-\begin{center}
-%\includegraphics[width=0.7\linewidth]{.~/Figuras/TRV_uma_exponencial}
-\end{center}
-Pode-se perceber que, para qualquer $k$ fixado existem $c_1$ e $c_2$ tais que 
-$$\{\lambda(x)\leq k\}\Leftrightarrow \{x\leq c_1\}\cup\{x\geq c_2\}$$
-logo,
-\begin{align*}
-\alpha &\geq P(X_1\leq c_1)+P(X_1\geq c_2)=1-e^{-c_1} + e^{-c_2}
-\end{align*}
-Portanto, o teste de nível $\alpha$ que rejeita $H_0$ se $\lambda(x_1)\leq k$ pode ser reescrito sem perda de generalidade como um teste que rejeita $H_0$ se $x_1\leq c_1$ ou $x_1\geq c_2$. Por exemplo, tomando $c_1$ e $c_2$ como sendo os valores que satisfazem 
-$$P(X_1\leq c_1|\theta=1)=\frac{\alpha}{2}$$
-e
-$$P(X_1\geq c_2|\theta=1)=\frac{\alpha}{2}$$
-tem-se que 
-$$c_1 = -\log\left(1-\frac{\alpha}{2}\right)$$
-e
-$$c_2 = -\log\left(\frac{\alpha}{2}\right)$$
-sendo o respectivo TRV de nível $\alpha$ dado por
-$$D(x_1)=\left\{\begin{array}{ll}
-1, & \hbox{ se }x_1\leq -\log(1-\alpha/2)\hbox{ ou }x_1\geq -\log(\alpha/2)\\
-0, & c.c.
-\end{array}\right.$$
-\end{exem}
+**Definição** Considere a hipótese $H_0:\theta\in\Theta_0\subset \Theta$. O teste para esta hipótese que utiliza a estatística 
+$$\lambda(\textbf{X})=\frac{L(\hat{\theta}_0)}{L(\hat{\theta})}$$ com região de rejeição dada por
+$$R=\{ \lambda(\textbf{x}): \lambda(\textbf{x})\leq k \}$$ para algum valor de $0<k<1$ fixado é denominado Teste da Razão de Verossimilhanças (TRV). O valor de $k$ é escolhido de modo que o teste tenha nível de significância $\alpha$, ou seja, $k$ satisfaz
+$$ P(\lambda(\textbf{X})<k|\theta)\leq \alpha,$$
+para todo $\theta\in\Theta_0$.
+</div>
 
 
-\textcolor{blue}{O exemplo a seguir foi corrigido no dia 01/07/2015.}
-{\begin{exem}\label{exem::TRV_exponencial}Seja $X_1,\ldots,X_n$ uma amostra de vaiid com $X_1\sim\hbox{Exponencial}(\theta)$. Queremos testar $H_0:\theta\geq \theta_0$. Sabemos que o EMV para $\theta$ é $\hat{\theta}=1/\bar{X}$. Sob $H_0$, devemos maximizar a seguinte verossimilhança
-$$L(\theta)=\theta^{n}e^{-\theta n \bar{x}}I(\theta\geq \theta_0).$$
+<div class='alert alert-info'>
+**Exemplo.** Seja $X_1,\ldots,X_n$ uma amostra aleatória da população Normal$(\theta,1)$ e considere a hipótese $H_0:\theta=\theta_0$. Vamos encontrar o teste da razão de verossimilhanças. Para tanto, devemos primeiro encontrar os estimadores de máxima verossimilhança $\hat{\theta}$ e $\hat{\theta}_0$.
 
-Se $\theta_0\leq1/\bar{x}$ a função possui uma única moda no ponto $1/\bar{x}$, logo $\hat{\theta}_0=1/\bar{x}$.
+Já sabemos que o estimador de máxima verossimilhança $\hat{\theta}$ é $\bar{X}_n$. Como $\Theta_0=\{\theta_0\}$, temos que $\hat{\theta}_0=\theta_0$.
 
-Se $\theta_0 > 1/\bar{x}$ a função é monótona decrescente em $\theta$ e seu máximo será atingido em $\hat{\theta}_0=\theta_0$.
+A estatística do teste da razão de verossimilhanças é
+$$\begin{align}\lambda(\textbf{x})&=\frac{L(\hat{\theta}_0)}{L(\hat{\theta})}=\frac{\left(\frac{1}{2\pi}\right)^{\frac{n}{2}}\exp\left\{-\frac{1}{2}\sum_{i=1}^n(x_i-\mu_0)^2\right\}}{\left(\frac{1}{2\pi}\right)^{\frac{n}{2}}\exp\left\{-\frac{1}{2}\sum_{i=1}^n(x_i-\bar{x})^2\right\}}\\&=\frac{\exp\left\{-\frac{1}{2}\sum_{i=1}^n(x_i^2+\mu_0^2 -2\mu_0x_i)\right\}}{\exp\left\{-\frac{1}{2}\sum_{i=1}^n(x_i^2+\bar{x}^2-2x_i\bar{x})\right\}}\\&=\exp\left\{-\frac{1}{2}\left[n\mu_0^2 -2\mu_0\sum_{i=1}^n x_i\right]+\frac{1}{2}\left[n\bar{x}^2-2\bar{x}\sum_{i=1}^n x_i\right] \right\}\\&=\exp\left\{-\frac{1}{2}\left[n\mu_0^2-2\mu_0 n\bar{x}+n\bar{x}^2\right] \right\}\\&=\exp\left\{-\frac{n}{2}(\bar{x}-\mu_0)^2\right\}\end{align}$$
+Decidimos rejeitar $H_0$ se $\lambda(\textbf{x})<k$, onde $k$ é o valor que satisfaz
+$$P(\lambda(\textbf{X})<k|\theta_0)=\alpha.$$
+Observe que
+$$\lambda(\textbf{x})<k\Rightarrow e^{-\frac{n}{2}(\bar{x}-\mu_0)^2}<k$$
+Na figura abaixo é possível observar que existem $a$ e $b$ tais que $\lambda(x)<k$ se e somente se $\bar{x}<a$ ou $\bar{x}>b$.
 
-Portanto, teremos que $\hat{\theta}_0=\frac{1}{\bar{x}}
-       I\left(\theta_0\leq \frac{1}{\bar{x}}\right)+
-       \theta_0I \left(\theta_0>\frac{1}{\bar{x}}\right)$.
-Se $\theta_0<1/\bar{X}$, a estatística do TRV será igual a um. Em caso contrário, 
-\begin{align*}
-\lambda({\bf X})&=\frac{L(\hat{\theta}_0)}{L(\hat{\theta})}=\left(\frac{\hat{\theta}_0}{\hat{\theta}}\right)^n \exp\left\{-n\bar{x}(\hat{\theta}_0-\hat{\theta})\right\}\\
-&= 	\left(\theta_0\bar{x}\right)^n \exp\left\{-n\bar{x}\theta_0+n\right\}=\lambda^\star (\bar{x})\\
-\end{align*}
-A Figura \ref{fig::TRV_exponencial} mostra o gráfico de $\lambda^\star(\bar{x})$. Como $\lambda^\star(\bar{x})$ é monótona decrescente para $\bar{x}>1/\theta_0$, para qualquer $k\in(0,1)$ existe um único valor $c$ tal que
-$$\bm{R}=\{\bm{x}\in\mathbb{R}_+^n:\lambda(\bm{x})<k\}\equiv\{ \bar{x}\in\mathbb{R}_+:\bar{x}>c\}$$
+```{r echo = F}
+oo <- par( cex = 1.2)
+plot.new()
+plot.window( xlim=c(-3,3), ylim=c(0,.4))
+curve(dnorm(x,0,1), lwd = 2, add =T)
+xx <- seq(-3,-1.64,length.out = 20)
+xx <- c(xx,xx[20:1])
+yy <- c( dnorm(xx[1:20]),rep(0,20))
+polygon(xx,yy,col='gray')
+xx <- seq(3,1.64,length.out = 20)
+xx <- c(xx,xx[20:1])
+yy <- c( dnorm(xx[1:20]),rep(0,20))
+polygon(xx,yy,col='gray')
 
-O valor de $c$ pode ser encontrado para qualquer nível de significância $\alpha$ desejado. Sabemos que, $\sum_{i=1}^{n}X_i\sim\hbox{Gama}(n,\theta)$, logo $\bar{X}\sim\hbox{Gama}(n,n\theta)$. Defina  $G=\bar{X}\theta\sim\hbox{Gama}(n,n)$ (note que a distribuição de $G$ não depende de $\theta$). Sob $H_0$, teremos
-\begin{align*}
-\alpha &\geq \sup_{\theta\in\Theta_0}P(\bm{X}\in \bm{R}|H_0)=\sup_{\theta\in\Theta_0}P\left(\theta\bar{X}>c\theta|\theta\geq \theta_0\right)\\
-&=\sup_{\theta\in\Theta_0}P\left(G>c\theta\right)=P\left(G>c\theta_0\right).
-\end{align*}
-Seja $g_\gamma$ o valor que satisfaz $P(G> g_\gamma)=\gamma$. Então 
-$$P\left(G> c\theta_0\right)=\alpha
-\Rightarrow c\theta_0 = g_\alpha 
-\Rightarrow c=\frac{g_{\alpha}}{\theta_0}.$$
-Portanto, o TRV de nível $\alpha$ possui região de rejeição $$\bm{R}=\{\bar{x}\in\mathbb{R}_+: \bar{x}>g_{\alpha}/\theta_0\}.$$
-\end{exem}
+axis(1, at=c(-3,-1.64,0,1.64,3),labels = c('','a',expression( mu[0]),'b',''))
+axis(2,at = c(0,dnorm(1.64),.4), labels= c('','k',''))
+abline(h=dnorm(1.64), lwd =2)
+title( xlab = expression(bar(x)), ylab=expression(lambda(x)))
+par(oo)
+```
+Portanto, o teste da razão de verossimilhanças pode ser escrito como
+$$D=\left\{\begin{array}{ll}1,&\hbox{ se }\bar{x}<a\hbox{ ou } \bar{x}>b\\ 0&, \hbox{se }\bar{x}\in[a,b]\end{array}\right.$$
+onde $a$ e $b$ são os quantis $\alpha/2$ e $1-\alpha/2$ da distribuição Normal($\mu_0,1/n$). 
+</div>
 
-\begin{center}
-\begin{figure}
-%\includegraphics[scale=.5]{.~/Figuras/TRV_exponencial}
-\caption{$\lambda({\bf X})$ vista como função de $\bar{X}$ para o TRV da exponencial apresentado no Exemplo \ref{exem::TRV_exponencial}.}\label{fig::TRV_exponencial}
-\end{figure}
-\end{center}
 
-\begin{exem}[Teste $t$ Bilateral]\label{exem::teste_t_bilateral}\textcolor{red}{(Ainda não corrigi este exemplo)}Sejam $X_1,\ldots,X_n$ vaiid com $X_1|\bm{\theta}\sim\hbox{Normal}(\mu,\sigma^2)$. Consideremos a hipótese $H_0:\mu=\mu_0$. Sabemos que $\hat{\bm{\theta}}=(\bar{X},\hat{\sigma}^2)$, onde $\hat{\sigma}^2 =(n-1)S^2/n$. Sob $H_0$, temos que $\hat{\bm{\theta}}_0=(\mu_0,\sigma^2_0)$, onde 
-$$\sigma^2_0=\frac{1}{n}\sum_{i=1}^{n}(X_i-\mu_0)^2.$$
-Assim,
-\begin{align*}
-\lambda({\bf X})&=\frac{L(\hat{\theta}_0)}{L(\hat{\theta})}=\frac{(1/\sigma^2_0)^{n/2}\exp\left\{-\frac{1}{2\sigma^2}\sum_{i=1}^{n}(X_i-\mu_0)^2\right\}}{(1/\hat{\sigma}^2)^{n/2}\exp\left\{-\frac{(n-1)}{2}\right\}}\\
-&\varpropto \left(\frac{\hat{\sigma}^2}{\sigma_0^2}\right)^{n/2}.
-\end{align*}
-Lembrando que $\sum_i(X_i-\mu_0)^2=\sum_i(X_i-\bar{X})^2+n(\bar{X}-\mu_0)^2$, a região de rejeição será dada por
-\begin{align*}
-R&=\{{\bf X}\in\mathbb{R}^n: \lambda({\bf X})<k_1\}\equiv \left\{{\bf X}\in\mathbb{R}^n: \left(\frac{\hat{\sigma}^2}{\sigma^2_0}\right)^{n/2}<k_1\right\}\\
-&\equiv \left\{{\bf X}\in\mathbb{R}^n: \frac{\hat{\sigma}^2}{\hat{\sigma^2}+(\bar{X}-\mu_0)^2}<k_2\right\},\hbox{  onde }k_2=k_1^{2/n}\\
-&\equiv \left\{{\bf X}\in\mathbb{R}^n: \frac{1}{1+\frac{(\bar{X}-\mu_0)^2}{\hat{\sigma}^2}}<k_2\right\}\\
-&\equiv \left\{{\bf X}\in\mathbb{R}^n: \frac{1-k_2}{k_2}<\frac{(\bar{X}-\mu_0)^2}{\hat{\sigma}^2}\right\},\hbox{ fazendo }k_3=\frac{1-k_2}{k_2},\\
-&\equiv \left\{{\bf X}\in\mathbb{R}^n: \left|\frac{(\bar{X}-\mu_0)}{\hat{\sigma}}\right|>k_3\right\}.
-\end{align*}
-O cálculo das constantes $k_1$, $k_2$ e $k_3$ foram realizados para que o leitor acompanhasse as contas. Na prática, a expressão que levou a estas constantes é irrelevante. Antes de darmos a forma final de nossa estatística de teste, sabemos que $\bar{X}$ e $S^2$ são independentes. Sabemos ainda que $\sqrt{n}(\bar{X}-\mu_0)/\sigma^2\sim\hbox{Normal}(0,1)$, que 
-$$S^2\sim\hbox{Gama}\left(\frac{n-1}{2},\frac{n-1}{2\sigma^2}\right)\Rightarrow \frac{\hat{\sigma}^2}{\sigma^2}=\frac{n-1}{n}\frac{S^2}{\sigma^2}\sim\chi^2_{n-1},$$
-e 
-$$\frac{(\bar{X}-\mu_0)}{\hat{\sigma}/\sqrt{n-1}}=\frac{(\bar{X}-\mu_0)/\sigma}{\sqrt{\frac{1}{n}S^/\sigma^2}}=\sqrt{n}\frac{\bar{X}-\mu_0}{S}\sim t_{n-1}.$$
-Assim,
-\begin{align*}
-R&\equiv \left\{{\bf X}\in\mathbb{R}^n: \left|\frac{(\bar{X}-\mu_0)}{\hat{\sigma}}\right|>k_3\right\}\equiv \left\{{\bf X}\in\mathbb{R}^n: \left|\sqrt{n}\frac{\bar{X}-\mu_0}{S}\right|>k_4\right\}.
-\end{align*}
-A estatística $T=\sqrt{n}(\bar{X}-\mu_0)/S$ será nossa estatística de teste. Seja $t_\gamma$ o valor da distribuição $T\sim t_(n-1)$ tal que $P(T\leq t_\gamma)=\gamma$. Fixando o nível de significância em $\alpha$, e lembrando que a distribuição $t$ é simétrica em torno de zero, teremos
-\begin{align*}
-\alpha&=P\left({\bf X}\in R|H_0\right)=P\left(|T|>k_4\right)\\
-&=P(T>k_4)+P(T<-k_4)= 2P(T< -k_4)\\
-\end{align*}
-logo $\alpha/2=P(T<-k_4)\Rightarrow -k_4=t_{\alpha/2}$. Notando que $-t_{\alpha/2}=t_{1-\alpha/2}$. Assim a região de rejeição do TRV de nível $\alpha$ é dada por
-$$R=\{{\bf X}\in\mathbb{R}: |T|>t_{1-\alpha/2}\}.$$
-Este teste é denominado {\bf Teste $t$ Bilateral}.
-\end{exem}
+<div class='alert alert-info'>
+**Exemplo (O teste t).** Seja $X_1,\ldots,X_n$ uma amostra aleatória da população Normal($\mu,\sigma^2$) e considere da hipótese $H_0:\mu=\mu_0$. Sabemos que os estimadores de máxima verossimilhança para $\theta=(\mu,\sigma^2)$ são $\hat{\mu}=\bar{X}_n$ e $$\hat{\sigma}^2=\frac{n-1}{n}S_2=\frac{1}{n}\sum_{i=1}^n (X_i-\bar{X}_n)^2.$$
+Para construir o teste da razão de verossimilhanças, pecisamos primeiro encontrar os estimadores de maxima verossimilhança considerando que a hipótese nula é verdadeira. Nesse caso, temos que $\hat{\mu}_0=\mu_0$ e 
+
+$$\hat{\sigma}^2_0=\frac{1}{n}\sum_{i=1}^n (X_i-\mu_0)^2.$$
+A estatística do teste da razão de verossimilhanças é dada por
+$$\begin{align}\lambda(\textbf{x})&=\frac{L(\hat{\theta}_0)}{L(\hat{\theta})}=\frac{\left(\frac{1}{2\pi\hat{\sigma}^2_0}\right)^{\frac{n}{2}} e^{-\frac{1}{2\hat{\sigma}^2_0}\sum_{i=1}^n(x_i-\mu_0)^2}}{\left(\frac{1}{2\pi\hat{\sigma}^2}\right)^{\frac{n}{2}} e^{-\frac{1}{2\hat{\sigma}^2}\sum_{i=1}^n(x_i-\bar{x}_n)^2}}\\&=\left(\frac{\hat{\sigma}^2}{\hat{\sigma}^2_0}\right)^{\frac{n}{2}}
+\end{align}$$
+Observe que
+$$\begin{align}\hat{\sigma}^2_0&=\frac{1}{n}\sum_{i=1}^n (x_i-\bar{x}_n-\mu_0+\bar{x}_n)^2\\&=\frac{1}{n}\sum_{i=1}^n (x_i-\bar{x}_n)^2 +(\bar{x}_n+\mu_0)^2=\hat{\sigma}^2+(\bar{x}_n-\mu_0)^2\end{align}$$
+então
+$$\lambda(\textbf{x})=\left(\frac{\hat{\sigma}^2}{\hat{\sigma}^2_0}\right)^{\frac{n}{2}}=\left(\frac{\hat{\sigma}^2}{\hat{\sigma}^2+(\bar{x}_n-\mu_0)^2}\right)^{\frac{n}{2}}=\left(\frac{n}{n+n\frac{(\bar{x}_n-\mu_0)^2}{\hat{\sigma}^2}}\right)^{\frac{n}{2}}$$
+e, fazendo
+$$t^2=n\frac{(\bar{x}_n-\mu_0)^2}{\hat{\sigma}^2},$$
+teremos 
+$$\lambda(\textbf{x})=\left(\frac{n}{n+t^2}\right)^{\frac{n}{2}}$$
+A figura abaixo mostra o gráfico de $\lambda$ como função de $t$. Observe que, existe $a$ tal que, $\lambda(\textbf{x})<k$ se e somente se $t<-a$ ou $t>a$.
+```{r echo = FALSE}
+oo <- par( cex = 1.2)
+FUNa <- function(t) (10/(10+t^2))^5
+FUN <- function(x) sapply(x, FUNa)
+plot.new()
+plot.window( xlim=c(-4,4), ylim=c(0,1))
+curve(FUN(x), lwd = 2, add =T)
+xx <- seq(-3,-1.64,length.out = 20)
+xx <- c(xx,xx[20:1])
+yy <- c( FUN(xx[1:20]),rep(0,20))
+polygon(xx,yy,col='gray')
+xx <- seq(3,1.64,length.out = 20)
+xx <- c(xx,xx[20:1])
+yy <- c( FUN(xx[1:20]),rep(0,20))
+polygon(xx,yy,col='gray')
+
+axis(1, at=c(-3,-1.64,0,1.64,3),labels = c('','-a',0,'a',''))
+axis(2,at = c(0,dnorm(1.64),1), labels= c('','k',''))
+abline(h=dnorm(1.64), lwd =2)
+title( xlab = expression(bar(x)), ylab=expression(lambda(x)))
+par(oo)
+```
+</div>
+
+<div class='alert alert-info'>
+**Exemplo (diferença entre médias)** Sejam $X_1,\ldots,X_n$ e $Y_1,\ldots,Y_m$ duas amostras aleatórias independentes com populações Normal($\mu_X$,$\sigma^2$) e Normal($\mu_Y$,$\sigma^2$), respectivamente. Considere a hipótese  $H_0:\mu_X=\mu_Y$. Vamos encontrar o teste da razão de verossimilhanças para esta hipótese.
+
+Primeiro, vamos encontrar os estimadores de máxima verossimilhança. A função de verossimilhança é dada por
+
+$$\begin{align}L(\mu_X,\mu_Y,\sigma^2)&=\prod_{i=1}^n f(x_i|\mu_X,\sigma^2)\prod_{j=1}^m f(y_i|\mu_Y,\sigma^2)\\ &=\left(\frac{1}{2\pi\sigma^2}\right)^{\frac{n}{2}}e^{-\frac{1}{2\sigma^2}\sum_{i=1}^{n}(x_i-\mu_X)^2}\left(\frac{1}{2\pi\sigma^2}\right)^{\frac{m}{2}}e^{-\frac{1}{2\sigma^2}\sum_{j=1}^m(y_j-\mu_Y)^2}\\&=\left(\frac{1}{2\pi\sigma^2}\right)^{\frac{n+m}{2}}e^{-\frac{1}{2\sigma^2}\left[\sum_{i=1}^n(x_i-\mu_X)^2+\sum_{j=1}^m(y_j-\mu_Y)^2\right]}\end{align}$$
+e seu logaritmo é
+$$\log L(\mu_X,\mu_Y,\sigma^2)=-\frac{n+m}{2}\log(2\pi\sigma^2)-\frac{1}{2\sigma^2}\left[\sum_{i=1}^n(x_i-\mu_X)^2+\sum_{j=1}^m(y_j-\mu_Y)^2\right]$$
+As derivadas parciais são
+$$\begin{align}\frac{\partial}{\partial\mu_X}\log L(\mu_X,\mu_Y,\sigma^2)&=\frac{1}{\sigma^2}\sum_{i=1}^n(x_i-\mu_X)\\
+\frac{\partial}{\partial\mu_Y}\log L(\mu_X,\mu_Y,\sigma^2)&=\frac{1}{\sigma^2}\sum_{j=1}^m(y_j-\mu_Y)\\
+\frac{\partial}{\partial\sigma^2}\log L(\mu_X,\mu_Y,\sigma^2)&=-\frac{n+m}{2\sigma^2}+\frac{1}{2\sigma^4}\left[\sum_{i=1}^n(x_i-\mu_X)^2+\sum_{j=1}^m(y_j-\mu_Y)^2\right]
+\end{align}$$
+É imediato que os pontos críticos são
+$$\begin{align}
+\hat{\mu}_X&=\bar{x}_n\\
+\hat{\mu}_Y&=\bar{y}_m\\
+\hat{\sigma}^2&=\frac{1}{n+m}\left[\sum_{i=1}^n(x_i-\bar{x}_n)^2+\sum_{j=1}^m(y_j-\bar{y}_m)^2\right]
+\end{align}$$
+Pode-se mostrar que os pontos críticos são pontos de máximo. 
+
+Agora, supondo que $H_0$ é verdadeira, teremos que $\mu_X=\mu_Y=\mu_0$. Deste modo, $X_1,\ldots,X_n,Y_1,\ldots,Y_m$ representa uma amostra aleatória da população Normal$(\mu_0,\sigma^2)$ e os estimadores de máxima verossimilhança são
+$$\begin{align}
+\hat{\mu}_0&=\frac{1}{n+m}\left[\sum_{i=1}^n X_i + \sum_{j=1}^m Y_j\right]=\frac{n}{n+m}\bar{X}_n+\frac{m}{n+m}\bar{Y}_m,\\
+\hat{\sigma}^2_0&=\frac{1}{n+m}\left[\sum_{i=1}^n(X_i-\hat{\mu}_0)^2+\sum_{j=1}^m(Y_j-\hat{\mu}_0)^2\right]
+\end{align}$$
+
+A estatística do teste da razão de verossimilhanças é
+
+$$\begin{align}
+\lambda(\textbf{x,y})&=\frac{L(\hat{\mu}_0,\hat{\sigma}_0^2)}{L(\hat{\mu}_X,\hat{\mu}_Y,\hat{\sigma}^2)}=\frac{\left(\frac{1}{2\pi\hat{\sigma}^2_0}\right)^{\frac{n+m}{2}}e^{-\frac{1}{2\hat{\sigma}^2_0}\left[\sum_{i=1}^n(x_i-\hat{\mu}_0)^2+\sum_{j=1}^m(y_j-\hat{\mu}_0)^2\right]}}{\left(\frac{1}{2\pi\hat{\sigma}^2}\right)^{\frac{n+m}{2}}e^{-\frac{1}{2\hat{\sigma}^2}\left[\sum_{i=1}^n(x_i-\bar{x}_n)^2+\sum_{j=1}^m(y_j-\bar{y}_m)^2\right]}}\\
+&=\left(\frac{\hat{\sigma}^2}{\hat{\sigma}_0^2}\right)^{\frac{n+m}{2}}
+\end{align}$$
+Observe que a estatística do teste da razão de verossimilhanças depende unicamente da razão dos estimadores para a $\sigma^2$. Note ainda que
+$$\begin{align}\hat{\sigma}^2_0&=\frac{1}{n+m}\left[\sum_{i=1}^n(x_i-\bar{x}_n+\bar{x}_n-\hat{\mu}_0)^2+\sum_{j=1}^m(y_i-\bar{y}_m+\bar{y}_m-\hat{\mu}_0)^2\right]\\&=\hat{\sigma}^2+n(\bar{x}_n-\hat{\mu}_0)^2+m(\bar{y}_m-\hat{\mu}_0)^2\\&=
+\hat{\sigma}^2+n\left[\bar{x}_n\left(1-\frac{n}{n+m}\right)-\frac{m}{n+m}\bar{y}_m\right]^2+m(\bar{y}_m-\hat{\mu}_0)^2\end{align}$$
+Fazendo $p=n/(n+m)$, teremos que $\hat{\mu}_0=p\bar{x}_n+(1-p)\bar{y}_m$ e
+$$\begin{align}\hat{\sigma}^2_0&=
+\hat{\sigma}^2+n(1-p)^2\left(\bar{x}_n-\bar{y}_m\right)^2+mp^2(\bar{x}_n-\bar{y}_m)^2\\&=\hat{\sigma}^2+\frac{nm}{n+m}\left(\bar{x}_n-\bar{y}_m\right)^2\end{align}$$
+Portanto,
+$$\lambda(\textbf{x,y})=\left(\frac{1}{1+\underbrace{\frac{nm}{n+m}\frac{(\bar{x}_n-\bar{y}_m)^2}{\hat{\sigma}^2}}_{t^2}}\right)^{\frac{n+m}{2}}=\left(\frac{1}{1+t^2}\right)^{\frac{n+m}{2}}$$
+e, como já discutido no exemplo anterior, o teste de nível $\alpha$
+
+$$D(\textbf{x,y})=\left\{\begin{array}{ll}1,&\lambda(\textbf{x,y})<k\\0,\hbox{ caso contrário}\end{array}\right.$$ é equivalente ao teste
+$$D^*(t)=\left\{\begin{array}{ll}1,&t^2>c\\0,\hbox{ caso contrário}\end{array}\right.$$ é equivalente 
+onde $c$ é o quantil $1-\alpha/2$ da distribuição $t$-Student com $n+m-2$ graus de liberdade.
+</div>
+
+
+É fato que a estatística do teste da razão de verossimilhanças sempre vai depender da estatística suficiente. Ou seja, para o TRV de nível $\alpha$ dado por
+$$D(\textbf{x})=\left\{\begin{array}{ll}1,&\lambda(\textbf{x})<k,\\ 0,&\lambda(\textbf{x})\geq k.\end{array}\right.$$
+e para a estatística suficiente $T$, sempre é possível construir um teste
+$$D^*(T)=\left\{\begin{array}{ll}1,&T\in C\\0,&T\notin C \end{array}\right.$$
+onde $C$ é um conjunto que satisfaz
+$$P(T\in C|\theta_0)=\alpha.$$
+Nos exemplos anteriores, $C$ foi encontrado com certa facilidade. Isso não é verdade para a maioria dos casos. É possível remediar esse problema considerando uma distribuição aproximada para $\lambda(\textbf{X})$. Para tanto, considere que $H_0$ é verdadeira e seja $\ell(\theta)=\log L(\theta)$. Podemos aproximar $\ell(\theta_0)$ em torno de $\hat{\theta}$ como segue
+
+$$\ell(\theta_0)\approx \ell(\hat{\theta})+(\theta_0-\hat{\theta})\ell'(\hat{\theta})+\frac{1}{2}(\theta_0-\hat{\theta})^2\ell''(\hat{\theta})$$
+e, como $\ell(\hat{\theta})=0$, teremos
+
+$$\ell(\theta_0)-\ell(\hat{\theta})\approx \frac{1}{2}(\theta_0-\hat{\theta})^2\ell''(\hat{\theta})$$
+Como $\hat{\theta}$ é consistente, para grandes amostras teremos que 
+$$\ell''(\hat{\theta})\approx \ell''(\theta)=-\mathcal{I}_n(\theta)$$
+onde $\mathcal{I}_n(\theta)$ é a informação de Fisher associada a amostra de tamanho $n$. Como $\ell(\theta_0)-\ell(\hat{\theta})=\log \lambda(\textbf{X})$, teremos que
+$$\log \lambda(\textbf{X})\approx -\frac{1}{2}(\hat{\theta}-\theta_0)^2\mathcal{I}_n(\theta)$$
+ou ainda
+
+$$-2\log \lambda(\textbf{X})\approx (\hat{\theta}-\theta_0)^2\mathcal{I}_n(\theta)$$
+Por último, como $\hat{\theta}\approx N(\theta_0,\mathcal{I}_n(\theta)^{-1})$, temos que
+$$(\hat{\theta}-\theta_0)\sqrt{\mathcal{I}_n(\theta)}\approx N(0,1),$$
+logo 
+
+$$-2\log \lambda(\textbf{X})\approx \chi^2_1$$
+Como no teste da razão de verossimilhanças a hipótese é rejeitada se $\lambda(\textbf{x})<k$, o teste aproximado é dado por
+$$D(\textbf{x})=\left\{\begin{array}{ll}1,&-2\log \lambda(\textbf{x})>c,\\0,&\hbox{ caso contrário}\end{array}\right.,$$
+onde $c$ é o quantil $1-\alpha$ da distribuição $\chi^2_1$.
+
+Esse resultado pode ser generalizado, como mostra o seguinte teorema.
+
+<div class='alert alert-success'>
+**Teorema.** Seja $q$ o número de parâmetros em $\Theta$. Considere a hipótese $H_0:\theta\in\Theta_0$ e seja $q'$ o número de parâmetros não especificados em $\Theta_0$. Então
+$$-2\log \lambda(\textbf{X})\approx \chi^2_{q-q'}.$$
+
+Utilizando -2$\log \lambda(\textbf{X})$ como estatística de teste, rejeitamos $H_0$ se  -2$\log \lambda(\textbf{X})>c$, onde $c$ é o quantil $1-\alpha$ da distribuição $\chi^2_{q-q'}$.
+</div>
+
+<div class='alert alert-danger'>
+**Importante!** Os parâmetros não especificados no teorema acima dizem respeita àqueles cujo os valores não estão são especificados em $H_0$. Seguem alguns exemplos para fixação:
+
+1. Seja $X_1,\ldots,X_n$ uma amostra aleatória do modelo Poisson($\theta$) (como há um parâmetro, $q=1$). Nesse caso, a distribuição da estatística de teste vai ser calculada considerando algum ponto $\theta_0$ especificado, o que implica que $q'=0$ ( pois todos os parâmetros foram especificados). 
+
+2. Seja $X_1,\ldots,X_n$ uma amostra aleatória do modelo Norma($\theta$,$\sigma^2$) (como há dois parâmetros, $q=2$) e considere um teste sobre a média $\theta$. Nesse caso, a distribuição da estatística de teste vai ser calculada considerando algum ponto $\theta_0$ especificado, o que implica que $q'=1$ ( pois $\sigma^2$ não foi especificado na hipótese nula).
+
+3. Seja $X_1,\ldots,X_n$ uma amostra aleatória do modelo Norma($\mu$,$\sigma^2$) (como há dois parâmetros, $q=2$) e considere a hipótese $H_0:\mu=0,\sigma^2=1$. Nesse caso, $q'=0$, pois os dois parâmetros foram especificados na hipótese.
+</div>
+
+<div class='alert alert-info'>
+**Exemplo** Seja $X_1,\ldots,X_n$ uma amostra da população Poisson($\theta$). Considere a hipótese $H_0:\theta=\theta_0$. A estatística do teste da razão de verossimilhanças é
+
+$$\begin{align}\lambda(\textbf{x})&=\frac{L(\theta_0)}{L(\hat{\theta})}=\frac{\frac{e^{-n\theta_0}\theta_0^{\sum_{i=1}^n x_i}}{\prod_{i=1}^n x_i!}}{\frac{e^{-n\hat{\theta}}\hat{\theta}^{\sum_{i=1}^n x_i}}{\prod_{i=1}^n x_i!}}=\left(\frac{\theta_0}{\hat{\theta}}\right)^{\sum_{i=1}^n x_i}e^{-n(\theta_0-\hat{\theta})}\end{align}$$
+Como $q=1$ e $q'=0$, teremos que
+$$-2\log L=-2\sum_{i=1}^n X_i\log\left(\frac{\theta_0}{\hat{\theta}}\right)-n(\theta_0-\hat{\theta})\approx \chi^2_1$$
+
+Considerando um teste (aproximado) de nível 5%, rejeitamos $H_0$ se $-2\log L$ é menor que
+```{r}
+qchisq(.95,1)
+```
+</div>
+
+<div class='alert alert-info'>
+**Exemplo.** Uma pesquisa foi realizada para comparar a preferência por um novo produto entre dois grupos demográficos distintos: jovens (18-25 anos) e adultos (35-50 anos). Uma amostra aleatória de 200 jovens e 300 adultos foi consultada, e os resultados indicaram que 125 jovens e 175 adultos preferiram o novo produto. Determine se há diferença significativa entre a preferência nos dois grupos.
+
+**Solução**. Considere as seguintes variáveis:
+$$X_i=\left\{\begin{array}{ll}1,&\hbox{ se o i-éismo jovem prefere o produto novo }\\0,& \hbox{ caso contrário}\end{array}\right.$$
+$$Y_j=\left\{\begin{array}{ll}1,&\hbox{ se o j-éismo adulto prefere o produto novo }\\0,& \hbox{ caso contrário}\end{array}\right.$$
+Temos que $X_1,\ldots,X_{200}$ e $Y_1\ldots,Y_{300}$ são duas amostras aleatórias independetes com populações Bernoulli($\theta_X$) e Bernoulli($\theta_Y$), respectivamente. Considere a hipótese $H_0:\theta_X=\theta_Y$. Vamos realizar o teste da razão de verossimilhanças. 
+
+
+Primeiro, sabemos que os estimadores de máxima verossimilhança para $\theta_X$ e $\theta_Y$ são $\bar{X}$ e $\bar{Y}$, respectivamente. Supondo que $H_0$ é verdadeira, $\theta_X=\theta_Y=\theta$, que pode ser estimado por
+$$\hat{\theta}=\frac{\sum_{i=1}^{200}X_i +\sum_{j=1}^{300}Y_j} {500}=\frac{2}{5}\bar{X}+\frac{3}{5}\bar{Y}$$
+A estatística do teste da razão de verossimilhanças é dada por
+$$\begin{align}\lambda(\textbf{x},\textbf{y})&=\frac{\hat{\theta}^{\sum_{i=1}^{200}x_i+\sum_{j=1}^{300}y_j}(1-\hat{\theta})^{500-\sum_{i=1}^{200}x_i-\sum_{j=1}^{300}y_j}}{\bar{x}^{\sum_{i=1}^{200}x_i}(1-\bar{x})^{200-\sum_{i=1}^{200}x_i}\bar{y}^{\sum_{j=1}^{300}y_j}(1-\bar{y})^{300-\sum_{j=1}^{300}y_j}}\\&=\frac{\hat{\theta}^{500\hat{\theta}}(1-\hat{\theta})^{500(1-\hat{\theta})}}{\bar{x}^{200\bar{x}}(1-\bar{x})^{200(1-\bar{x})}\bar{y}^{300\bar{y}}(1-\bar{y})^{300(1-\bar{y})}}\end{align}$$
+
+Foram observados $\bar{x}=125/200=0,625$ e $\bar{y}=0,583$ e a estimativa de máxima verossimilhança para a proporção quando $H_0$ é verdadeira é $\hat{\theta}=0,6$. A estatística observada é
+
+```{r}
+xbar <- 125/200
+ybar <- 175/300
+theta <- (2/5)*xbar + (3/5)*ybar
+
+logL0 <- 500*theta*log(theta) + 500*(1-theta)*log(1-theta)
+logL <- 200*xbar*log(xbar) + 200*(1-xbar)*log(1-xbar) +300*ybar*log(ybar) + 300*(1-ybar)*log(1-ybar)
+
+-2*( logL0 - logL)
+```
+Como a dimensão de $\Theta$ é 2 e a de $\Theta_0$ é 1, rejeitamos $H_0$ se o valor da estatística é maior que
+```{r}
+qchisq(.95,1)
+```
+Como $-2\log\lambda(\textbf{x,y})=0,87 <3,84$, não rejeitamos a hipótese nula, ou seja, não há evidências de diferenças entre os grupos etários em relação à preferência do produto novo. 
+</div>
 
 
 ## A função poder e os testes mais poderosos
+
+Já vimos anteriormente que a função poder, dada por
+$$\beta(\theta)=P(D=1|\theta)$$
+é a probabilidade de rejeição da hipótese nula vista como função do parâmetro.
+
+Se o teste $D$ tem nível de significância $\alpha$, então, quando $\theta\in\Theta_0$, temos que $\beta(\theta)\leq \alpha$.
+
+Sejam $D$ e $D'$ dois testes de hipóteses, ambos com nível de significância $\alpha$ e sejam $\beta(\theta)$ e $\beta'(\theta)$ suas respectivas funções poder. Diremos que $D$ é mais poderoso que $D'$ se
+$$\beta(\theta)>\beta'(\theta)$$
+para todo $\theta\in\Theta_0^c$. Isso implica que, para qualquer $\theta^*\in\Theta_0^c$, a probabilidade do teste $D$ cometer o erro tipo $II$ se comparada ao teste $D'$.
+
+
+<div class='alert alert-success'>
+**Definição.** Dizemos que  $D$ é um teste uniformemente mais poderoso de nível $\alpha$ se, para qualquer outro teste $D'$ de nível $\alpha$, tem-se que
+$$\beta(\theta)>\beta'(\theta)$$
+para todo $\theta\in\Theta_0^c$, onde $\beta$ e $\beta'$ são as respectivas funções poder dos testes $D$ e $D'$.
+</div>
+
+Até o momento, particionamos o espaço amostral em dois cojuntos, nominalmente $\Theta_0$ e $\Theta_0^c$ e temos estudado problemas nos quais, ao rejeitar $H_0$, aceitamos que $\theta$ é algum ponto dentro de $\Theta_0^c$. Esse problema pode ser reformulado considerando as hipóteses $H_0:\theta\in\Theta_0$ contra $H_1:\theta\in\Theta_0^c$, sendo $H_1$ denominada hipótese alternativa.
+
+
+Há uma variante deste problema, no qual a hipótese alternativa não é o complementar do espaço paramétrico. Embora tenha aplicação limitada, tal variante nos permite desenvolver resultados importantes em relação aos testes uniformementes mais poderosos. Abaixo, apresentamos o primeiro desses testes. 
+
+<div class='alert alert-success'>
+**Definição (Teste de Neyman-Pearson)** Considere a $H_0:\theta=\theta_0$ e suponha que desejamos . A estatística do teste de Neyman-Pearson é dada por 
+
+$$\phi(\textbf{x})=\frac{L(\theta_0)}{L(\theta_1)}.$$
+Esse teste é dado por
+$$D(\textbf{x})=\left\{\begin{array}{ll}1,&\hbox{ se }\phi(\textbf{x})<k,\\
+0,&\hbox{ caso contrário}\end{array}\right.$$
+onde $k$ satisfaz $\beta(\theta_0)\leq \alpha.$
+</div>
+
+<div class='alert alert-success'>
+**Teorema (Lema de Neyman-Pearson)** O teste de Neyman-Pearson de nível $\alpha$ para as hipóteses $H_0:\theta=\theta_0$ contra $H_1:\theta=\theta_1$ é o teste mais poderoso de nível $\alpha$.
+</div>
+
+<div class='alert alert-info'>
+</div>
