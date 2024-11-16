@@ -581,7 +581,125 @@ L(\theta)\leq L(\hat{\theta}_0),
 <p><strong>Teorema (Lema de Neyman-Pearson)</strong> O teste de Neyman-Pearson de nível <span class="math inline">\(\alpha\)</span> para as hipóteses <span class="math inline">\(H_0:\theta=\theta_0\)</span> contra <span class="math inline">\(H_1:\theta=\theta_1\)</span> é o teste mais poderoso de nível <span class="math inline">\(\alpha\)</span>.</p>
 </div>
 <div class="alert alert-info">
-
+<p><strong>Exemplo.</strong> Seja <span class="math inline">\(X_1,\ldots,X_n\)</span> uma amostra aleatória da população Poisson(<span class="math inline">\(\theta\)</span>) e considere as hipóteses <span class="math inline">\(H_0:\theta=\theta_0\)</span> contra <span class="math inline">\(H_1:\theta=\theta_1\)</span>. Vamos construir o teste de Neyman-Pearson, cuja estatística é <span class="math display">\[\phi(\textbf{x})=\frac{L(\theta_0)}{L(\theta_1)}=\frac{e^{-n\theta_0}\theta_0^{\sum_{i=1}^n x_i}/\prod_{i=1}^n x_i!}{e^{-n\theta_1}\theta_1^{\sum_{i=1}^n x_i}/\prod_{i=1}^n x_i!}=e^{-n(\theta_0-\theta_1)}\left(\frac{\theta_0}{\theta_1}\right)^{\sum_{i=1}^{n}x_i}\]</span> Observe que <span class="math inline">\(\phi(\sum_{i=1}^n x_i)\)</span> é função da estatística suficiente <span class="math inline">\(T=\sum_{i=1}^n X_i\)</span>, podendo ser reescrita como <span class="math display">\[\phi(t)=e^{-n(\theta_0-\theta_1)}\left(\frac{\theta_0}{\theta_1}\right)^t\]</span> Note que <span class="math display">\[\log \phi(t)=-(\theta_0-\theta_1) + t\log\left(\frac{\theta_0}{\theta_1}\right)\]</span> e que <span class="math display">\[\frac{d}{dt}\log \phi(t)=\log\left(\frac{\theta_0}{\theta_1}\right),\]</span> portanto, <span class="math inline">\(\phi(t)\)</span> é uma função monótona, com os seguintes casos particulares:</p>
+<ul>
+<li><p>Se <span class="math inline">\(\theta_0&lt;\theta_1\)</span>, então <span class="math inline">\(\theta_0/\theta_1&lt; 1\)</span> e <span class="math inline">\(\log(\theta_0/\theta_1)&lt;0\)</span>. Portanto, <span class="math inline">\(\phi(t)\)</span> será monótona decrescente.</p></li>
+<li><p>Se <span class="math inline">\(\theta_0&gt;\theta_1\)</span>, então <span class="math inline">\(\theta_0/\theta_1&gt; 1\)</span> e <span class="math inline">\(\log(\theta_0/\theta_1)&gt;0\)</span>. Portanto, <span class="math inline">\(\phi(t)\)</span> será monótona crescente.</p></li>
+</ul>
+<p>Recorde que rejeitamos <span class="math inline">\(H_0\)</span> se <span class="math inline">\(\phi(t)&lt;k\)</span>. Sabemos que existe <span class="math inline">\(\phi^{-1}\)</span>, logo:</p>
+<ul>
+<li>Se <span class="math inline">\(\theta_0&lt;\theta_1\)</span>, então <span class="math inline">\(phi\)</span> é monótona decrescente. Disto, teremos que <span class="math inline">\(\phi(t)&lt;k\Rightarrow t &gt;\phi^{-1}(k)=c\)</span> e o teste rejeita <span class="math inline">\(H_0\)</span> se <span class="math inline">\(t&gt;c\)</span>. Ao nível de significância <span class="math inline">\(\alpha\)</span>, teremos que <span class="math inline">\(c\)</span> é a solução de</li>
+</ul>
+<p><span class="math display">\[\alpha=P(T&gt;c|\theta_0)\Rightarrow P(T\leq c|\theta_0)=1-\alpha,\]</span> ou seja, <span class="math inline">\(c\)</span> é o quartil <span class="math inline">\(1-\alpha\)</span> a distribuição Poisson(<span class="math inline">\(n\theta_0\)</span>) * Se <span class="math inline">\(\theta_0&gt;\theta_1\)</span>, então <span class="math inline">\(phi\)</span> é monótona crescente. Disto, teremos que <span class="math inline">\(\phi(t)&lt;k\Rightarrow t &lt;\phi^{-1}(k)=c\)</span> e o teste rejeita <span class="math inline">\(H_0\)</span> se <span class="math inline">\(t&lt;c\)</span>. Ao nível de significância <span class="math inline">\(\alpha\)</span>, teremos que <span class="math inline">\(c\)</span> é a solução de</p>
+<p><span class="math display">\[\alpha=P(T&lt;c|\theta_0)\Rightarrow P(T\leq c-1|\theta_0)=\alpha,\]</span> ou seja, <span class="math inline">\(c-1\)</span> é o quartil <span class="math inline">\(\alpha\)</span> a distribuição Poisson(<span class="math inline">\(n\theta_0\)</span>).</p>
+</div>
+<div class="alert alert-info">
+<p><strong>Exemplo.</strong> Seja <span class="math inline">\(X_1,\ldots,X_n\)</span> uma amostra aleatória da população Exponencial(<span class="math inline">\(\theta\)</span>) e considere as hipóteses <span class="math inline">\(H_0:\theta=\theta_0\)</span> contra <span class="math inline">\(H_1:\theta=\theta_1\)</span>. Vamos construir o teste de Neyman-Pearson, cuja estatística é <span class="math display">\[\phi(\textbf{x})=\frac{L(\theta_0)}{L(\theta_1)}=\frac{\theta_0^ne^{-\theta_0\sum_{i=1}^n x_i}}{\theta_1^n e^{-\theta_1\sum_{i=1}^n x_i}}=e^{-(\theta_0-\theta_1)\sum_{i=1}^n x_i}\left(\frac{\theta_0}{\theta_1}\right)^n\]</span> Observe que <span class="math inline">\(\phi(\sum_{i=1}^n x_i)\)</span> é função da estatística suficiente <span class="math inline">\(T=\sum_{i=1}^n X_i\)</span>, podendo ser reescrita como</p>
+<p><span class="math display">\[\phi(t)=e^{-(\theta_0-\theta_1)t} \left(\frac{\theta_0}{\theta_1}\right)^n\]</span> Note que <span class="math display">\[\log \phi(t)=-(\theta_0-\theta_1)t + n\log\left(\frac{\theta_0}{\theta_1}\right)\]</span> e que <span class="math display">\[\frac{d}{dt}\log \phi(t)=\theta_1-\theta_0,\]</span> portanto, <span class="math inline">\(\phi(t)\)</span> é uma função monótona, com os seguintes casos particulares:</p>
+<ul>
+<li><p>Se <span class="math inline">\(\theta_0&lt;\theta_1\)</span>, então <span class="math inline">\(\theta_1-\theta_0&gt;0\)</span> e <span class="math inline">\(\phi(t)\)</span> será monótona crescente.</p></li>
+<li><p>Se <span class="math inline">\(\theta_0&gt;\theta_1\)</span>, então <span class="math inline">\(\theta_1-\theta_0&lt;0\)</span> e <span class="math inline">\(\phi(t)\)</span> será monótona decrescente.</p></li>
+</ul>
+<p>Recorde que rejeitamos <span class="math inline">\(H_0\)</span> se <span class="math inline">\(\phi(t)&lt;k\)</span>. Sabemos que existe <span class="math inline">\(\phi^{-1}\)</span>, logo:</p>
+<ul>
+<li>Se <span class="math inline">\(\theta_0&lt;\theta_1\)</span>, então <span class="math inline">\(\phi\)</span> é monótona crescente. Disto, teremos que <span class="math inline">\(\phi(t)&lt;k\Rightarrow t &lt;\phi^{-1}(k)=c\)</span> e o teste rejeita <span class="math inline">\(H_0\)</span> se <span class="math inline">\(t&lt;c\)</span>. Ao nível de significância <span class="math inline">\(\alpha\)</span>, teremos que <span class="math inline">\(c\)</span> é a solução de</li>
+</ul>
+<p><span class="math display">\[\alpha=P(T&lt;c|\theta_0),\]</span> ou seja, <span class="math inline">\(c\)</span> é o quartil <span class="math inline">\(\alpha\)</span> a distribuição Gama(<span class="math inline">\(n,\theta_0\)</span>).</p>
+<ul>
+<li>Se <span class="math inline">\(\theta_0&gt;\theta_1\)</span>, então <span class="math inline">\(phi\)</span> é monótona decrescente. Disto, teremos que <span class="math inline">\(\phi(t)&lt;k\Rightarrow t &gt;\phi^{-1}(k)=c\)</span> e o teste rejeita <span class="math inline">\(H_0\)</span> se <span class="math inline">\(t&gt;c\)</span>. Ao nível de significância <span class="math inline">\(\alpha\)</span>, teremos que <span class="math inline">\(c\)</span> é a solução de</li>
+</ul>
+<p><span class="math display">\[\alpha=P(T&gt;c|\theta_0)\Rightarrow P(T\leq c|\theta_0)=1-\alpha,\]</span> ou seja, <span class="math inline">\(c\)</span> é o quartil <span class="math inline">\(1-\alpha\)</span> a distribuição Gama(<span class="math inline">\(n,\theta_0\)</span>).</p>
+</div>
+<p>Agora, seja <span class="math inline">\(X_1,\ldots,X_n\)</span> uma amostra aleatória de uma população pertencente à família exponencial com parâmetro (unidimensional) <span class="math inline">\(\theta\)</span>. Considere as hipóteses <span class="math inline">\(H_0:\theta=\theta_0\)</span> contra <span class="math inline">\(H_1:\theta=\theta_1\)</span>. A estatística do teste de Neyman-Pearson é dada por <span class="math display">\[\begin{align}\phi(\textbf{x})&amp;=\frac{L(\theta_0)}{L(\theta_1)}=\frac{\left[\prod_{i=1}^n h(x_i)\right]a(\theta_0)^ne^{w(\theta_0)\sum_{i=1}^n t(x_i)}}{\left[\prod_{i=1}^n h(x_i)\right]a(\theta_1)^ne^{w(\theta_1)\sum_{i=1}^n t(x_i)}}\\&amp;=\left(\frac{a(\theta_0)}{a(\theta_1)}\right)^ne^{[w(\theta_0)-w(\theta_1)]\sum_{i=1}^n t(x_i)}\end{align}\]</span> Observe que <span class="math inline">\(\phi(\textbf{x})\)</span> pode ser escrita como função da estatística suficiente <span class="math inline">\(t=\sum_{i=1}^n t(x_i)\)</span>, ou seja <span class="math display">\[\phi(t)=\left(\frac{a(\theta_0)}{a(\theta_1)}\right)^ne^{[w(\theta_0)-w(\theta_1)]t}.\]</span></p>
+<p>É simples mostrar que <span class="math display">\[\frac{d}{dt}\log \phi(t)=w(\theta_0)-w(\theta_1),\]</span> portanto, se <span class="math inline">\(w(.)\)</span> é uma função monótona. Seguindo a mesma lógica explorada nos exemplos anteriores, é possível mostrar que o teste de Neyman-Pearson pode ser escrito como função de <span class="math inline">\(t\)</span>, conforme mostra a tabela abaixo.</p>
+<div id="tbl-panel" class="quarto-layout-panel anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-panel-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;5.1: Região de rejeição segundo a monotonicidade de <span class="math inline">\(w(.)\)</span>
+</figcaption>
+<div aria-describedby="tbl-panel-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="tbl-panel" style="flex-basis: 50.0%;justify-content: center;">
+<div id="tbl-first" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-subfloat-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-subfloat-caption quarto-subfloat-tbl" id="tbl-first-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(a) Se <span class="math inline">\(w(.)\)</span> é monótona crescente
+</figcaption>
+<div aria-describedby="tbl-first-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 30%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Hipótese</th>
+<th style="text-align: left;">Região de rejeição</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><ul>
+<li><span class="math inline">\(H_0:\theta=\theta_0\)</span></li>
+<li><span class="math inline">\(H_1:\theta=\theta_1(&gt;\theta_0)\)</span></li>
+</ul></td>
+<td style="text-align: left;"><span class="math inline">\(R=\{t: t &gt;c\}\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><ul>
+<li><span class="math inline">\(H_0:\theta=\theta_0\)</span></li>
+<li><span class="math inline">\(H_1:\theta=\theta_1(&lt;\theta_0)\)</span></li>
+</ul></td>
+<td style="text-align: left;"><span class="math inline">\(R=\{t: t &lt;c\}\)</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+</div>
+<div class="quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="tbl-panel" style="flex-basis: 50.0%;justify-content: center;">
+<div id="tbl-second" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-subfloat-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-subfloat-caption quarto-subfloat-tbl" id="tbl-second-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(b) Se <span class="math inline">\(w(.)\)</span> é monótona decrescente
+</figcaption>
+<div aria-describedby="tbl-second-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 30%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Hipótese</th>
+<th style="text-align: left;">Região de rejeição</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><ul>
+<li><span class="math inline">\(H_0:\theta=\theta_0\)</span></li>
+<li><span class="math inline">\(H_1:\theta=\theta_1(&gt;\theta_0)\)</span></li>
+</ul></td>
+<td style="text-align: left;"><span class="math inline">\(R=\{t: t &lt;c\}\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><ul>
+<li><span class="math inline">\(H_0:\theta=\theta_0\)</span></li>
+<li><span class="math inline">\(H_1:\theta=\theta_1(&lt;\theta_0)\)</span></li>
+</ul></td>
+<td style="text-align: left;"><span class="math inline">\(R=\{t: t &gt;c\}\)</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</figure>
 </div>
 
 

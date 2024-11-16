@@ -1257,8 +1257,8 @@ Podemos obter uma amostra da função de distribuição empírica sorteando
 \end{Shaded}
 
 \begin{verbatim}
- [1] 2795 2600 2965 3095 3370 3770 3450 3195 3125 2825 2965 3070 3680 3370 3670
-[16] 3140 3370 2960 3770 3960 3140 3575 3135 3575 3575 3195 3130 3960 3575 3770
+ [1] 2795 3230 3645 3070 3085 3370 3960 3125 3095 3575 2825 3670 2600 3230 3135
+[16] 3195 3195 2945 3070 3130 3130 2965 2965 3680 3070 3130 3085 3125 2795 3680
 \end{verbatim}
 
 Vamos calcular o erro padrão de \(\bar{X}_{30}\) utilizando do método
@@ -1279,7 +1279,7 @@ bootstrap:
 \end{Shaded}
 
 \begin{verbatim}
-[1] 58.39553
+[1] 58.82468
 \end{verbatim}
 
 Compare esse valor com o erro padrão estimado por \(S_n/\sqrt{30}\):
@@ -1466,7 +1466,7 @@ figura abaixo ilustra essa situação.
 
 \includegraphics{pontual_files/figure-pdf/unnamed-chunk-11-1-rgl.png}
 
-../../../../AppData/Local/Temp/RtmpUhwzaa/file633071e63f9.png
+../../../../AppData/Local/Temp/RtmpknsDGm/file51903aa5702.png
 
 }
 
@@ -3046,6 +3046,168 @@ por
 \textbf{Teorema (Lema de Neyman-Pearson)} O teste de Neyman-Pearson de
 nível \(\alpha\) para as hipóteses \(H_0:\theta=\theta_0\) contra
 \(H_1:\theta=\theta_1\) é o teste mais poderoso de nível \(\alpha\).
+
+\textbf{Exemplo.} Seja \(X_1,\ldots,X_n\) uma amostra aleatória da
+população Poisson(\(\theta\)) e considere as hipóteses
+\(H_0:\theta=\theta_0\) contra \(H_1:\theta=\theta_1\). Vamos construir
+o teste de Neyman-Pearson, cuja estatística é
+\[\phi(\textbf{x})=\frac{L(\theta_0)}{L(\theta_1)}=\frac{e^{-n\theta_0}\theta_0^{\sum_{i=1}^n x_i}/\prod_{i=1}^n x_i!}{e^{-n\theta_1}\theta_1^{\sum_{i=1}^n x_i}/\prod_{i=1}^n x_i!}=e^{-n(\theta_0-\theta_1)}\left(\frac{\theta_0}{\theta_1}\right)^{\sum_{i=1}^{n}x_i}\]
+Observe que \(\phi(\sum_{i=1}^n x_i)\) é função da estatística
+suficiente \(T=\sum_{i=1}^n X_i\), podendo ser reescrita como
+\[\phi(t)=e^{-n(\theta_0-\theta_1)}\left(\frac{\theta_0}{\theta_1}\right)^t\]
+Note que
+\[\log \phi(t)=-(\theta_0-\theta_1) + t\log\left(\frac{\theta_0}{\theta_1}\right)\]
+e que
+\[\frac{d}{dt}\log \phi(t)=\log\left(\frac{\theta_0}{\theta_1}\right),\]
+portanto, \(\phi(t)\) é uma função monótona, com os seguintes casos
+particulares:
+
+\begin{itemize}
+\item
+  Se \(\theta_0<\theta_1\), então \(\theta_0/\theta_1< 1\) e
+  \(\log(\theta_0/\theta_1)<0\). Portanto, \(\phi(t)\) será monótona
+  decrescente.
+\item
+  Se \(\theta_0>\theta_1\), então \(\theta_0/\theta_1> 1\) e
+  \(\log(\theta_0/\theta_1)>0\). Portanto, \(\phi(t)\) será monótona
+  crescente.
+\end{itemize}
+
+Recorde que rejeitamos \(H_0\) se \(\phi(t)<k\). Sabemos que existe
+\(\phi^{-1}\), logo:
+
+\begin{itemize}
+\tightlist
+\item
+  Se \(\theta_0<\theta_1\), então \(phi\) é monótona decrescente. Disto,
+  teremos que \(\phi(t)<k\Rightarrow t >\phi^{-1}(k)=c\) e o teste
+  rejeita \(H_0\) se \(t>c\). Ao nível de significância \(\alpha\),
+  teremos que \(c\) é a solução de
+\end{itemize}
+
+\[\alpha=P(T>c|\theta_0)\Rightarrow P(T\leq c|\theta_0)=1-\alpha,\] ou
+seja, \(c\) é o quartil \(1-\alpha\) a distribuição
+Poisson(\(n\theta_0\)) * Se \(\theta_0>\theta_1\), então \(phi\) é
+monótona crescente. Disto, teremos que
+\(\phi(t)<k\Rightarrow t <\phi^{-1}(k)=c\) e o teste rejeita \(H_0\) se
+\(t<c\). Ao nível de significância \(\alpha\), teremos que \(c\) é a
+solução de
+
+\[\alpha=P(T<c|\theta_0)\Rightarrow P(T\leq c-1|\theta_0)=\alpha,\] ou
+seja, \(c-1\) é o quartil \(\alpha\) a distribuição
+Poisson(\(n\theta_0\)).
+
+\textbf{Exemplo.} Seja \(X_1,\ldots,X_n\) uma amostra aleatória da
+população Exponencial(\(\theta\)) e considere as hipóteses
+\(H_0:\theta=\theta_0\) contra \(H_1:\theta=\theta_1\). Vamos construir
+o teste de Neyman-Pearson, cuja estatística é
+\[\phi(\textbf{x})=\frac{L(\theta_0)}{L(\theta_1)}=\frac{\theta_0^ne^{-\theta_0\sum_{i=1}^n x_i}}{\theta_1^n e^{-\theta_1\sum_{i=1}^n x_i}}=e^{-(\theta_0-\theta_1)\sum_{i=1}^n x_i}\left(\frac{\theta_0}{\theta_1}\right)^n\]
+Observe que \(\phi(\sum_{i=1}^n x_i)\) é função da estatística
+suficiente \(T=\sum_{i=1}^n X_i\), podendo ser reescrita como
+
+\[\phi(t)=e^{-(\theta_0-\theta_1)t} \left(\frac{\theta_0}{\theta_1}\right)^n\]
+Note que
+\[\log \phi(t)=-(\theta_0-\theta_1)t + n\log\left(\frac{\theta_0}{\theta_1}\right)\]
+e que \[\frac{d}{dt}\log \phi(t)=\theta_1-\theta_0,\] portanto,
+\(\phi(t)\) é uma função monótona, com os seguintes casos particulares:
+
+\begin{itemize}
+\item
+  Se \(\theta_0<\theta_1\), então \(\theta_1-\theta_0>0\) e \(\phi(t)\)
+  será monótona crescente.
+\item
+  Se \(\theta_0>\theta_1\), então \(\theta_1-\theta_0<0\) e \(\phi(t)\)
+  será monótona decrescente.
+\end{itemize}
+
+Recorde que rejeitamos \(H_0\) se \(\phi(t)<k\). Sabemos que existe
+\(\phi^{-1}\), logo:
+
+\begin{itemize}
+\tightlist
+\item
+  Se \(\theta_0<\theta_1\), então \(\phi\) é monótona crescente. Disto,
+  teremos que \(\phi(t)<k\Rightarrow t <\phi^{-1}(k)=c\) e o teste
+  rejeita \(H_0\) se \(t<c\). Ao nível de significância \(\alpha\),
+  teremos que \(c\) é a solução de
+\end{itemize}
+
+\[\alpha=P(T<c|\theta_0),\] ou seja, \(c\) é o quartil \(\alpha\) a
+distribuição Gama(\(n,\theta_0\)).
+
+\begin{itemize}
+\tightlist
+\item
+  Se \(\theta_0>\theta_1\), então \(phi\) é monótona decrescente. Disto,
+  teremos que \(\phi(t)<k\Rightarrow t >\phi^{-1}(k)=c\) e o teste
+  rejeita \(H_0\) se \(t>c\). Ao nível de significância \(\alpha\),
+  teremos que \(c\) é a solução de
+\end{itemize}
+
+\[\alpha=P(T>c|\theta_0)\Rightarrow P(T\leq c|\theta_0)=1-\alpha,\] ou
+seja, \(c\) é o quartil \(1-\alpha\) a distribuição
+Gama(\(n,\theta_0\)).
+
+Agora, seja \(X_1,\ldots,X_n\) uma amostra aleatória de uma população
+pertencente à família exponencial com parâmetro (unidimensional)
+\(\theta\). Considere as hipóteses \(H_0:\theta=\theta_0\) contra
+\(H_1:\theta=\theta_1\). A estatística do teste de Neyman-Pearson é dada
+por
+\[\begin{align}\phi(\textbf{x})&=\frac{L(\theta_0)}{L(\theta_1)}=\frac{\left[\prod_{i=1}^n h(x_i)\right]a(\theta_0)^ne^{w(\theta_0)\sum_{i=1}^n t(x_i)}}{\left[\prod_{i=1}^n h(x_i)\right]a(\theta_1)^ne^{w(\theta_1)\sum_{i=1}^n t(x_i)}}\\&=\left(\frac{a(\theta_0)}{a(\theta_1)}\right)^ne^{[w(\theta_0)-w(\theta_1)]\sum_{i=1}^n t(x_i)}\end{align}\]
+Observe que \(\phi(\textbf{x})\) pode ser escrita como função da
+estatística suficiente \(t=\sum_{i=1}^n t(x_i)\), ou seja
+\[\phi(t)=\left(\frac{a(\theta_0)}{a(\theta_1)}\right)^ne^{[w(\theta_0)-w(\theta_1)]t}.\]
+
+É simples mostrar que
+\[\frac{d}{dt}\log \phi(t)=w(\theta_0)-w(\theta_1),\] portanto, se
+\(w(.)\) é uma função monótona. Seguindo a mesma lógica explorada nos
+exemplos anteriores, é possível mostrar que o teste de Neyman-Pearson
+pode ser escrito como função de \(t\), conforme mostra a tabela abaixo.
+
+\begin{table}
+
+\caption{\label{tbl-panel}Região de rejeição segundo a monotonicidade de
+\(w(.)\)}
+
+\begin{minipage}{0.50\linewidth}
+
+\subcaption{\label{tbl-first}Se \(w(.)\) é monótona crescente}
+
+\centering{
+
+\begin{tabular}{ll}
+\toprule
+Hipótese & Região de rejeição\\
+\midrule
+\(H_0:\theta=\theta_0\)\(H_1:\theta=\theta_1(>\theta_0)\) & \(R=\{t: t >c\}\)\\
+\(H_0:\theta=\theta_0\)\(H_1:\theta=\theta_1(<\theta_0)\) & \(R=\{t: t <c\}\)\\
+\bottomrule
+\end{tabular}
+
+}
+
+\end{minipage}%
+%
+\begin{minipage}{0.50\linewidth}
+
+\subcaption{\label{tbl-second}Se \(w(.)\) é monótona decrescente}
+
+\centering{
+
+\begin{tabular}{ll}
+\toprule
+Hipótese & Região de rejeição\\
+\midrule
+\(H_0:\theta=\theta_0\)\(H_1:\theta=\theta_1(>\theta_0)\) & \(R=\{t: t <c\}\)\\
+\(H_0:\theta=\theta_0\)\(H_1:\theta=\theta_1(<\theta_0)\) & \(R=\{t: t >c\}\)\\
+\bottomrule
+\end{tabular}
+
+}
+
+\end{minipage}%
+
+\end{table}%
 
 
 
