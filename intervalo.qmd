@@ -1,0 +1,262 @@
+---
+title: "Intervalos de Confiança"
+---
+
+
+## Estimador e estimativa intervalar
+
+Seja $\Theta\subseteq \mathbb{R}$ um espaço paramétrico. No problema de estimação intervalar estamos interessados em encontrar um intervalo $[a,b]\in\Theta$ para inferir que $\theta\in [a,b]$.
+
+Idealmente, o intervalo $(a,b)$ deve ser pequeno o suficiente para conter valores interessantes para $\theta$. Tais valores podem ser inferidos através da amostra, dando à luz aos estimadores intervalares.
+
+<div class='alert laert-success'>
+O par de estatísticas $L(\textbf{X})$ e $U(\textbf{X})$, com $L(\textbf{X})<U(\textbf{X})$, construído com o objetivo de inferir que $\theta\in [L(\textbf{X}),U(\textbf{X})]$ é denominado \textbf{estimador intervalar} para $\theta$. A estastísticas observadas $L(\textbf{x}),U(\textbf{x})$ são denominadas \textbf{estimativa intervalar} ou \textbf{intervalo estimado} para $\theta$.
+</div>
+
+Seja $C(\textbf{X})=(L(\textbf{X}),U(\textbf{X}))$ um estimador intervalar. A característica desejável para esse tipo de estimador é a capacidade de gerar intervalos que contenham o verdadeiro valor de $\theta$. A figura abaixo ilustra 20 intevalos gerados a partir de um estimador intervalar. A linha tracejada representa o verdadeiro valor de $\theta$ (observe que o intervalo 15 falhou cobrir esse valor).
+
+```{r echo = FALSE}
+set.seed(126)
+plot.new()
+plot.window(xlim=c(0,21),ylim=c(-1,1))
+ for(i in 1:20){
+   x <- rnorm(30)
+   a <- mean(x)-1.96/sqrt(30)
+   b <- mean(x)+1.96/sqrt(30)
+   segments(i,a,i,b)
+   points(i,a,pch=21, col=1,bg=0)
+   points(i,b,pch=21, col=1,bg=0)
+ }
+axis(1,at=1:20,labels = 1:20)
+title(xlab='Intervalos observados')
+abline(h=0,lwd = 2, lty=2)
+```
+
+A capacidade de um estimador intervalar $C$ gerar intervalos que contém o verdadeiro valor do parâmetro é medida pela probprobabilidade de cobertura, dada por
+$P(\theta\in C(\textbf{C})).$
+
+<div class='alert alert-info'>
+**Exemplo** Seja $X_1,\ldots,X_{10}$ uma amostra aleatória da população Normal($\mu$,1) e considere o estimador intervalar
+$$C(\textbf{X})=[\bar{X}-1,\bar{X}+1]$$
+Sua probabilidade de cobertura é
+$$\begin{align}
+P(\mu\in C(\textbf{X}))&=P(\bar{X}-1\leq \mu\leq \bar{X}+1)\\&=P(-1\leq \underbrace{\bar{X}-\mu}_{W}\leq 1)\\&=P(-1\leq W\leq 1)=0,9984
+\end{align}$$
+onde $W\sim\hbox{Normal}(0,1/10)$.
+</div>
+
+<div class='alert alert-info'>
+**Exemplo** Seja $X_1,\ldots,X_{10}$ uma amostra aleatória da população Bernoulli($\theta$) e considere o estimador intervalar
+$$C(\textbf{X})=\left[\bar{X}-\frac{1}{20},\bar{X}+\frac{1}{20}\right].$$
+Sua probabilidade de cobertura é
+$$\begin{align}
+P(\mu\in C(\textbf{X}))&=P\left(\bar{X}-\frac{1}{20}\leq \theta\leq \bar{X}+\frac{1}{20}\right)\\&=P\left(-\frac{1}{2}+10\theta\leq \sum_{i=1}^{10} X_i \leq \frac{1}{2}+10\theta\right)
+\end{align}$$
+Observe que, para esse intervalo, a probabilidade de cobertura depende de $\theta$. Abaixo, seguem os valores desta probabilidade para alguns valores de $\theta$. Podemos concluir que esse valores são baixos para considerar esse intervalo adequado.
+
+```{r echo = FALSE}
+require(flextable)
+theta <- seq(.1,.9,.1)
+prob <- pbinom(10*theta+.5,10,theta)-pbinom(10*theta-.5,10,theta)
+dt <- data.frame(theta,prob)
+names(dt) <- c('Valor do parâmetro','Probabilidade de cobertura')
+flextable(dt)
+```
+</div>
+
+Como a probabilidade de cobertura pode ser desconhecida, construímos intervalos baseados no nível de confiança.
+
+<div class='alert alert-success'>
+**Exemplo** Dizemos que um estimador intervalar tem um nível de confiança $\gamma$ se 
+$$P(\theta\in C(\textbf{X}))\geq \gamma,$$
+para todo $\theta\in\Theta$. Um intervalo com confiança $\gamma$ também é denominado \textbf{intervalo de $\gamma\times 100\%$ de confiança}. 
+ 
+</div>
+
+
+Em palavras, o nível de confiança é a menor probabilidade de cobertura possível. Portanto, um intervalo com confiança 95\% garante que pelo menos 95\% dos intervalos gerados vão cobrir o verdadeiro valor de $\theta$.
+
+## Método da inverção de testes de hipóteses
+
+Para $H_0:\theta=\theta_0$, com $\theta_0$ arbitrário, considere o teste
+
+$$D= \left\{ \begin{array}{ll} 1&,\hbox{ se }t<a \hbox{ ou }t>b \\
+0,&\hbox{ se } a\leq t\leq b \\ \end{array} \right.$$
+onde
+$$P(T<a|\theta_0)+P(T<b|\theta_0)\leq \alpha.$$
+Como $a$ e $b$ são quantis da distribuição de $T$ quando $\theta=\theta_0$, podemos escrever os dois como função de $\theta_0$. 
+Então, é verdade que
+$$P(a(\theta_0)\leq T\leq b(\theta_0)|\theta_0)\geq 1-\alpha$$
+Considere o conjunto $C(T)=\{\theta\in\Theta: a(\theta)\leq T\leq b(\theta)\}$. Como $C(T)\subset\Theta$, teremos que
+$$P(\theta\in C(T))\geq 1-\alpha,$$
+logo, $C(T)$ é um conjunto de confiança $1-\alpha$. Se $C(T)$ for um intervalo, então ele será um intervalo de confiança.
+
+<div class='alert alert-info'>
+**Exemplo.** Seja $X_1,\ldots,X_n$ uma amostra aleatória da população Normal($\mu,\sigma^2$). Sabemos que o teste da razão de verossimilhança de nível $\alpha$ para $H_0:\theta=\theta_0$ é dado por
+
+$$D(t)=\left\{\begin{array}{ll}1,&\hbox{ se }|t|>a\\0,&\hbox{ se }|t|\leq a&\end{array}\right.$$
+onde $a$ é o quantil $1-\alpha/2$ da distribuição $t$-Student com $n-1$  graus de liberdade e
+$$t=\sqrt{n}\frac{\bar{x}-\mu_0}{s}.$$
+Seja
+$$\begin{align}C(\textbf{x})&=\{\mu\in\mathbb{R}: |t|>a\}=\left\{\mu\in\mathbb{R}: \left|\sqrt{n}\frac{\bar{x}-\mu}{s}\right|\leq a\right\}\\
+&=\left\{\mu\in\mathbb{R}: -a\leq \sqrt{n}\frac{\bar{x}-\mu}{s}\leq a\right\}\\&=\left\{\mu\in\mathbb{R}: \bar{x}-a\frac{s}{\sqrt{n}}\leq \mu \leq \bar{x}+a\frac{s}{\sqrt{n}}\right\}\end{align},$$
+logo
+$$\left[\bar{X}-a\frac{S}{\sqrt{n}},\bar{X}+a\frac{S}{\sqrt{n}}\right]$$
+é um intervalo de confiança $1-\alpha$ para $\mu$.
+</div>
+
+Já discutimos que, para grandes amostras, o estimador de máxima verossimilhaça para $\theta$ possui distribuição, aproximada, normal com média $\theta$ e variância $\mathcal{I}_n(\theta)^{-1}$. Considerando a hipótese $H_0:\theta=\theta_0$, esse fato nos permite realizar o teste
+
+$$D(\hat{\theta})=\left\{ \begin{array}{ll}1,& \hbox{ se }|(\hat{\theta}-\theta_0)\sqrt{\mathcal{I}_n(\theta_0)|}>a \\0,& \hbox{ se }|(\hat{\theta}-\theta_0)\sqrt{\mathcal{I}_n(\theta_0)|}|\leq a\end{array}\right.$$
+onde $a$ é o quantil $1-\alpha/2$ da distribuição normal padrão. Portanto, pelo método da inversão de testes, teremos que
+
+$$C(\hat{\theta})=\left\{\theta\in\Theta:-a\leq  (\hat{\theta}-\theta)\sqrt{\mathcal{I}_n(\theta)|}\leq a\right\}$$
+é um conjunto com confiança $1-\alpha$. Para $n$ suficientemente grande, é fato que
+$$\mathcal{I}_n(\hat{\theta})\approx \mathcal{I}_n(\theta),$$
+o que nos permite aproximar $C$ por 
+$$C(\hat{\theta})=\left\{\theta\in\Theta:-a\leq  (\hat{\theta}-\theta)\sqrt{\mathcal{I}_n(\hat{\theta})}\leq a\right\}$$
+e, deste modo, temos o seguinte intervalo (aproximado) de $(1-\alpha)$% de confiança para $\theta$:
+
+$$\left[\hat{\theta}-\frac{a}{\sqrt{\mathcal{I}_n(\hat{\theta})}},\hat{\theta}+\frac{a}{\sqrt{\mathcal{I}_n(\hat{\theta})}}\right]$$
+
+<div class='alert alert-info'>
+**Exemplo (cont).** O número de clientes que entram em uma loja de conviniência por hora possui distribuição Poisson. O gerente registrou o número de clientes por um período de 20 horas, obtendo $\sum_{i=1}^{20}x_{i}=158$. Construa um intervalo (aproximado) de 95% de confiança invertendo um teste de hipóteses de nível de significância de 5%.
+
+**Solução** Considere a hipótese $H_0:\theta=\theta_0$. A estimativa de máxiam verossimilhança para $\theta$ é $\hat{\theta}=158/20=7,9$ e a informação de Fisher é
+$$\mathcal{I}_{20}(\theta)=\frac{20}{\theta}, \hbox{ e    }\;\;\mathcal{I}_{20}(\hat{\theta})=\frac{20}{7,9}\approx 2,53$$
+Por último, o quantil $0,975$ da distribuição normal padrão é 1,96, o que implica no seguinte intervalo aproximado de confiança 95% para $\theta$:
+
+$$\left[7,9-\frac{1,96}{\sqrt{2,53}},\;\;7,9+\frac{1,96}{\sqrt{2,53}}\right]\approx [6,667\;\;,\;\;9,132].$$
+</div>
+
+
+## O Método da quantidade pivotal
+
+<div class='alert alert-success'>
+**Definição.** Seja $T$ uma estatística. A variável aleatória $Q(T,\theta)$ é uma quantidade pivotal se sua distribuição não depende de $\theta$. 
+</div>
+
+Seja $Q(T,\theta)$ uma quantidade pivotal. Se $\theta\in C(\textbf{X})=(L(\textbf{X}),U(\textbf{X}))$ se e somente se existem constantes $a<b$ não dependentes de $\theta$ tais que $Q(T,\theta)\in(a,b)$, então
+$$P(\theta\in C(\textbf{X}))=P\left( Q(T,\theta)\in (a,b)\right),$$
+para todo $\theta\in\Theta$. Em palavras, a probabilidade de cobertura não dependerá de $\theta$ e $(a,b)$ será um intervalo de confiança $\gamma$, onde 
+$$\gamma = P\left( Q(T,\theta)\in (a,b)\right).$$
+
+
+Dentre as distribuições que possuem quantidades pivotais, destacamos os membros da família (de distribuições) locação-escala.
+
+<div class='alert alert-success'>
+**Definição (Família locação-escala)** A família de densidades
+$$f(x|\mu,\sigma )=\frac{1}{\sigma}g\left(\frac{x-\mu}{\sigma}\right),$$
+onde $\mu\in \mathbb{R}$, $\sigma>0$ e
+$$\int g(x)dx=1. $$
+é denominada família locação-escala e $\mu$ e $\sigma$ são denominados parâmetros de locação e escala.
+</div>
+
+São exemplos de distribuições na família locação-escala:
+
+* Normal:
+$$f(x|\mu,\sigma^2)=\frac{1}{\sqrt{2\pi}}\frac{1}{\sigma}\exp\left\{-\frac{1}{2}\left(\frac{x-\mu}{\sigma}\right)^2\right\},$$
+com $x,\mu\in\mathbb{R}$ e $\sigma>0$.
+
+* $t$-Student com $\nu>0$ conhecido:
+
+$$f(x|\mu,\sigma^2)=\frac{\Gamma\left(\frac{\nu+1}{2}\right)}{\sqrt{\nu\pi}\Gamma\left(\frac{\nu}{2}\right)}\frac{1}{\sigma}\left(1+\frac{1}{\nu}\left(\frac{x-\mu}{\sigma}\right)^2\right)^{-\frac{\nu+1}{2}},$$
+com $x,\mu\in\mathbb{R}$ e $\sigma>0$.
+
+* Uniforme$(\mu-\sigma,\mu+\sigma)$:
+
+$$f(x|\mu,\sigma^2)=\frac{1}{2\sigma}I\left(\mu-\sigma\leq x\leq \mu+\sigma\right),$$
+com $x,\mu\in\mathbb{R}$ e $\sigma>0$.
+
+* Laplace (ou exponencial dupla):
+
+$$f(x|\mu,\sigma^2)=\frac{1}{2\sigma}\exp\left\{-\frac{1}{2}\left|\frac{x-\mu}{\sigma}\right|\right\},$$
+com $x,\mu\in\mathbb{R}$ e $\sigma>0$.
+
+<div class='alert alert-success'>
+**Proposição.** Se $X$ pertence à família locação-escala, então
+$$Y=\frac{X-\mu}{\sigma}$$
+é uma quantidade pivotal. A função densidade de $Y$ pertence à mesma família que a de $X$, com $\mu=0$ e $\sigma=1$.
+</div>
+
+<div class='alert alert-info'>
+**Exemplo.**
+Sejam $X_1,\ldots,X_n$ variáveis aleatórias independentes com $X\sim \hbox{Exponencial}(\theta)$. Temos que
+
+$$f(x|\theta)=\theta e^{-\theta x},$$
+logo $1/\theta$ é um parâmetro de escala e $Y=\theta X$ é uma quantidade pivotal, com
+$$f_Y(y)=e^{-y}.$$
+
+Sabemos que $T=\sum_{i=1}^n X_i$ é uma estatística suficiente para $\theta$. Observe que
+
+$$\theta T=\theta\sum_{i=1}^n X_i=\sum_{i=1}^nY_i$$
+logo,$\theta T\sim\hbox{Gama}(n,1)$. Sejam $a$ e $b$ os quantis $\alpha/2$ e $1-\alpha/2$ da distribuição Gama($n,1$). Então
+$$1-\alpha=P\left( a \leq \theta T \leq b\right)=P\left(\frac{a}{T}\leq \theta \leq \frac{b}{T}\right)$$
+e
+$$\left[\frac{a}{T},\frac{b}{T}\right]$$
+é um intervalo de confiança $1-\alpha$ para $\theta$
+</div>
+
+
+<div class='alert alert-info'>
+**Exemplo.**
+Sejam $X_1,\ldots,X_n$ variáveis aleatórias independentes com $X\sim \hbox{Uniforme}(0,\theta)$. Temos que
+$$L(\theta)=\prod_{i=1}^{n}f(x_i|\theta)=\frac{1}{\theta^n}I\left(x_{(n)}\leq \theta\right)=\frac{1}{\theta^n}I\left(\frac{x_{(n)}}{\theta}\leq 1\right).$$
+Note que a quantidade 
+$$Y= X_{(n)}/\theta$$
+é uma quantidade pivotal. Sabemos que
+$$f_{X_{(n)}}(y)=nf_X(y)F(y)^{n-1}=n\frac{1}{\theta}\left(\frac{x_{(n)}}{\theta}\right)^{n-1}.$$
+logo, 
+$$f_Y(y)=ny^{n-1}.$$
+
+Assim, fixando um nível de confiança $\gamma$, podemos construir um estimador intervalar para $\theta$ encontrando os valores $a$ e $b$ tais que
+$$\gamma = P\left(a<\frac{X_{(n)}}{\theta}<b\right)=F_{Y}\left(b\right)-F_{Y}\left(a\right)$$
+Fazendo
+$$\begin{align*}
+F_{Y}(b)&=\frac{1+\gamma}{2}\\
+F_{Y}(a)&=\frac{1-\gamma}{2}
+\end{align*}$$
+teremos
+$$\begin{align*}
+b^n&=\frac{1+\gamma}{2}\Rightarrow b = \left(\frac{1+\gamma}{2}\right)^{1/n}\\
+a^n&=\frac{1-\gamma}{2}\Rightarrow a = \left(\frac{1-\gamma}{2}\right)^{1/n}.
+\end{align*}$$
+Por último, como
+$$\begin{align*}
+a<\frac{X_{(n)}}{\theta}<b \Rightarrow \frac{1}{b}<\frac{\theta}{X_{(n)}}<\frac{1}{a} \Rightarrow 
+\frac{X_{(n)}}{b}<\theta<\frac{X_{(n)}}{a} \Rightarrow 
+\frac{X_{(n)}}{\left(\frac{1+\gamma}{2}\right)^{1/n}}<\theta<\frac{X_{(n)}}{\left(\frac{1-\gamma}{2}\right)^{1/n}} 
+\end{align*}$$
+teremos que
+$$\begin{align*}
+I(\textbf{X})&=\left(\frac{X_{(n)}}{\left(\frac{1+\gamma}{2}\right)^{1/n}},\frac{X_{(n)}}{\left(\frac{1-\gamma}{2}\right)^{1/n}} \right)=
+\left(\frac{2^{1/n}X_{(n)}}{\left(2+\gamma\right)^{1/n}},\frac{2^{1/n}X_{(n)}}{\left(2-\gamma\right)^{1/n}}\right)\\
+&=2^{1/n}X_{(n)}\left(\frac{1}{\left(2+\gamma\right)^{1/n}},\frac{1}{\left(2-\gamma\right)^{1/n}}\right)
+\end{align*}$$
+é um intervalo de confiança $\gamma$.
+</div>
+
+
+<div class='alert alert-info'>
+**Exemplo (Estimadores gerais para locação-escala)** 
+Sejam $X_1,\ldots,X_n$ uma amostra aleatória de variáveis contínuas e sejam $(\mu,\sigma)$ seus respectivos parâmetros de locação e escala. Então,
+$$Y_i=\frac{X_i-\mu}{\sigma}$$
+é uma quantidade pivotal. Portanto, qualquer estatística baseada em $Y_1,\ldots,Y_n$ também será uma quantidade pivotal. Deste modo, $\bar{Y}$ é uma quantidade pivotal e pode ser escrita como  
+$$\bar{Y}=\frac{1}{n}\sum_{i=1}^{n}\frac{X_i-\mu}{\sigma}=\frac{\bar{X}-\mu}{\sigma}.$$
+
+Obser que o desvio $Y_i-\bar{Y}$ também é uma quantidade pivotal e, por consequência,
+$$\frac{1}{n-1}\sum_{i=1}^n (Y_i-\bar{Y})^2$$
+também o é. Como
+$$\begin{align}
+\frac{1}{n-1}\sum_{i=1}^n (Y_i-\bar{Y})^2&=\frac{1}{n-1}\sum_{i=1}^n \left(\frac{X_i-\mu}{\sigma}-\frac{\bar{X}-\mu}{\sigma}\right)^2\\&=\frac{1}{\sigma^2}\frac{1}{n-1}\sum_{i=1}^n(X_i-\bar{X})^2=\frac{S^2_n}{\sigma^2},\end{align}$$
+logo, $S^2/\sigma^2$ sempre é uma quantidade pivotal que depente apenas de $\sigma$. Deste modo, é possível construir intervalos do tipo
+$$\left[\frac{S}{b},\frac{S}{a}\right]$$
+para $\sigma$, onde as constantes $a,b$ depende da distribuição amostral de $S^2/\sigma^2.$
+
+Agora, observe que a seguinte expressão também é uma quantidade pivotal:
+
+$$\frac{\bar{Y}}{\sqrt{\sum_{i=1}^n\frac{1}{n-1}(Y_i-\bar{Y})^2}}=\left.\frac{\bar{X}-\mu}{\sigma}\right/\sqrt{\frac{S^2_n}{\sigma^2}}=\frac{\bar{X}-\mu}{S}$$
+logo, $(\bar{X}-\mu)/S$ é uma quantidade pivotal que depende apenas de $\mu$ e pode-se construir intervalos do tipo
+$$\left[\bar{X}+uS,\bar{X}+vS\right]$$
+para $\mu$, onde as constantes $u$ e $v$ dependem da distribuição amostral de $(\bar{X}-\mu)/S$ 
+</div>

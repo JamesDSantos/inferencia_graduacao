@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="quarto-1.5.57" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+
+
+<title>6  Intervalos de Confiança – Inferência Estatística - um curso de graduação</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+<!-- htmldependencies:E3FAD763 -->
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<link href="site_libs/tabwid-1.1.3/tabwid.css" rel="stylesheet" />
+<script src="site_libs/tabwid-1.1.3/tabwid.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body>
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn"
+      data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" 
+      aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation"
+      onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <h1 class="quarto-secondary-nav-title no-breadcrumbs"></h1>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" role="link"
+        aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation"
+        onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="/">
+      Inferência Estatística - um curso de graduação
+      </a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Preface</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="/summary.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class='chapter-number'>1</span>  <span class='chapter-title'>Summary</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="/intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class='chapter-number'>2</span>  <span class='chapter-title'>População, amostra, famílias e inferência</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="/suficiencia.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class='chapter-number'>3</span>  <span class='chapter-title'>Estatística</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="/pontual.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class='chapter-number'>4</span>  <span class='chapter-title'>Estimação pontual</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="/references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">References</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="/teste.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class='chapter-number'>5</span>  <span class='chapter-title'>Testes de hipóteses</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="/intervalo.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class='chapter-number'>6</span>  <span class='chapter-title'>Intervalos de Confiança</span></span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" ></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <div id="quarto-toc-target"></div>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">6</span>  <span class="chapter-title">Intervalos de Confiança</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+<nav id="TOC" role="doc-toc">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#estimador-e-estimativa-intervalar" id="toc-estimador-e-estimativa-intervalar"><span class="header-section-number">6.1</span> Estimador e estimativa intervalar</a></li>
+  <li><a href="#método-da-inverção-de-testes-de-hipóteses" id="toc-método-da-inverção-de-testes-de-hipóteses"><span class="header-section-number">6.2</span> Método da inverção de testes de hipóteses</a></li>
+  <li><a href="#o-método-da-quantidade-pivotal" id="toc-o-método-da-quantidade-pivotal"><span class="header-section-number">6.3</span> O Método da quantidade pivotal</a></li>
+  </ul>
+</nav>
+<section id="estimador-e-estimativa-intervalar" class="level2" data-number="6.1">
+<h2 data-number="6.1"><span class="header-section-number">6.1</span> Estimador e estimativa intervalar</h2>
+<p>Seja <span class="math inline">\(\Theta\subseteq \mathbb{R}\)</span> um espaço paramétrico. No problema de estimação intervalar estamos interessados em encontrar um intervalo <span class="math inline">\([a,b]\in\Theta\)</span> para inferir que <span class="math inline">\(\theta\in [a,b]\)</span>.</p>
+<p>Idealmente, o intervalo <span class="math inline">\((a,b)\)</span> deve ser pequeno o suficiente para conter valores interessantes para <span class="math inline">\(\theta\)</span>. Tais valores podem ser inferidos através da amostra, dando à luz aos estimadores intervalares.</p>
+<div class="alert laert-success">
+<p>O par de estatísticas <span class="math inline">\(L(\textbf{X})\)</span> e <span class="math inline">\(U(\textbf{X})\)</span>, com <span class="math inline">\(L(\textbf{X})&lt;U(\textbf{X})\)</span>, construído com o objetivo de inferir que <span class="math inline">\(\theta\in [L(\textbf{X}),U(\textbf{X})]\)</span> é denominado para <span class="math inline">\(\theta\)</span>. A estastísticas observadas <span class="math inline">\(L(\textbf{x}),U(\textbf{x})\)</span> são denominadas ou para <span class="math inline">\(\theta\)</span>.</p>
+</div>
+<p>Seja <span class="math inline">\(C(\textbf{X})=(L(\textbf{X}),U(\textbf{X}))\)</span> um estimador intervalar. A característica desejável para esse tipo de estimador é a capacidade de gerar intervalos que contenham o verdadeiro valor de <span class="math inline">\(\theta\)</span>. A figura abaixo ilustra 20 intevalos gerados a partir de um estimador intervalar. A linha tracejada representa o verdadeiro valor de <span class="math inline">\(\theta\)</span> (observe que o intervalo 15 falhou cobrir esse valor).</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img src="intervalo_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid" width="672" /></p>
+</figure>
+</div>
+</div>
+</div>
+<p>A capacidade de um estimador intervalar <span class="math inline">\(C\)</span> gerar intervalos que contém o verdadeiro valor do parâmetro é medida pela probprobabilidade de cobertura, dada por <span class="math inline">\(P(\theta\in C(\textbf{C})).\)</span></p>
+<div class="alert alert-info">
+<p><strong>Exemplo</strong> Seja <span class="math inline">\(X_1,\ldots,X_{10}\)</span> uma amostra aleatória da população Normal(<span class="math inline">\(\mu\)</span>,1) e considere o estimador intervalar <span class="math display">\[C(\textbf{X})=[\bar{X}-1,\bar{X}+1]\]</span> Sua probabilidade de cobertura é <span class="math display">\[\begin{align}
+P(\mu\in C(\textbf{X}))&amp;=P(\bar{X}-1\leq \mu\leq \bar{X}+1)\\&amp;=P(-1\leq \underbrace{\bar{X}-\mu}_{W}\leq 1)\\&amp;=P(-1\leq W\leq 1)=0,9984
+\end{align}\]</span> onde <span class="math inline">\(W\sim\hbox{Normal}(0,1/10)\)</span>.</p>
+</div>
+<div class="alert alert-info">
+<p><strong>Exemplo</strong> Seja <span class="math inline">\(X_1,\ldots,X_{10}\)</span> uma amostra aleatória da população Bernoulli(<span class="math inline">\(\theta\)</span>) e considere o estimador intervalar <span class="math display">\[C(\textbf{X})=\left[\bar{X}-\frac{1}{20},\bar{X}+\frac{1}{20}\right].\]</span> Sua probabilidade de cobertura é <span class="math display">\[\begin{align}
+P(\mu\in C(\textbf{X}))&amp;=P\left(\bar{X}-\frac{1}{20}\leq \theta\leq \bar{X}+\frac{1}{20}\right)\\&amp;=P\left(-\frac{1}{2}+10\theta\leq \sum_{i=1}^{10} X_i \leq \frac{1}{2}+10\theta\right)
+\end{align}\]</span> Observe que, para esse intervalo, a probabilidade de cobertura depende de <span class="math inline">\(\theta\)</span>. Abaixo, seguem os valores desta probabilidade para alguns valores de <span class="math inline">\(\theta\)</span>. Podemos concluir que esse valores são baixos para considerar esse intervalo adequado.</p>
+<div class="cell">
+<div class="cell-output cell-output-stderr">
+<pre><code>Carregando pacotes exigidos: flextable</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package &#39;flextable&#39; was built under R version 4.3.3</code></pre>
+</div>
+<div class="cell-output-display">
+<div class="tabwid"><style>.cl-6b79a528{}.cl-6b6ee52a{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-6b72e68e{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-6b72faca{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-6b72fad4{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-6b72fad5{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing='true' class='cl-6b79a528'><thead><tr style="overflow-wrap:break-word;"><th class="cl-6b72faca"><p class="cl-6b72e68e"><span class="cl-6b6ee52a">Valor do parâmetro</span></p></th><th class="cl-6b72faca"><p class="cl-6b72e68e"><span class="cl-6b6ee52a">Probabilidade de cobertura</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-6b72fad4"><p class="cl-6b72e68e"><span class="cl-6b6ee52a">0.1</span></p></td><td class="cl-6b72fad4"><p class="cl-6b72e68e"><span class="cl-6b6ee52a">0.3874205</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-6b72fad4"><p class="cl-6b72e68e"><span class="cl-6b6ee52a">0.2</span></p></td><td class="cl-6b72fad4"><p class="cl-6b72e68e"><span class="cl-6b6ee52a">0.3019899</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-6b72fad4"><p class="cl-6b72e68e"><span class="cl-6b6ee52a">0.3</span></p></td><td class="cl-6b72fad4"><p class="cl-6b72e68e"><span class="cl-6b6ee52a">0.2668279</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-6b72fad4"><p class="cl-6b72e68e"><span class="cl-6b6ee52a">0.4</span></p></td><td class="cl-6b72fad4"><p class="cl-6b72e68e"><span class="cl-6b6ee52a">0.2508227</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-6b72fad4"><p class="cl-6b72e68e"><span class="cl-6b6ee52a">0.5</span></p></td><td class="cl-6b72fad4"><p class="cl-6b72e68e"><span class="cl-6b6ee52a">0.2460937</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-6b72fad4"><p class="cl-6b72e68e"><span class="cl-6b6ee52a">0.6</span></p></td><td class="cl-6b72fad4"><p class="cl-6b72e68e"><span class="cl-6b6ee52a">0.2508227</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-6b72fad4"><p class="cl-6b72e68e"><span class="cl-6b6ee52a">0.7</span></p></td><td class="cl-6b72fad4"><p class="cl-6b72e68e"><span class="cl-6b6ee52a">0.2668279</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-6b72fad4"><p class="cl-6b72e68e"><span class="cl-6b6ee52a">0.8</span></p></td><td class="cl-6b72fad4"><p class="cl-6b72e68e"><span class="cl-6b6ee52a">0.3019899</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-6b72fad5"><p class="cl-6b72e68e"><span class="cl-6b6ee52a">0.9</span></p></td><td class="cl-6b72fad5"><p class="cl-6b72e68e"><span class="cl-6b6ee52a">0.3874205</span></p></td></tr></tbody></table></div>
+</div>
+</div>
+</div>
+<p>Como a probabilidade de cobertura pode ser desconhecida, construímos intervalos baseados no nível de confiança.</p>
+<div class="alert alert-success">
+<p><strong>Exemplo</strong> Dizemos que um estimador intervalar tem um nível de confiança <span class="math inline">\(\gamma\)</span> se <span class="math display">\[P(\theta\in C(\textbf{X}))\geq \gamma,\]</span> para todo <span class="math inline">\(\theta\in\Theta\)</span>. Um intervalo com confiança <span class="math inline">\(\gamma\)</span> também é denominado .</p>
+</div>
+<p>Em palavras, o nível de confiança é a menor probabilidade de cobertura possível. Portanto, um intervalo com confiança 95% garante que pelo menos 95% dos intervalos gerados vão cobrir o verdadeiro valor de <span class="math inline">\(\theta\)</span>.</p>
+</section>
+<section id="método-da-inverção-de-testes-de-hipóteses" class="level2" data-number="6.2">
+<h2 data-number="6.2"><span class="header-section-number">6.2</span> Método da inverção de testes de hipóteses</h2>
+<p>Para <span class="math inline">\(H_0:\theta=\theta_0\)</span>, com <span class="math inline">\(\theta_0\)</span> arbitrário, considere o teste</p>
+<p><span class="math display">\[D= \left\{ \begin{array}{ll} 1&amp;,\hbox{ se }t&lt;a \hbox{ ou }t&gt;b \\
+0,&amp;\hbox{ se } a\leq t\leq b \\ \end{array} \right.\]</span> onde <span class="math display">\[P(T&lt;a|\theta_0)+P(T&lt;b|\theta_0)\leq \alpha.\]</span> Como <span class="math inline">\(a\)</span> e <span class="math inline">\(b\)</span> são quantis da distribuição de <span class="math inline">\(T\)</span> quando <span class="math inline">\(\theta=\theta_0\)</span>, podemos escrever os dois como função de <span class="math inline">\(\theta_0\)</span>. Então, é verdade que <span class="math display">\[P(a(\theta_0)\leq T\leq b(\theta_0)|\theta_0)\geq 1-\alpha\]</span> Considere o conjunto <span class="math inline">\(C(T)=\{\theta\in\Theta: a(\theta)\leq T\leq b(\theta)\}\)</span>. Como <span class="math inline">\(C(T)\subset\Theta\)</span>, teremos que <span class="math display">\[P(\theta\in C(T))\geq 1-\alpha,\]</span> logo, <span class="math inline">\(C(T)\)</span> é um conjunto de confiança <span class="math inline">\(1-\alpha\)</span>. Se <span class="math inline">\(C(T)\)</span> for um intervalo, então ele será um intervalo de confiança.</p>
+<div class="alert alert-info">
+<p><strong>Exemplo.</strong> Seja <span class="math inline">\(X_1,\ldots,X_n\)</span> uma amostra aleatória da população Normal(<span class="math inline">\(\mu,\sigma^2\)</span>). Sabemos que o teste da razão de verossimilhança de nível <span class="math inline">\(\alpha\)</span> para <span class="math inline">\(H_0:\theta=\theta_0\)</span> é dado por</p>
+<p><span class="math display">\[D(t)=\left\{\begin{array}{ll}1,&amp;\hbox{ se }|t|&gt;a\\0,&amp;\hbox{ se }|t|\leq a&amp;\end{array}\right.\]</span> onde <span class="math inline">\(a\)</span> é o quantil <span class="math inline">\(1-\alpha/2\)</span> da distribuição <span class="math inline">\(t\)</span>-Student com <span class="math inline">\(n-1\)</span> graus de liberdade e <span class="math display">\[t=\sqrt{n}\frac{\bar{x}-\mu_0}{s}.\]</span> Seja <span class="math display">\[\begin{align}C(\textbf{x})&amp;=\{\mu\in\mathbb{R}: |t|&gt;a\}=\left\{\mu\in\mathbb{R}: \left|\sqrt{n}\frac{\bar{x}-\mu}{s}\right|\leq a\right\}\\
+&amp;=\left\{\mu\in\mathbb{R}: -a\leq \sqrt{n}\frac{\bar{x}-\mu}{s}\leq a\right\}\\&amp;=\left\{\mu\in\mathbb{R}: \bar{x}-a\frac{s}{\sqrt{n}}\leq \mu \leq \bar{x}+a\frac{s}{\sqrt{n}}\right\}\end{align},\]</span> logo <span class="math display">\[\left[\bar{X}-a\frac{S}{\sqrt{n}},\bar{X}+a\frac{S}{\sqrt{n}}\right]\]</span> é um intervalo de confiança <span class="math inline">\(1-\alpha\)</span> para <span class="math inline">\(\mu\)</span>.</p>
+</div>
+<p>Já discutimos que, para grandes amostras, o estimador de máxima verossimilhaça para <span class="math inline">\(\theta\)</span> possui distribuição, aproximada, normal com média <span class="math inline">\(\theta\)</span> e variância <span class="math inline">\(\mathcal{I}_n(\theta)^{-1}\)</span>. Considerando a hipótese <span class="math inline">\(H_0:\theta=\theta_0\)</span>, esse fato nos permite realizar o teste</p>
+<p><span class="math display">\[D(\hat{\theta})=\left\{ \begin{array}{ll}1,&amp; \hbox{ se }|(\hat{\theta}-\theta_0)\sqrt{\mathcal{I}_n(\theta_0)|}&gt;a \\0,&amp; \hbox{ se }|(\hat{\theta}-\theta_0)\sqrt{\mathcal{I}_n(\theta_0)|}|\leq a\end{array}\right.\]</span> onde <span class="math inline">\(a\)</span> é o quantil <span class="math inline">\(1-\alpha/2\)</span> da distribuição normal padrão. Portanto, pelo método da inversão de testes, teremos que</p>
+<p><span class="math display">\[C(\hat{\theta})=\left\{\theta\in\Theta:-a\leq  (\hat{\theta}-\theta)\sqrt{\mathcal{I}_n(\theta)|}\leq a\right\}\]</span> é um conjunto com confiança <span class="math inline">\(1-\alpha\)</span>. Para <span class="math inline">\(n\)</span> suficientemente grande, é fato que <span class="math display">\[\mathcal{I}_n(\hat{\theta})\approx \mathcal{I}_n(\theta),\]</span> o que nos permite aproximar <span class="math inline">\(C\)</span> por <span class="math display">\[C(\hat{\theta})=\left\{\theta\in\Theta:-a\leq  (\hat{\theta}-\theta)\sqrt{\mathcal{I}_n(\hat{\theta})}\leq a\right\}\]</span> e, deste modo, temos o seguinte intervalo (aproximado) de <span class="math inline">\((1-\alpha)\)</span>% de confiança para <span class="math inline">\(\theta\)</span>:</p>
+<p><span class="math display">\[\left[\hat{\theta}-\frac{a}{\sqrt{\mathcal{I}_n(\hat{\theta})}},\hat{\theta}+\frac{a}{\sqrt{\mathcal{I}_n(\hat{\theta})}}\right]\]</span></p>
+<div class="alert alert-info">
+<p><strong>Exemplo (cont).</strong> O número de clientes que entram em uma loja de conviniência por hora possui distribuição Poisson. O gerente registrou o número de clientes por um período de 20 horas, obtendo <span class="math inline">\(\sum_{i=1}^{20}x_{i}=158\)</span>. Construa um intervalo (aproximado) de 95% de confiança invertendo um teste de hipóteses de nível de significância de 5%.</p>
+<p><strong>Solução</strong> Considere a hipótese <span class="math inline">\(H_0:\theta=\theta_0\)</span>. A estimativa de máxiam verossimilhança para <span class="math inline">\(\theta\)</span> é <span class="math inline">\(\hat{\theta}=158/20=7,9\)</span> e a informação de Fisher é <span class="math display">\[\mathcal{I}_{20}(\theta)=\frac{20}{\theta}, \hbox{ e    }\;\;\mathcal{I}_{20}(\hat{\theta})=\frac{20}{7,9}\approx 2,53\]</span> Por último, o quantil <span class="math inline">\(0,975\)</span> da distribuição normal padrão é 1,96, o que implica no seguinte intervalo aproximado de confiança 95% para <span class="math inline">\(\theta\)</span>:</p>
+<p><span class="math display">\[\left[7,9-\frac{1,96}{\sqrt{2,53}},\;\;7,9+\frac{1,96}{\sqrt{2,53}}\right]\approx [6,667\;\;,\;\;9,132].\]</span></p>
+</div>
+</section>
+<section id="o-método-da-quantidade-pivotal" class="level2" data-number="6.3">
+<h2 data-number="6.3"><span class="header-section-number">6.3</span> O Método da quantidade pivotal</h2>
+<div class="alert alert-success">
+<p><strong>Definição.</strong> Seja <span class="math inline">\(T\)</span> uma estatística. A variável aleatória <span class="math inline">\(Q(T,\theta)\)</span> é uma quantidade pivotal se sua distribuição não depende de <span class="math inline">\(\theta\)</span>.</p>
+</div>
+<p>Seja <span class="math inline">\(Q(T,\theta)\)</span> uma quantidade pivotal. Se <span class="math inline">\(\theta\in C(\textbf{X})=(L(\textbf{X}),U(\textbf{X}))\)</span> se e somente se existem constantes <span class="math inline">\(a&lt;b\)</span> não dependentes de <span class="math inline">\(\theta\)</span> tais que <span class="math inline">\(Q(T,\theta)\in(a,b)\)</span>, então <span class="math display">\[P(\theta\in C(\textbf{X}))=P\left( Q(T,\theta)\in (a,b)\right),\]</span> para todo <span class="math inline">\(\theta\in\Theta\)</span>. Em palavras, a probabilidade de cobertura não dependerá de <span class="math inline">\(\theta\)</span> e <span class="math inline">\((a,b)\)</span> será um intervalo de confiança <span class="math inline">\(\gamma\)</span>, onde <span class="math display">\[\gamma = P\left( Q(T,\theta)\in (a,b)\right).\]</span></p>
+<p>Dentre as distribuições que possuem quantidades pivotais, destacamos os membros da família (de distribuições) locação-escala.</p>
+<div class="alert alert-success">
+<p><strong>Definição (Família locação-escala)</strong> A família de densidades <span class="math display">\[f(x|\mu,\sigma )=\frac{1}{\sigma}g\left(\frac{x-\mu}{\sigma}\right),\]</span> onde <span class="math inline">\(\mu\in \mathbb{R}\)</span>, <span class="math inline">\(\sigma&gt;0\)</span> e <span class="math display">\[\int g(x)dx=1. \]</span> é denominada família locação-escala e <span class="math inline">\(\mu\)</span> e <span class="math inline">\(\sigma\)</span> são denominados parâmetros de locação e escala.</p>
+</div>
+<p>São exemplos de distribuições na família locação-escala:</p>
+<ul>
+<li><p>Normal: <span class="math display">\[f(x|\mu,\sigma^2)=\frac{1}{\sqrt{2\pi}}\frac{1}{\sigma}\exp\left\{-\frac{1}{2}\left(\frac{x-\mu}{\sigma}\right)^2\right\},\]</span> com <span class="math inline">\(x,\mu\in\mathbb{R}\)</span> e <span class="math inline">\(\sigma&gt;0\)</span>.</p></li>
+<li><p><span class="math inline">\(t\)</span>-Student com <span class="math inline">\(\nu&gt;0\)</span> conhecido:</p></li>
+</ul>
+<p><span class="math display">\[f(x|\mu,\sigma^2)=\frac{\Gamma\left(\frac{\nu+1}{2}\right)}{\sqrt{\nu\pi}\Gamma\left(\frac{\nu}{2}\right)}\frac{1}{\sigma}\left(1+\frac{1}{\nu}\left(\frac{x-\mu}{\sigma}\right)^2\right)^{-\frac{\nu+1}{2}},\]</span> com <span class="math inline">\(x,\mu\in\mathbb{R}\)</span> e <span class="math inline">\(\sigma&gt;0\)</span>.</p>
+<ul>
+<li>Uniforme<span class="math inline">\((\mu-\sigma,\mu+\sigma)\)</span>:</li>
+</ul>
+<p><span class="math display">\[f(x|\mu,\sigma^2)=\frac{1}{2\sigma}I\left(\mu-\sigma\leq x\leq \mu+\sigma\right),\]</span> com <span class="math inline">\(x,\mu\in\mathbb{R}\)</span> e <span class="math inline">\(\sigma&gt;0\)</span>.</p>
+<ul>
+<li>Laplace (ou exponencial dupla):</li>
+</ul>
+<p><span class="math display">\[f(x|\mu,\sigma^2)=\frac{1}{2\sigma}\exp\left\{-\frac{1}{2}\left|\frac{x-\mu}{\sigma}\right|\right\},\]</span> com <span class="math inline">\(x,\mu\in\mathbb{R}\)</span> e <span class="math inline">\(\sigma&gt;0\)</span>.</p>
+<div class="alert alert-success">
+<p><strong>Proposição.</strong> Se <span class="math inline">\(X\)</span> pertence à família locação-escala, então <span class="math display">\[Y=\frac{X-\mu}{\sigma}\]</span> é uma quantidade pivotal. A função densidade de <span class="math inline">\(Y\)</span> pertence à mesma família que a de <span class="math inline">\(X\)</span>, com <span class="math inline">\(\mu=0\)</span> e <span class="math inline">\(\sigma=1\)</span>.</p>
+</div>
+<div class="alert alert-info">
+<p><strong>Exemplo.</strong> Sejam <span class="math inline">\(X_1,\ldots,X_n\)</span> variáveis aleatórias independentes com <span class="math inline">\(X\sim \hbox{Exponencial}(\theta)\)</span>. Temos que</p>
+<p><span class="math display">\[f(x|\theta)=\theta e^{-\theta x},\]</span> logo <span class="math inline">\(1/\theta\)</span> é um parâmetro de escala e <span class="math inline">\(Y=\theta X\)</span> é uma quantidade pivotal, com <span class="math display">\[f_Y(y)=e^{-y}.\]</span></p>
+<p>Sabemos que <span class="math inline">\(T=\sum_{i=1}^n X_i\)</span> é uma estatística suficiente para <span class="math inline">\(\theta\)</span>. Observe que</p>
+<p><span class="math display">\[\theta T=\theta\sum_{i=1}^n X_i=\sum_{i=1}^nY_i\]</span> logo,<span class="math inline">\(\theta T\sim\hbox{Gama}(n,1)\)</span>. Sejam <span class="math inline">\(a\)</span> e <span class="math inline">\(b\)</span> os quantis <span class="math inline">\(\alpha/2\)</span> e <span class="math inline">\(1-\alpha/2\)</span> da distribuição Gama(<span class="math inline">\(n,1\)</span>). Então <span class="math display">\[1-\alpha=P\left( a \leq \theta T \leq b\right)=P\left(\frac{a}{T}\leq \theta \leq \frac{b}{T}\right)\]</span> e <span class="math display">\[\left[\frac{a}{T},\frac{b}{T}\right]\]</span> é um intervalo de confiança <span class="math inline">\(1-\alpha\)</span> para <span class="math inline">\(\theta\)</span></p>
+</div>
+<div class="alert alert-info">
+<p><strong>Exemplo.</strong> Sejam <span class="math inline">\(X_1,\ldots,X_n\)</span> variáveis aleatórias independentes com <span class="math inline">\(X\sim \hbox{Uniforme}(0,\theta)\)</span>. Temos que <span class="math display">\[L(\theta)=\prod_{i=1}^{n}f(x_i|\theta)=\frac{1}{\theta^n}I\left(x_{(n)}\leq \theta\right)=\frac{1}{\theta^n}I\left(\frac{x_{(n)}}{\theta}\leq 1\right).\]</span> Note que a quantidade <span class="math display">\[Y= X_{(n)}/\theta\]</span> é uma quantidade pivotal. Sabemos que <span class="math display">\[f_{X_{(n)}}(y)=nf_X(y)F(y)^{n-1}=n\frac{1}{\theta}\left(\frac{x_{(n)}}{\theta}\right)^{n-1}.\]</span> logo, <span class="math display">\[f_Y(y)=ny^{n-1}.\]</span></p>
+<p>Assim, fixando um nível de confiança <span class="math inline">\(\gamma\)</span>, podemos construir um estimador intervalar para <span class="math inline">\(\theta\)</span> encontrando os valores <span class="math inline">\(a\)</span> e <span class="math inline">\(b\)</span> tais que <span class="math display">\[\gamma = P\left(a&lt;\frac{X_{(n)}}{\theta}&lt;b\right)=F_{Y}\left(b\right)-F_{Y}\left(a\right)\]</span> Fazendo <span class="math display">\[\begin{align*}
+F_{Y}(b)&amp;=\frac{1+\gamma}{2}\\
+F_{Y}(a)&amp;=\frac{1-\gamma}{2}
+\end{align*}\]</span> teremos <span class="math display">\[\begin{align*}
+b^n&amp;=\frac{1+\gamma}{2}\Rightarrow b = \left(\frac{1+\gamma}{2}\right)^{1/n}\\
+a^n&amp;=\frac{1-\gamma}{2}\Rightarrow a = \left(\frac{1-\gamma}{2}\right)^{1/n}.
+\end{align*}\]</span> Por último, como <span class="math display">\[\begin{align*}
+a&lt;\frac{X_{(n)}}{\theta}&lt;b \Rightarrow \frac{1}{b}&lt;\frac{\theta}{X_{(n)}}&lt;\frac{1}{a} \Rightarrow
+\frac{X_{(n)}}{b}&lt;\theta&lt;\frac{X_{(n)}}{a} \Rightarrow
+\frac{X_{(n)}}{\left(\frac{1+\gamma}{2}\right)^{1/n}}&lt;\theta&lt;\frac{X_{(n)}}{\left(\frac{1-\gamma}{2}\right)^{1/n}}
+\end{align*}\]</span> teremos que <span class="math display">\[\begin{align*}
+I(\textbf{X})&amp;=\left(\frac{X_{(n)}}{\left(\frac{1+\gamma}{2}\right)^{1/n}},\frac{X_{(n)}}{\left(\frac{1-\gamma}{2}\right)^{1/n}} \right)=
+\left(\frac{2^{1/n}X_{(n)}}{\left(2+\gamma\right)^{1/n}},\frac{2^{1/n}X_{(n)}}{\left(2-\gamma\right)^{1/n}}\right)\\
+&amp;=2^{1/n}X_{(n)}\left(\frac{1}{\left(2+\gamma\right)^{1/n}},\frac{1}{\left(2-\gamma\right)^{1/n}}\right)
+\end{align*}\]</span> é um intervalo de confiança <span class="math inline">\(\gamma\)</span>.</p>
+</div>
+<div class="alert alert-info">
+<p><strong>Exemplo (Estimadores gerais para locação-escala)</strong> Sejam <span class="math inline">\(X_1,\ldots,X_n\)</span> uma amostra aleatória de variáveis contínuas e sejam <span class="math inline">\((\mu,\sigma)\)</span> seus respectivos parâmetros de locação e escala. Então, <span class="math display">\[Y_i=\frac{X_i-\mu}{\sigma}\]</span> é uma quantidade pivotal. Portanto, qualquer estatística baseada em <span class="math inline">\(Y_1,\ldots,Y_n\)</span> também será uma quantidade pivotal. Deste modo, <span class="math inline">\(\bar{Y}\)</span> é uma quantidade pivotal e pode ser escrita como<br />
+<span class="math display">\[\bar{Y}=\frac{1}{n}\sum_{i=1}^{n}\frac{X_i-\mu}{\sigma}=\frac{\bar{X}-\mu}{\sigma}.\]</span></p>
+<p>Obser que o desvio <span class="math inline">\(Y_i-\bar{Y}\)</span> também é uma quantidade pivotal e, por consequência, <span class="math display">\[\frac{1}{n-1}\sum_{i=1}^n (Y_i-\bar{Y})^2\]</span> também o é. Como <span class="math display">\[\begin{align}
+\frac{1}{n-1}\sum_{i=1}^n (Y_i-\bar{Y})^2&amp;=\frac{1}{n-1}\sum_{i=1}^n \left(\frac{X_i-\mu}{\sigma}-\frac{\bar{X}-\mu}{\sigma}\right)^2\\&amp;=\frac{1}{\sigma^2}\frac{1}{n-1}\sum_{i=1}^n(X_i-\bar{X})^2=\frac{S^2_n}{\sigma^2},\end{align}\]</span> logo, <span class="math inline">\(S^2/\sigma^2\)</span> sempre é uma quantidade pivotal que depente apenas de <span class="math inline">\(\sigma\)</span>. Deste modo, é possível construir intervalos do tipo <span class="math display">\[\left[\frac{S}{b},\frac{S}{a}\right]\]</span> para <span class="math inline">\(\sigma\)</span>, onde as constantes <span class="math inline">\(a,b\)</span> depende da distribuição amostral de <span class="math inline">\(S^2/\sigma^2.\)</span></p>
+<p>Agora, observe que a seguinte expressão também é uma quantidade pivotal:</p>
+<p><span class="math display">\[\frac{\bar{Y}}{\sqrt{\sum_{i=1}^n\frac{1}{n-1}(Y_i-\bar{Y})^2}}=\left.\frac{\bar{X}-\mu}{\sigma}\right/\sqrt{\frac{S^2_n}{\sigma^2}}=\frac{\bar{X}-\mu}{S}\]</span> logo, <span class="math inline">\((\bar{X}-\mu)/S\)</span> é uma quantidade pivotal que depende apenas de <span class="math inline">\(\mu\)</span> e pode-se construir intervalos do tipo <span class="math display">\[\left[\bar{X}+uS,\bar{X}+vS\right]\]</span> para <span class="math inline">\(\mu\)</span>, onde as constantes <span class="math inline">\(u\)</span> e <span class="math inline">\(v\)</span> dependem da distribuição amostral de <span class="math inline">\((\bar{X}-\mu)/S\)</span></p>
+</div>
+<div id="quarto-navigation-envelope" class="hidden">
+<p><span class="hidden quarto-markdown-envelope-contents" data-render-id="quarto-int-sidebar-title">Inferência Estatística - um curso de graduação</span> <span class="hidden quarto-markdown-envelope-contents" data-render-id="quarto-int-navbar-title">Inferência Estatística - um curso de graduação</span> <span class="hidden quarto-markdown-envelope-contents" data-render-id="quarto-int-prev"><span class="chapter-number">5</span>  <span class="chapter-title">Testes de hipóteses</span></span> <span class="hidden quarto-markdown-envelope-contents" data-render-id="quarto-int-sidebar:/index.htmlPreface">Preface</span> <span class="hidden quarto-markdown-envelope-contents" data-render-id="quarto-int-sidebar:/summary.html&lt;span-class=&#39;chapter-number&#39;&gt;1&lt;/span&gt;--&lt;span-class=&#39;chapter-title&#39;&gt;Summary&lt;/span&gt;"><span class="chapter-number">1</span>  <span class="chapter-title">Summary</span></span> <span class="hidden quarto-markdown-envelope-contents" data-render-id="quarto-int-sidebar:/intro.html&lt;span-class=&#39;chapter-number&#39;&gt;2&lt;/span&gt;--&lt;span-class=&#39;chapter-title&#39;&gt;População,-amostra,-famílias-e-inferência&lt;/span&gt;"><span class="chapter-number">2</span>  <span class="chapter-title">População, amostra, famílias e inferência</span></span> <span class="hidden quarto-markdown-envelope-contents" data-render-id="quarto-int-sidebar:/suficiencia.html&lt;span-class=&#39;chapter-number&#39;&gt;3&lt;/span&gt;--&lt;span-class=&#39;chapter-title&#39;&gt;Estatística&lt;/span&gt;"><span class="chapter-number">3</span>  <span class="chapter-title">Estatística</span></span> <span class="hidden quarto-markdown-envelope-contents" data-render-id="quarto-int-sidebar:/pontual.html&lt;span-class=&#39;chapter-number&#39;&gt;4&lt;/span&gt;--&lt;span-class=&#39;chapter-title&#39;&gt;Estimação-pontual&lt;/span&gt;"><span class="chapter-number">4</span>  <span class="chapter-title">Estimação pontual</span></span> <span class="hidden quarto-markdown-envelope-contents" data-render-id="quarto-int-sidebar:/references.htmlReferences">References</span> <span class="hidden quarto-markdown-envelope-contents" data-render-id="quarto-int-sidebar:/teste.html&lt;span-class=&#39;chapter-number&#39;&gt;5&lt;/span&gt;--&lt;span-class=&#39;chapter-title&#39;&gt;Testes-de-hipóteses&lt;/span&gt;"><span class="chapter-number">5</span>  <span class="chapter-title">Testes de hipóteses</span></span> <span class="hidden quarto-markdown-envelope-contents" data-render-id="quarto-int-sidebar:/intervalo.html&lt;span-class=&#39;chapter-number&#39;&gt;6&lt;/span&gt;--&lt;span-class=&#39;chapter-title&#39;&gt;Intervalos-de-Confiança&lt;/span&gt;"><span class="chapter-number">6</span>  <span class="chapter-title">Intervalos de Confiança</span></span> <span class="hidden quarto-markdown-envelope-contents" data-render-id="quarto-breadcrumbs-&lt;span-class=&#39;chapter-number&#39;&gt;6&lt;/span&gt;--&lt;span-class=&#39;chapter-title&#39;&gt;Intervalos-de-Confiança&lt;/span&gt;"><span class="chapter-number">6</span>  <span class="chapter-title">Intervalos de Confiança</span></span></p>
+</div>
+<div id="quarto-meta-markdown" class="hidden">
+<p><span class="hidden quarto-markdown-envelope-contents" data-render-id="quarto-metatitle"><span class="chapter-number">6</span>  <span class="chapter-title">Intervalos de Confiança</span> – Inferência Estatística - um curso de graduação</span> <span class="hidden quarto-markdown-envelope-contents" data-render-id="quarto-twittercardtitle"><span class="chapter-number">6</span>  <span class="chapter-title">Intervalos de Confiança</span> – Inferência Estatística - um curso de graduação</span> <span class="hidden quarto-markdown-envelope-contents" data-render-id="quarto-ogcardtitle"><span class="chapter-number">6</span>  <span class="chapter-title">Intervalos de Confiança</span> – Inferência Estatística - um curso de graduação</span> <span class="hidden quarto-markdown-envelope-contents" data-render-id="quarto-metasitename">Inferência Estatística - um curso de graduação</span> <span class="hidden quarto-markdown-envelope-contents" data-render-id="quarto-twittercarddesc"></span> <span class="hidden quarto-markdown-envelope-contents" data-render-id="quarto-ogcardddesc"></span></p>
+</div>
+</section>
+
+</main> <!-- /main -->
+<script id = "quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a  href="/teste.html" class="pagination-link" aria-label="Testes de hipóteses">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class='chapter-number'>5</span>  <span class='chapter-title'>Testes de hipóteses</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+  </div>
+</nav>
+</div> <!-- /content -->
+
+</body>
+
+</html>

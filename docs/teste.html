@@ -64,6 +64,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
+<link href="./intervalo.html" rel="next">
 <link href="./references.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -210,6 +211,12 @@ window.Quarto = {
  <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Testes de hipóteses</span></span></a>
   </div>
 </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./intervalo.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Intervalos de Confiança</span></span></a>
+  </div>
+</li>
     </ul>
     </div>
 </nav>
@@ -224,6 +231,7 @@ window.Quarto = {
   <li><a href="#a-construção-de-um-teste-de-hipóteses-a-partir-de-uma-estatística-de-teste" id="toc-a-construção-de-um-teste-de-hipóteses-a-partir-de-uma-estatística-de-teste" class="nav-link" data-scroll-target="#a-construção-de-um-teste-de-hipóteses-a-partir-de-uma-estatística-de-teste"><span class="header-section-number">5.2</span> A construção de um teste de hipóteses a partir de uma estatística de teste</a></li>
   <li><a href="#o-teste-da-razão-de-verossimilhanças" id="toc-o-teste-da-razão-de-verossimilhanças" class="nav-link" data-scroll-target="#o-teste-da-razão-de-verossimilhanças"><span class="header-section-number">5.3</span> O teste da razão de verossimilhanças</a></li>
   <li><a href="#a-função-poder-e-os-testes-mais-poderosos" id="toc-a-função-poder-e-os-testes-mais-poderosos" class="nav-link" data-scroll-target="#a-função-poder-e-os-testes-mais-poderosos"><span class="header-section-number">5.4</span> A função poder e os testes mais poderosos</a></li>
+  <li><a href="#p-valor" id="toc-p-valor" class="nav-link" data-scroll-target="#p-valor"><span class="header-section-number">5.5</span> P-valor</a></li>
   </ul>
 </nav>
     </div>
@@ -701,6 +709,78 @@ Table&nbsp;5.1: Região de rejeição segundo a monotonicidade de <span class="m
 </div>
 </figure>
 </div>
+</section>
+<section id="p-valor" class="level2" data-number="5.5">
+<h2 data-number="5.5" class="anchored" data-anchor-id="p-valor"><span class="header-section-number">5.5</span> P-valor</h2>
+<p>Sem perda de generalidade, considere uma estatística <span class="math inline">\(T\)</span> contínua, associada ao seguinte teste nível <span class="math inline">\(\alpha\)</span>:</p>
+<p><span class="math display">\[D(t)=\left\{\begin{array}{ll}1,&amp;\hbox{ se }t&lt;c\\0,&amp;\hbox{ se }t\geq c\end{array}\right.\]</span> Nesse caso, valores pequenos de <span class="math inline">\(T\)</span> dão evidências de que a hipótese nula deve ser rejeitada. Seja <span class="math inline">\(t_{obs}\)</span>, o valor observado da estatística de teste e considere a estatística <span class="math inline">\(p\)</span>-valor, ou valor de <span class="math inline">\(p\)</span>, dada por</p>
+<p><span class="math display">\[p_{valor}=P(T&lt;t_{obs}|\theta_0)=G(t_{obs}),\]</span> onde <span class="math inline">\(G(t)\)</span> é a função distribuição de <span class="math inline">\(T\)</span> quando <span class="math inline">\(\theta=\theta_0\)</span>. Note que <span class="math inline">\(p_{valor}\)</span> é de fato uma estatística (observada), por ser função de <span class="math inline">\(t_{obs}\)</span> e, portanto, uma função da amostra.</p>
+<p>Como a região de rejeição é baseada na cauda da distribuição, que por sua vez é geralmente monótona, considere os seguintes casos:</p>
+<ul>
+<li><p><span class="math inline">\(t_{obs}&lt;c\)</span>: Nesse caso, a hipótese nula deve ser rejeitada. Observe que <span class="math inline">\(p_{valor}=P(T&lt;t_{obs}|\theta_0)&lt;P(T&lt;c|\theta_0)=\alpha\)</span></p></li>
+<li><p><span class="math inline">\(t_{obs}\geq c\)</span>: Nesse caso, a hipótese nula não deve ser rejeitada. Observe que <span class="math inline">\(p_{valor}=P(T&lt;t_{obs}|\theta_0)&gt;P(T&lt;c|\theta_0)=\alpha\)</span></p></li>
+</ul>
+<p>Portanto, podemos utilizar a estatística <span class="math inline">\(p_{valor}\)</span> como estatística de teste, criando o teste</p>
+<p><span class="math display">\[D'(p_{valor})=\left\{\begin{array}{ll}1,&amp;\hbox{ se }p_{valor}&lt;\alpha\\0,&amp;\hbox{ se }p_{valor}\geq \alpha\end{array}\right.\]</span></p>
+<p>É fato que o teste acima possui nível de significância <span class="math inline">\(\alpha\)</span>. Para mostrar isso, é necessário determinar a distribuição desta estatística sob <span class="math inline">\(\theta=\theta_0\)</span>, considere que <span class="math inline">\(T\)</span> é contínua e seja <span class="math inline">\(U=G( T)\)</span>. Então <span class="math display">\[\begin{align}P(U &lt; p_{valor}|\theta_0)&amp;=P( G(T)&lt;p_{valor}|\theta_0)=P(T&lt;G^{-1}(p_{valor})|\theta_0)\\&amp;=G(G^{-1}(p_{valor}))=p_{valor}\end{align},\]</span> logo <span class="math inline">\(U|\theta_0\sim\hbox{Uniforme}(0,1)\)</span> e, em particular, <span class="math display">\[P(U&lt;\alpha|\theta_0)=\alpha,\]</span> mostrando que o teste de fato tem nível <span class="math inline">\(\alpha\)</span>.</p>
+<p>A tabela abaixo apresenta o cálculo do <span class="math inline">\(p\)</span>-valor considerando as regiões de rejeição usuais.</p>
+<div id="tbl">
+<p><span class="math display">\[\begin{array}{c|c}\hline
+\text{Região de rejeição} &amp; \text{p-valor} \\ \hline
+t &lt; c &amp; p_{valor} = P(T &lt; t_{obs} | \theta_0) \\
+t &gt; c &amp; p_{valor} = P(T &gt; t_{obs} | \theta_0) \\
+t &lt; a \text{ ou } t &gt; b &amp; p_{valor} = 2 \min\{P(T &gt; t_{obs} | \theta_0), P(T &lt; t_{obs} | \theta_0)\} \\ \hline
+\end{array}\]</span></p>
+<p>Cálculo do p-valor para as principais regiões de rejeição</p>
+</div>
+<p>Independente da forma da região de rejeição, a distribuição do <span class="math inline">\(p\)</span>-valor sob a hipótese <span class="math inline">\(\theta=\theta_0\)</span> é sempre Uniforme(0,1), como mostra a seguinte proposição.</p>
+<div class="alert alert-success">
+<p><strong>Proposição.</strong> Se <span class="math inline">\(U\sim\hbox{Uniforme}(0,1)\)</span>, então:</p>
+<ol type="1">
+<li><span class="math inline">\(1-U\sim\hbox{Uniforme}(0,1)\)</span></li>
+<li><span class="math inline">\(2\min\{U,1-U\}\sim\hbox{Uniforme}(0,1)\)</span></li>
+</ol>
+</div>
+<div class="alert alert-info">
+<p><strong>Exemplo.</strong> Um gerente de uma loja de conveniência acredita que a taxa de clientes por hora em sua loja é de 10. Ele deseja realizar um teste de hipótese para verificar se essa afirmação é verdadeira. Para tanto, ele registra o número de clientes por um período de 20 horas, obtendo <span class="math inline">\(\sum_{i=1}^{20}x_{i}=158\)</span>. Construa um teste para eesta hipótese, calcule o p-valor e decida se a hipótese nula deve ser rejeitada.</p>
+<p><strong>Solução.</strong> Considere a hipótese nula <span class="math inline">\(H_0:\theta=10\)</span>. Sabemos que a taxa é estimada pela média amostral, <span class="math display">\[\hat{\theta}=\frac{1}{20}\sum_{i=1}^n X_i=\frac{1}{20}T.\]</span> Deste modo, rejeitamos a hipótese nula se <span class="math inline">\(\hat{\theta}\)</span> está muito distante de 10, o que implica em um região de rejeição bilateral. Podemos realizar esse teste utilizando a distribução exata de <span class="math inline">\(T\)</span> ou a aproximada de <span class="math inline">\(\bar{X}\)</span>.</p>
+<p>Utilizando a distribuição de <span class="math inline">\(T\)</span>, as seguintes informações:</p>
+<ul>
+<li><span class="math inline">\(t_{obs}=158\)</span> clientes em vinte horas</li>
+<li>Sob <span class="math inline">\(\theta=\theta_0\)</span>, temos que <span class="math inline">\(T\sim\hbox{Poisson}(200)\)</span></li>
+<li><span class="math inline">\(P(T&lt;158)=P(T\leq 157)=0,00094\)</span> (utilize o comando <code>ppois(157,200)</code>)</li>
+<li><span class="math inline">\(P(T&gt;158)=P(T\geq 159)=0,99879\)</span> (utilize o comando <code>1-ppois(159,200)</code>)</li>
+<li><span class="math inline">\(p_{valor}=0,00188\)</span>, logo rejeitamos a hipótese nula.</li>
+</ul>
+<p>Utilizando a distribuição aproximada de <span class="math inline">\(\bar{X}\)</span>, teremos</p>
+<ul>
+<li><span class="math inline">\(\bar{x}_{obs}=7,9\)</span> clientes por hora</li>
+<li>Sob <span class="math inline">\(\theta=\theta_0\)</span>, temos que <span class="math inline">\(\bar{X}\sim\hbox{Normal}(10,1/2)\)</span></li>
+<li><span class="math inline">\(P(\bar{X}&lt;7,9)=0,00148\)</span> (utilize o comando <code>pnorm(7.9,10, sqrt(1/2))</code>)</li>
+<li><span class="math inline">\(P(\bar{X}&gt;7,9)=0,99851\)</span></li>
+<li><span class="math inline">\(p_{valor}=0.002979467\)</span>, logo rejeitamos a hipótese nula.</li>
+</ul>
+</div>
+<div class="alert alert-info">
+<p><strong>Exemplo.</strong> A tabela a seguir apresenta o número de suicídios mensal no estado do Amazonas durante o ano de 2021, dividido pelas faixas etárias de 10 a 19 anos e de 20 a 29 anos. Supondo que a contagem para cada faixa é uma amostra aleatória de uma população Poisson, e que essas amostras são independentes, construa um teste de hipóteses e calcule o p-valor para decidir se há diferença significativa entre as duas faixas.</p>
+<p><span class="math display">\[\begin{array}{c|ccccccccccccc|c}\hline
+\text{Faixa etária} &amp; \text{Jan} &amp; \text{Fev} &amp; \text{Mar} &amp; \text{Abr} &amp; \text{Mai} &amp; \text{Jun} &amp; \text{Jul} &amp; \text{Ago} &amp; \text{Set} &amp; \text{Out} &amp; \text{Nov} &amp; \text{Dez} &amp; \text{Total} \\ \hline
+\text{10 a 19 anos} &amp; 2 &amp; 4 &amp; 4 &amp; 10 &amp; 10 &amp; 3 &amp; 11 &amp; 3 &amp; 10 &amp; 9 &amp; 9 &amp; 3 &amp; 78\\
+\text{20 a 29 anos}&amp;7 &amp; 13 &amp; 12 &amp; 7 &amp; 7&amp; 10 &amp; 3 &amp; 8 &amp; 8&amp; 6 &amp; 8 &amp; 12 &amp; 101\\ \hline
+\end{array}\]</span></p>
+<p><strong>Solução</strong> Seja <span class="math inline">\(X_i\)</span> o número de suicídios parao <span class="math inline">\(i\)</span>-ésimo mês considerando a faixa etária entre 10 e 19 e seja <span class="math inline">\(Y_i\)</span> o mesmo para a faixa de 20 a 29. Considere que <span class="math inline">\(X\sim\hbox{Poisson}(\alpha)\)</span> e <span class="math inline">\(Y\sim\hbox{Poisson}(\beta)\)</span>. Então, estamos interessados em testar <span class="math display">\[H_0:\alpha=\beta\Rightarrow H_0:\theta=\alpha-\beta=0.\]</span> Sabemos que as médias amostrais <span class="math inline">\(\bar{X}\)</span> e <span class="math inline">\(\bar{Y}\)</span> são estimadores para <span class="math inline">\(\alpha\)</span> e <span class="math inline">\(\beta\)</span>, e que suas distribuições aproximadas são <span class="math display">\[\bar{X}\approx N\left(\alpha,\frac{\alpha}{12}\right),\;\;\bar{Y}\approx N\left(\beta,\frac{\beta}{12}\right)\]</span> e pelo princípio da substituição, <span class="math inline">\(\theta=\alpha-\beta\)</span> é estimado por <span class="math inline">\(\hat{\theta}=\bar{X}-\bar{Y}\)</span> e sua distribuição aproximada é <span class="math display">\[\hat{\theta}\approx N\left(\alpha-\beta,\frac{\alpha+\beta}{12}\right)\]</span> Se <span class="math inline">\(H_0\)</span> é verdadeira, então <span class="math display">\[\hat{\theta}\approx N\left(0,\frac{\alpha}{6}\right),\]</span> e, ainda considerando <span class="math inline">\(H_0\)</span> verdadeira, teremos que <span class="math display">\[\hat{\alpha}=\frac{\bar{X}+\bar{Y}}{2}\]</span> é um estimador para <span class="math inline">\(\alpha\)</span> e podemos definir a estatística de teste <span class="math display">\[W=\frac{\hat{\theta}}{\sqrt{\hat{\alpha}/6}}\approx N\left(0,1\right).\]</span> Temos então os seguintes elementos:</p>
+<ul>
+<li><span class="math inline">\(\bar{x}=6,5\)</span> suicídios por mês na faixa de 10 a 19 anos</li>
+<li><span class="math inline">\(\bar{y}=8,41666...\)</span> suicídios por mês na faixa de 20 a 29 anos</li>
+<li><span class="math inline">\(\hat{\alpha}=7,45\)</span> suicídios por mês na faixa entre 10 e 29 anos</li>
+<li><span class="math inline">\(\hat{\theta}=-1,91\)</span> (diferença média entre os suicídios nas faixas entre 10 e 19 anos e 20 e 29 anos)</li>
+<li><span class="math inline">\(w=\hat{\theta}/\sqrt{\hat{\alpha}/6}=-1,714079\)</span> (estatística de teste)</li>
+<li><span class="math inline">\(P(W&lt;-1,714079)=0,0432\)</span></li>
+<li><span class="math inline">\(P(W&gt;1,714079)=0,9567\)</span></li>
+<li><span class="math inline">\(p_{valor}=0,086\)</span></li>
+</ul>
+<p>Portanto, considerando um nível de significância de <span class="math inline">\(5%\)</span>, não há evidências de diferença significativa entre as taxas de suicídios nas faixas etárias especificadas.</p>
+</div>
 
 
 </section>
@@ -1133,6 +1213,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
+      <a href="./intervalo.html" class="pagination-link" aria-label="Intervalos de Confiança">
+        <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Intervalos de Confiança</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
   </div>
 </nav>
 </div> <!-- /content -->

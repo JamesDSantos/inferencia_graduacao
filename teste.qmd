@@ -667,3 +667,113 @@ portanto, se $w(.)$ é uma função monótona. Seguindo a mesma lógica explorad
 Região de rejeição segundo a monotonicidade de $w(.)$
 :::
 
+## P-valor
+
+Sem perda de generalidade, considere uma estatística $T$ contínua, associada ao seguinte teste nível $\alpha$:
+
+$$D(t)=\left\{\begin{array}{ll}1,&\hbox{ se }t<c\\0,&\hbox{ se }t\geq c\end{array}\right.$$
+Nesse caso, valores pequenos de $T$ dão evidências de que a hipótese nula deve ser rejeitada. Seja $t_{obs}$, o valor observado da estatística de teste e considere a estatística $p$-valor, ou valor de $p$, dada por
+
+$$p_{valor}=P(T<t_{obs}|\theta_0)=G(t_{obs}),$$
+onde $G(t)$ é a função distribuição de $T$ quando $\theta=\theta_0$. Note que $p_{valor}$ é de fato uma estatística (observada), por ser função de $t_{obs}$ e, portanto, uma função da amostra. 
+
+Como a região de rejeição é baseada na cauda da distribuição, que por sua vez é geralmente monótona, considere os seguintes casos:
+
+* $t_{obs}<c$: Nesse caso, a hipótese nula deve ser rejeitada. Observe que $p_{valor}=P(T<t_{obs}|\theta_0)<P(T<c|\theta_0)=\alpha$
+
+* $t_{obs}\geq c$: Nesse caso, a hipótese nula não deve ser rejeitada. Observe que $p_{valor}=P(T<t_{obs}|\theta_0)>P(T<c|\theta_0)=\alpha$
+
+Portanto, podemos utilizar a estatística $p_{valor}$ como estatística de teste, criando o teste
+
+$$D'(p_{valor})=\left\{\begin{array}{ll}1,&\hbox{ se }p_{valor}<\alpha\\0,&\hbox{ se }p_{valor}\geq \alpha\end{array}\right.$$
+
+É fato que o teste acima possui nível de significância $\alpha$. Para mostrar isso, é necessário determinar a distribuição desta estatística sob $\theta=\theta_0$, considere que $T$ é contínua e seja $U=G( T)$. Então
+$$\begin{align}P(U < p_{valor}|\theta_0)&=P( G(T)<p_{valor}|\theta_0)=P(T<G^{-1}(p_{valor})|\theta_0)\\&=G(G^{-1}(p_{valor}))=p_{valor}\end{align},$$
+logo $U|\theta_0\sim\hbox{Uniforme}(0,1)$ e, em particular,
+$$P(U<\alpha|\theta_0)=\alpha,$$
+mostrando que o teste de fato tem nível $\alpha$. 
+
+A tabela abaixo apresenta o cálculo do $p$-valor considerando as regiões de rejeição usuais.
+
+::: {#tbl}
+
+$$\begin{array}{c|c}\hline
+\text{Região de rejeição} & \text{p-valor} \\ \hline
+t < c & p_{valor} = P(T < t_{obs} | \theta_0) \\
+t > c & p_{valor} = P(T > t_{obs} | \theta_0) \\
+t < a \text{ ou } t > b & p_{valor} = 2 \min\{P(T > t_{obs} | \theta_0), P(T < t_{obs} | \theta_0)\} \\ \hline
+\end{array}$$
+
+Cálculo do p-valor para as principais regiões de rejeição
+
+:::
+
+Independente da forma da região de rejeição, a distribuição do $p$-valor sob a hipótese $\theta=\theta_0$ é sempre Uniforme(0,1), como mostra a seguinte proposição. 
+
+<div class='alert alert-success'>
+**Proposição.** Se $U\sim\hbox{Uniforme}(0,1)$, então:
+
+1. $1-U\sim\hbox{Uniforme}(0,1)$
+2. $2\min\{U,1-U\}\sim\hbox{Uniforme}(0,1)$
+</div>
+
+<div class='alert alert-info'>
+**Exemplo.** Um gerente de uma loja de conveniência acredita que a taxa de clientes por hora em sua loja é de 10. Ele deseja realizar um teste de hipótese para verificar se essa afirmação é verdadeira. Para tanto, ele registra o número de clientes por um período de 20 horas, obtendo $\sum_{i=1}^{20}x_{i}=158$. Construa um teste para eesta hipótese, calcule o p-valor e decida se a hipótese nula deve ser rejeitada.
+
+**Solução.** Considere a hipótese nula $H_0:\theta=10$. Sabemos que a taxa é estimada pela média amostral,
+$$\hat{\theta}=\frac{1}{20}\sum_{i=1}^n X_i=\frac{1}{20}T.$$
+Deste modo, rejeitamos a hipótese nula se $\hat{\theta}$ está muito distante de 10, o que implica em um região de rejeição bilateral. Podemos realizar esse teste utilizando a distribução exata de $T$ ou a aproximada de $\bar{X}$. 
+
+Utilizando a distribuição de $T$, as seguintes informações:
+
+- $t_{obs}=158$ clientes em vinte horas
+- Sob $\theta=\theta_0$, temos que $T\sim\hbox{Poisson}(200)$
+- $P(T<158)=P(T\leq 157)=0,00094$ (utilize o comando `ppois(157,200)`)
+- $P(T>158)=P(T\geq 159)=0,99879$ (utilize o comando `1-ppois(159,200)`)
+- $p_{valor}=0,00188$, logo rejeitamos a hipótese nula.
+
+Utilizando a distribuição aproximada de $\bar{X}$, teremos
+
+- $\bar{x}_{obs}=7,9$ clientes por hora
+- Sob $\theta=\theta_0$, temos que $\bar{X}\sim\hbox{Normal}(10,1/2)$
+- $P(\bar{X}<7,9)=0,00148$ (utilize o comando `pnorm(7.9,10, sqrt(1/2))`)
+- $P(\bar{X}>7,9)=0,99851$
+- $p_{valor}=0.002979467$, logo rejeitamos a hipótese nula.
+
+</div>
+
+<div class='alert alert-info'>
+**Exemplo.** A tabela a seguir apresenta o número de suicídios mensal no estado do Amazonas durante o ano de 2021, dividido pelas faixas etárias de 10 a 19 anos e de 20 a 29 anos. Supondo que a contagem para cada faixa é uma amostra aleatória de uma população Poisson, e que essas amostras são independentes, construa um teste de hipóteses e calcule o p-valor para decidir se há diferença significativa entre as duas faixas.
+
+$$\begin{array}{c|ccccccccccccc|c}\hline
+\text{Faixa etária} & \text{Jan} & \text{Fev} & \text{Mar} & \text{Abr} & \text{Mai} & \text{Jun} & \text{Jul} & \text{Ago} & \text{Set} & \text{Out} & \text{Nov} & \text{Dez} & \text{Total} \\ \hline
+\text{10 a 19 anos} & 2 & 4 & 4 & 10 & 10 & 3 & 11 & 3 & 10 & 9 & 9 & 3 & 78\\
+\text{20 a 29 anos}&7 & 13 & 12 & 7 & 7& 10 & 3 & 8 & 8& 6 & 8 & 12 & 101\\ \hline 
+\end{array}$$
+
+**Solução** Seja $X_i$ o número de suicídios parao $i$-ésimo mês considerando a faixa etária entre 10 e 19 e seja $Y_i$ o mesmo para a faixa de 20 a 29. Considere que $X\sim\hbox{Poisson}(\alpha)$ e $Y\sim\hbox{Poisson}(\beta)$. Então, estamos interessados em testar 
+$$H_0:\alpha=\beta\Rightarrow H_0:\theta=\alpha-\beta=0.$$
+Sabemos que as médias amostrais $\bar{X}$ e $\bar{Y}$ são estimadores para $\alpha$ e $\beta$, e que suas distribuições aproximadas são
+$$\bar{X}\approx N\left(\alpha,\frac{\alpha}{12}\right),\;\;\bar{Y}\approx N\left(\beta,\frac{\beta}{12}\right)$$
+e pelo princípio da substituição, $\theta=\alpha-\beta$ é estimado por $\hat{\theta}=\bar{X}-\bar{Y}$ e sua distribuição aproximada é
+$$\hat{\theta}\approx N\left(\alpha-\beta,\frac{\alpha+\beta}{12}\right)$$
+Se $H_0$ é verdadeira, então
+$$\hat{\theta}\approx N\left(0,\frac{\alpha}{6}\right),$$
+e, ainda considerando $H_0$ verdadeira, teremos que
+$$\hat{\alpha}=\frac{\bar{X}+\bar{Y}}{2}$$
+é um estimador para $\alpha$ e podemos definir a estatística de teste 
+$$W=\frac{\hat{\theta}}{\sqrt{\hat{\alpha}/6}}\approx N\left(0,1\right).$$
+Temos então os seguintes elementos:
+
+- $\bar{x}=6,5$ suicídios por mês na faixa de 10 a 19 anos
+- $\bar{y}=8,41666...$ suicídios por mês na faixa de 20 a 29 anos
+- $\hat{\alpha}=7,45$ suicídios por mês na faixa entre 10 e 29 anos
+- $\hat{\theta}=-1,91$ (diferença média entre os suicídios nas faixas entre 10 e 19 anos e 20 e 29 anos)
+- $w=\hat{\theta}/\sqrt{\hat{\alpha}/6}=-1,714079$ (estatística de teste)
+- $P(W<-1,714079)=0,0432$
+- $P(W>1,714079)=0,9567$
+- $p_{valor}=0,086$
+
+Portanto, considerando um nível de significância de $5%$, não há evidências de diferença significativa entre as taxas de suicídios nas faixas etárias especificadas.
+
+</div>
